@@ -66,6 +66,9 @@
     };
     Service = {
       Type = "notify";
+      Restart = "on-failure";
+      RestartSec = "10s";
+
       ExecStart = " \\
         /run/current-system/sw/bin/rclone mount \\
           --config=%h/.config/rclone/rclone.conf \\
@@ -77,6 +80,26 @@
       ExecStop = "/run/current-system/sw/bin/rclone -u %h/mnt/%i";
     };
   };
+
+  programs.ssh.enable = true;
+  programs.ssh.matchBlocks = {
+    "github.com" = {
+      user = "git";
+      identityFile = "~/.ssh/id_rsa.pub";
+    };
+    "git.rwth-aachen.de" = {
+      user = "git";
+      identityFile = "~/.ssh/id_rsa.pub";
+    };
+    "devps" = {
+      user = "root";
+      hostname = "88.198.105.181";
+      identityFile = "~/.ssh/id_rsa.pub";
+    };
+
+  };
+
+  home.file.".ssh/id_rsa.pub".source = ./id_rsa.pub;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "22.11";
