@@ -134,7 +134,7 @@
     packages = with pkgs; [
       firefox
       kate
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -144,6 +144,22 @@
     vim
     wget
     rclone
+    keepassxc
+    zellij
+    nushell
+    alacritty
+    direnv
+    rustup
+    python311
+    vscode
+    git
+    distrobox
+    podman
+    thunderbird
+
+    # Nix languages
+    nixpkgs-fmt
+    nil
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
