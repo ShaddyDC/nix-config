@@ -143,6 +143,19 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    unzip
+    vlc
+    mpv
+    zathura
+    okular
+    htop
+    du-dust
+    ripgrep
+    youtube-dl
+    gcc
+    pandoc
+    gdb
+
     rclone
     keepassxc
     zellij
@@ -162,13 +175,15 @@
     nil
   ];
 
+  programs.command-not-found.enable = true;
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 
