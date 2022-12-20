@@ -40,7 +40,7 @@
 
   # Add stuff for your user as you see fit:
   programs.neovim.enable = true;
-  # home.packages = with pkgs; [ steam ];
+  # home.packages = with pkgs; [ rclone ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
@@ -54,6 +54,29 @@
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
+
+  systemd.user.services."rclone_gdrive.service" = {
+    Unit = {
+      Description = "Remote FUSE filesystem for cloud storage";
+      Wants = "network-online.target";
+      After = "network-online.target";
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+    Service = {
+      Type = "notify";
+      ExecStart = " \\
+        /run/current-system/sw/bin/rclone mount \\
+          --config=%h/.config/rclone/rclone.conf \\
+          --vfs-cache-mode writes \\
+          --vfs-cache-max-size 100M \\
+          --log-file /tmp/rclone-%i.log \\
+          gdrive: %h/mnt/gdrive \\
+      ";
+      ExecStop = "/run/current-system/sw/bin/rclone -u %h/mnt/%i";
+    };
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "22.11";

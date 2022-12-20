@@ -143,6 +143,7 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    rclone
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -157,6 +158,8 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+
+  services.flatpak.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
