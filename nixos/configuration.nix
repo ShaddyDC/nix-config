@@ -177,6 +177,8 @@
 
   services.flatpak.enable = true;
 
+  programs.kdeconnect.enable = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
