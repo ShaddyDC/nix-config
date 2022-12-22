@@ -52,6 +52,41 @@
   };
   programs.lazygit.enable = true;
 
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      shell = {
+        program = "/run/current-system/sw/bin/zellij";
+        args = [
+          "options" "--default-shell" "nu"
+        ];
+      };
+      font.normal.style = "JetBrains Mono";
+      font.size = 8;
+    };
+  };
+
+  programs.nushell = {
+    enable = true;
+    configFile.source = ./config.nu;
+    envFile.source = ./env.nu;
+  };
+
+
+  programs.starship = {
+    enable = true;
+    # TODO remove from here and nushell configs when starship 0.12
+    enableNushellIntegration = false;
+    settings = {
+      # add_newline = false;
+
+      # character = {
+      #   success_symbol = "[➜](bold green)";
+      #   error_symbol = "[➜](bold red)";
+      # };
+    };
+  };
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
