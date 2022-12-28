@@ -49,8 +49,13 @@
     enable = true;
     userName = "ShaddyDC";
     userEmail = "shaddythefirst@gmail.com";
+    difftastic.enable = true;
   };
   programs.lazygit.enable = true;
+
+  programs.helix.enable = true;
+
+  programs.java.enable = true;
 
   programs.alacritty = {
     enable = true;
@@ -89,6 +94,8 @@
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
+
+  services.pueue.enable = true;
 
   systemd.user.services."rclone_gdrive.service" = {
     Unit = {
