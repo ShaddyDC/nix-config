@@ -61,7 +61,7 @@
     enable = true;
     settings = {
       shell = {
-        program = "/run/current-system/sw/bin/zellij";
+        program = "${pkgs.zellij}/bin/zellij";
         args = [
           "options" "--default-shell" "nu"
         ];
@@ -112,14 +112,14 @@
       RestartSec = "10s";
 
       ExecStart = " \\
-        /run/current-system/sw/bin/rclone mount \\
+        ${pkgs.rclone}/bin/rclone mount \\
           --config=%h/.config/rclone/rclone.conf \\
           --vfs-cache-mode writes \\
           --vfs-cache-max-size 100M \\
           --log-file /tmp/rclone-%i.log \\
           gdrive: %h/mnt/gdrive \\
       ";
-      ExecStop = "/run/current-system/sw/bin/rclone -u %h/mnt/%i";
+      ExecStop = "${pkgs.rclone}/bin/rclone -u %h/mnt/%i";
     };
   };
 
