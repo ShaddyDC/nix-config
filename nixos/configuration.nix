@@ -173,6 +173,9 @@
     # Nix languages
     nixpkgs-fmt
     nil
+
+    manix
+    inputs.devenv.packages.x86_64-linux.devenv
   ];
 
   programs.command-not-found.enable = true;
