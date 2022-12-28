@@ -68,8 +68,10 @@ starship init nu | str replace --string "size -c" "size" | save ~/.cache/starshi
 
 alias lg = lazygit
 
+alias nix-home-cd = cd ~/Documents/nix-config
 alias nix-home-reload = (do {
-    cd ~/Documents/nix-config
+    nix-home-cd
     home-manager switch --flake ".#space@spacelaptop"
 })
 alias nix-home-man = man home-configuration.nix
+# alias nix-sys-reload = sudo nixos-rebuild switch --flake ".#spacelaptop"
