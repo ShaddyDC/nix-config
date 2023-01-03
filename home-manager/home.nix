@@ -40,7 +40,10 @@
 
   # Add stuff for your user as you see fit:
   programs.neovim.enable = true;
-  # home.packages = with pkgs; [ rclone ];
+  home.packages = with pkgs; [
+    discord
+    steam
+  ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
@@ -63,7 +66,9 @@
       shell = {
         program = "${pkgs.zellij}/bin/zellij";
         args = [
-          "options" "--default-shell" "nu"
+          "options"
+          "--default-shell"
+          "nu"
         ];
       };
       font.normal.style = "JetBrains Mono";
@@ -95,9 +100,10 @@
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
-  services.pueue.enable = true;
+  # services.pueue.enable = true;
 
-  systemd.user.services."rclone_gdrive.service" = {
+  # TODO Create directory ~/mnt/gdrive
+  systemd.user.services."rclone_gdrive" = {
     Unit = {
       Description = "Remote FUSE filesystem for cloud storage";
       Wants = "network-online.target";
