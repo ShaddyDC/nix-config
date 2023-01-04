@@ -12,25 +12,28 @@
 
     devenv.url = "github:cachix/devenv/v0.5";
 
-    # TODO: Add any other flake you might need
-    # hardware.url = "github:nixos/nixos-hardware";
+    agenix.url = "github:ryantm/agenix";
+
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
+    hardware.url = "github:nixos/nixos-hardware";
 
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
     # nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs: {
+  outputs = { nixpkgs, home-manager, agenix, ... }@inputs: {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       spacedesktop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = [ ./hosts/spacedesktop ];
+        modules = [ ./hosts/spacedesktop agenix.nixosModule ];
       };
       spacelaptop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = [ ./hosts/spacelaptop ];
+        modules = [ ./hosts/spacelaptop agenix.nixosModule ];
       };
     };
 
@@ -38,14 +41,12 @@
     homeConfigurations = {
       "space@spacedesktop" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-        # > Our main home-manager configuration file <
+        extraSpecialArgs = { inherit inputs; };
         modules = [ ./home-manager/home.nix ];
       };
       "space@spacelaptop" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-        # > Our main home-manager configuration file <
+        extraSpecialArgs = { inherit inputs; };
         modules = [ ./home-manager/home.nix ];
       };
     };

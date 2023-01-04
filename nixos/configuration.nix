@@ -152,6 +152,8 @@
     pandoc
     gdb
 
+    inputs.agenix.defaultPackage.${pkgs.system}
+
     rclone
     keepassxc
     zellij
@@ -171,7 +173,7 @@
     nil
 
     manix
-    inputs.devenv.packages.x86_64-linux.devenv
+    inputs.devenv.packages.${pkgs.system}.devenv
   ];
 
   programs.command-not-found.enable = true;
@@ -187,7 +189,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   services.flatpak.enable = true;
 
