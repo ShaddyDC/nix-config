@@ -41,6 +41,7 @@
   home.packages = with pkgs; [
     discord
     steam
+    urlscan
   ];
 
   # Enable home-manager and git
