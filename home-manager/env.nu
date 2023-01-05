@@ -63,9 +63,6 @@ let-env NU_PLUGIN_DIRS = [
 
 let-env EDITOR = "nvim"
 
-mkdir ~/.cache/starship
-starship init nu | str replace --string "size -c" "size" | save ~/.cache/starship/init.nu
-
 alias lg = lazygit
 
 alias nix-home-cd = cd ~/Documents/nix-config

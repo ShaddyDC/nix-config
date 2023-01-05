@@ -84,16 +84,7 @@
 
   programs.starship = {
     enable = true;
-    # TODO remove from here and nushell configs when starship 0.12
-    enableNushellIntegration = false;
-    settings = {
-      # add_newline = false;
-
-      # character = {
-      #   success_symbol = "[➜](bold green)";
-      #   error_symbol = "[➜](bold red)";
-      # };
-    };
+    settings = { };
   };
 
   # Nicely reload system units when changing configs

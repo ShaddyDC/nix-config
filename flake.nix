@@ -25,15 +25,15 @@
     # nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { nixpkgs, home-manager, agenix, ... }@inputs: {
+  outputs = { unstablepkgs, home-manager, agenix, ... }@inputs: {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      spacedesktop = nixpkgs.lib.nixosSystem {
+      spacedesktop = unstablepkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [ ./hosts/spacedesktop agenix.nixosModule ];
       };
-      spacelaptop = nixpkgs.lib.nixosSystem {
+      spacelaptop = unstablepkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [ ./hosts/spacelaptop agenix.nixosModule ];
       };
@@ -42,12 +42,12 @@
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
       "space@spacedesktop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        pkgs = unstablepkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [ ./home-manager/home.nix ];
       };
       "space@spacelaptop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        pkgs = unstablepkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [ ./home-manager/home.nix ];
       };
