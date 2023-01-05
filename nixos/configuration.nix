@@ -1,6 +1,3 @@
-# This is your system's configuration file.
-# Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-
 { inputs, lib, config, pkgs, ... }: {
   # You can import other NixOS modules here
   imports = [
@@ -47,6 +44,10 @@
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
     };
+
+    extraOptions = ''
+      plugin-files = ${pkgs.nix-plugins}/lib/nix/plugins
+    '';
   };
 
 
@@ -152,6 +153,8 @@
     pandoc
     gdb
 
+    rage
+
     inputs.agenix.defaultPackage.${pkgs.system}
 
     rclone
@@ -167,6 +170,8 @@
     distrobox
     podman
     thunderbird
+
+    chromium
 
     # Nix languages
     nixpkgs-fmt

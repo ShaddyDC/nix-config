@@ -6,6 +6,7 @@
 
     ./hardware-configuration.nix
     ../../nixos/configuration.nix
+    ../../nixos/mail.nix
   ];
 
   boot = {

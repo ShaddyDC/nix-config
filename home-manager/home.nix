@@ -1,6 +1,3 @@
-# This is your home-manager configuration file
-# Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-
 { inputs, lib, config, pkgs, ... }: {
   # You can import other home-manager modules here
   imports = [
@@ -9,6 +6,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
+    ./mail.nix
   ];
 
   nixpkgs = {
@@ -55,6 +53,7 @@
     difftastic.enable = true;
   };
   programs.lazygit.enable = true;
+  programs.bat.enable = true;
 
   programs.helix.enable = true;
 
