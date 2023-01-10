@@ -42,7 +42,15 @@
     discord
     steam
     urlscan
+    obsidian
+    calibre
+    elinks
+    inputs.nix-gaming.packages.${pkgs.system}.osu-lazer-bin
   ];
+
+
+  programs.zathura.enable = true;
+  programs.feh.enable = true;
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
