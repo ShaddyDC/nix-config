@@ -20,6 +20,16 @@
         key = "B";
         map = [ "pager" ];
       }
+      {
+        action = "<save-message>+Archive<Enter><Enter>";
+        key = "n2";
+        map = [ "index" ];
+      }
+      {
+        action = "<save-message>+INBOX<Enter><Enter>";
+        key = "n3";
+        map = [ "index" ];
+      }
     ];
 
     binds = [
@@ -39,7 +49,16 @@
         map = [ "index" "pager" ];
       }
 
+      {
+        action = "toggle-new";
+        key = "n1";
+        map = [ "index" ];
+      }
     ];
+
+    settings = {
+      mailcap_path = "~/.config/neomutt/mailcap";
+    };
 
     extraConfig = ''
       set wait_key = no
@@ -48,6 +67,8 @@
       set quit
       set thorough_search
       set mail_check_stats
+      color index blue default "~N"
+      color index blue default "~O"
 
       # compose View Options
       set reverse_name                     # reply as whomever it was to
@@ -77,10 +98,23 @@
       alternative_order text/plain text/enriched text/html
       auto_view text/html
     '';
-
   };
   programs.mbsync.enable = true;
   programs.msmtp.enable = true;
+
+  home.file.".config/neomutt/mailcap".text = ''
+    text/html; ${pkgs.elinks}/bin/elinks -dump %s; copiousoutput;
+
+    # PDF documents
+    application/pdf; ${pkgs.zathura}/bin/zathura %s
+
+    # Images
+    image/jpg; ${pkgs.feh}/bin/feh %s
+    image/jpeg; ${pkgs.feh}/bin/feh %s
+    image/pjpeg; ${pkgs.feh}/bin/feh %s
+    image/png; ${pkgs.feh}/bin/feh %s
+    image/gif; ${pkgs.feh}/bin/feh %s
+  '';
 
   accounts.email.maildirBasePath = "Mail";
 
@@ -197,7 +231,7 @@
         neomutt = {
           enable = true;
           mailboxName = "-" + unsafeMailAddr ../secrets/mail/private3-add.age;
-          extraMailboxes = [ "Archives" "Belege" "Spam" "Templates" "Unbekannt" ];
+          extraMailboxes = [ "Archives" "Spam" "Templates" "Unbekannt" ];
         };
 
         passwordCommand = "cat /run/agenix/mail-private3-pw";
@@ -219,7 +253,7 @@
         neomutt = {
           enable = true;
           mailboxName = "-" + unsafeMailAddr ../secrets/mail/private4-add.age;
-          extraMailboxes = [ "Archives" "Belege" "Spam" "Unbekannt" ];
+          extraMailboxes = [ "Archives" "Spam" "Unbekannt" ];
         };
 
         passwordCommand = "cat /run/agenix/mail-private4-pw";
