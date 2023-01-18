@@ -40,7 +40,6 @@
   programs.neovim.enable = true;
   home.packages = with pkgs; [
     discord
-    steam
     urlscan
     obsidian
     calibre
