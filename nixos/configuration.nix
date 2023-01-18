@@ -211,8 +211,38 @@
   # networking.firewall.enable = false;
 
   fonts.fonts = with pkgs; [
+    carlito
+    dejavu_fonts
+    ipafont
+    kochi-substitute
+    source-code-pro
+    ttf_bitstream_vera
     (nerdfonts.override { fonts = [ "3270" "JetBrainsMono" ]; })
   ];
+  fonts.fontconfig.defaultFonts = {
+    monospace = [
+      "JetBrainsMono"
+      "IPAGothic"
+    ];
+    sansSerif = [
+      "DejaVu Sans"
+      "IPAPGothic"
+    ];
+    serif = [
+      "DejaVu Serif"
+      "IPAPMincho"
+    ];
+  };
+  i18n = {
+    inputMethod = {
+      enabled = "fcitx5";
+      fcitx.engines = with pkgs.fcitx-engines; [ mozc ];
+      fcitx5.addons = with pkgs; [
+        fcitx5-mozc
+        fcitx5-gtk
+      ];
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
