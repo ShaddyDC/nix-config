@@ -131,11 +131,7 @@
     isNormalUser = true;
     description = "space";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-      kate
-      #  thunderbird
-    ];
+    packages = [ ];
   };
 
   # List packages installed in system profile. To search, run:
