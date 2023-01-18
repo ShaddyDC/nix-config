@@ -7,6 +7,8 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./users.nix
+
+    "${inputs.nix-gaming}/modules/pipewireLowLatency.nix"
   ];
 
   nixpkgs = {
@@ -112,6 +114,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    lowLatency.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
