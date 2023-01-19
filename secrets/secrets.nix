@@ -33,4 +33,5 @@ in
   "mail/private7-pw.age".publicKeys = mail;
   "mail/private7-name.age".publicKeys = mail;
   "mail/private7-add.age".publicKeys = mail;
+  "vdirsyncer.config.age".publicKeys = [ spacedesktop ] ++ admins;
 }

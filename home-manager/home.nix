@@ -45,17 +45,23 @@
 
   # Add stuff for your user as you see fit:
   programs.neovim.enable = true;
-  home.packages = with pkgs; [
-    discord
-    urlscan
-    obsidian
-    calibre
-    elinks
-    inputs.nix-gaming.packages.${pkgs.system}.osu-lazer-bin
-    inputs.nix-gaming.packages.${pkgs.system}.osu-stable
-    inputs.nix-gaming.packages.${pkgs.system}.wine-discord-ipc-bridge
-    inputs.nix-gaming.packages.${pkgs.system}.wine-ge
-  ];
+
+  home.packages =
+    with pkgs;
+    let todoman-git = pkgs.callPackage ../extra-pkgs/todoman.nix { };
+    in [
+      discord
+      urlscan
+      obsidian
+      calibre
+      elinks
+      vdirsyncer
+      todoman-git
+      inputs.nix-gaming.packages.${pkgs.system}.osu-lazer-bin
+      inputs.nix-gaming.packages.${pkgs.system}.osu-stable
+      inputs.nix-gaming.packages.${pkgs.system}.wine-discord-ipc-bridge
+      inputs.nix-gaming.packages.${pkgs.system}.wine-ge
+    ];
 
 
   programs.zathura.enable = true;
@@ -136,6 +142,36 @@
       ExecStop = "${pkgs.rclone}/bin/rclone -u %h/mnt/%i";
     };
   };
+
+  # vdirsyncer
+  systemd.user.services.vdirsyncer = {
+    Unit = {
+      Description = "Runs vdirsyncer every 15 mins";
+      Wants = "network-online.target";
+      After = "network-online.target";
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.vdirsyncer}/bin/vdirsyncer -c /run/agenix/vdirsyncer-config sync";
+    };
+  };
+
+  systemd.user.timers.vdirsyncer = {
+    Unit = {
+      Description = "Runs vdirsyncer every 5 mins";
+    };
+
+    Timer = {
+      OnBootSec = "2m";
+      OnUnitActiveSec = "15m";
+      Unit = "vdirsyncer.service";
+    };
+
+    Install = { WantedBy = [ "timers.target" ]; };
+  };
+
+  home.file.".config/todoman/config.py".source = ./todoman.config.py;
 
   programs.ssh.enable = true;
   programs.ssh.matchBlocks = {

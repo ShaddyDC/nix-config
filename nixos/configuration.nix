@@ -189,6 +189,11 @@
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
   };
 
+  age.secrets.vdirsyncer-config = {
+    file = ../secrets/vdirsyncer.config.age;
+    owner = config.users.users.space.name;
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
