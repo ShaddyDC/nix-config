@@ -73,8 +73,10 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
+  i18n.supportedLocales = [ "en_GB.UTF-8/UTF-8" "de_DE.UTF-8/UTF-8" ];
 
   i18n.extraLocaleSettings = {
+    LC_ALL = "en_GB.UTF-8";
     LC_ADDRESS = "de_DE.UTF-8";
     LC_IDENTIFICATION = "de_DE.UTF-8";
     LC_MEASUREMENT = "de_DE.UTF-8";
@@ -219,30 +221,30 @@
     ttf_bitstream_vera
     (nerdfonts.override { fonts = [ "3270" "JetBrainsMono" ]; })
   ];
-  fonts.fontconfig.defaultFonts = {
-    monospace = [
-      "JetBrainsMono"
-      "IPAGothic"
-    ];
-    sansSerif = [
-      "DejaVu Sans"
-      "IPAPGothic"
-    ];
-    serif = [
-      "DejaVu Serif"
-      "IPAPMincho"
-    ];
-  };
-  i18n = {
-    inputMethod = {
-      enabled = "fcitx5";
-      fcitx.engines = with pkgs.fcitx-engines; [ mozc ];
-      fcitx5.addons = with pkgs; [
-        fcitx5-mozc
-        fcitx5-gtk
-      ];
-    };
-  };
+  #   fonts.fontconfig.defaultFonts = {
+  #     monospace = [
+  #       "JetBrainsMono"
+  #       "IPAGothic"
+  #     ];
+  #     sansSerif = [
+  #       "DejaVu Sans"
+  #       "IPAPGothic"
+  #     ];
+  #     serif = [
+  #       "DejaVu Serif"
+  #       "IPAPMincho"
+  #     ];
+  #   };
+  #   i18n = {
+  #     inputMethod = {
+  #       enabled = "fcitx5";
+  #       fcitx.engines = with pkgs.fcitx-engines; [ mozc ];
+  #       fcitx5.addons = with pkgs; [
+  #         fcitx5-mozc
+  #         fcitx5-gtk
+  #       ];
+  #     };
+  #   };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
