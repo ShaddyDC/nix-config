@@ -328,4 +328,34 @@
         passwordCommand = "cat /run/agenix/mail-private7-pw";
       };
     };
+
+  # TODO set up imapnotify
+
+  # mbsync
+  systemd.user.services.mbsync = {
+    Unit = {
+      Description = "Runs mbsync every 15 mins";
+      Wants = "network-online.target";
+      After = "network-online.target";
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.isync}/bin/mbsync -Va";
+    };
+  };
+
+  systemd.user.timers.mbsync = {
+    Unit = {
+      Description = "Runs mbsync every 15 mins";
+    };
+
+    Timer = {
+      OnBootSec = "2m";
+      OnUnitActiveSec = "15m";
+      Unit = "mbsync.service";
+    };
+
+    Install = { WantedBy = [ "timers.target" ]; };
+  };
 }
