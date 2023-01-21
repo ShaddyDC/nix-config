@@ -29,7 +29,7 @@
     device = "/dev/disk/by-uuid/c21e248c-11b2-47de-946a-892852f3c43b";
   };
   fileSystems."/run/media/space/New_Volume" = {
-    device = "/dev/disk/by-uuid/8A44D93A44D929A9";
+    device = "/dev/disk/by-uuid/3b6642d6-da03-4782-bcc1-a934b8294896";
   };
   fileSystems."/run/media/space/media" = {
     device = "/dev/disk/by-uuid/36B2588FB2585589";
