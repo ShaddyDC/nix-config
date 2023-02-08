@@ -142,6 +142,7 @@
     vim
     wget
     unzip
+    zip
     vlc
     mpv
     zathura
