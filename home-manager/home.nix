@@ -74,7 +74,7 @@
     enable = true;
     userName = "ShaddyDC";
     userEmail = "shaddythefirst@gmail.com";
-    difftastic.enable = true;
+    delta.enable = true;
   };
   programs.lazygit.enable = true;
   programs.bat.enable = true;
