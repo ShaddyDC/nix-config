@@ -7,9 +7,34 @@
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+
+
+  boot = {
+    # kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    supportedFilesystems = [ "ntfs" ];
+  };
+
+  hardware.opengl.driSupport = true;
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages = with pkgs;[
+    rocm-opencl-icd
+    rocm-runtime
+    amdvlk
+  ];
+  hardware.opengl.extraPackages32 = with pkgs; [
+    driversi686Linux.amdvlk
+  ];
+
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
+  # Software like Blender may support HIP for GPU acceleration. Most software has the HIP libraries hard-coded. You can work around it on NixOS by using
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
+  ];
+
 
   fileSystems."/" =
     {
