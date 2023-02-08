@@ -169,7 +169,6 @@
     vscode
     git
     distrobox
-    podman
     thunderbird
 
     chromium
@@ -183,6 +182,7 @@
   ];
 
   programs.command-not-found.enable = true;
+  virtualisation.podman.enable = true;
 
   programs.steam = {
     enable = true;
