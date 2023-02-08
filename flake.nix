@@ -31,11 +31,11 @@
     nixosConfigurations = {
       spacedesktop = unstablepkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = [ ./hosts/spacedesktop agenix.nixosModule ];
+        modules = [ ./hosts/spacedesktop agenix.nixosModules.default ];
       };
       spacelaptop = unstablepkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = [ ./hosts/spacelaptop agenix.nixosModule ];
+        modules = [ ./hosts/spacelaptop agenix.nixosModules.default ];
       };
     };
 
