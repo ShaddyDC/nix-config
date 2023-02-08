@@ -166,7 +166,6 @@
     direnv
     rustup
     python311
-    vscode
     git
     distrobox
     thunderbird

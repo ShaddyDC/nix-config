@@ -111,6 +111,14 @@
     settings = { };
   };
 
+  programs.vscode = {
+    enable = true;
+    extensions = (with pkgs;
+      with vscode-extensions; [
+        ms-vscode.cpptools
+      ]);
+  };
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
