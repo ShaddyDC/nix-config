@@ -5,4 +5,5 @@
   ];
 
   networking.hostName = "spacelaptop";
+  workstation.enable = true;
 }

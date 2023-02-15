@@ -13,4 +13,5 @@
   virtualisation.libvirtd.enable = true;
 
   networking.hostName = "spacedesktop";
+  workstation.enable = true;
 }
