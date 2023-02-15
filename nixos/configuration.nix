@@ -181,6 +181,7 @@
       gdb
 
       inputs.agenix.packages.x86_64-linux.default
+      inputs.deploy-rs.packages.${pkgs.system}.deploy-rs
       rage
 
       direnv
