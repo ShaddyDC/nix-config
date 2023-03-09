@@ -1,0 +1,3 @@
+[submodule "hosts/mediaVps"]
+	path = hosts/mediaVps
+	url = git@github.com:ShaddyDC/nix-mediavps.git

@@ -2,6 +2,7 @@ let
   spacedesktop-user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID6e+0AggPaLNrl7Qurh1yEIHqR+8fVCSyL898zi1vBl";
 
   spacedesktop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEOgqzPfWz5wPdnfM6PsQ+vsVbuGsfYDeFWphe0U5gw8";
+  mediaVps = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKZvlvJzBGuR1r4x7s5F+jL10LIbnqXofeAdokRMgfKO root@mediaVps";
 
   admins = [ spacedesktop-user ];
   mail = [ spacedesktop ] ++ admins;
@@ -34,4 +35,5 @@ in
   "mail/private7-name.age".publicKeys = mail;
   "mail/private7-add.age".publicKeys = mail;
   "vdirsyncer.config.age".publicKeys = [ spacedesktop ] ++ admins;
+  "freshrss-password.age".publicKeys = [ mediaVps ] ++ admins;
 }
