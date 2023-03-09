@@ -21,6 +21,11 @@
         map = [ "pager" ];
       }
       {
+        action = "<pipe-message> ripmime -i - -d ~/Downloads && rm ~/Downloads/textfile*<Enter>";
+        key = "S";
+        map = [ "pager" ];
+      }
+      {
         action = "<save-message>+Archive<Enter><Enter>";
         key = "n2";
         map = [ "index" ];

@@ -52,17 +52,24 @@
     in [
       discord
       urlscan
+      ripmime
+      poppler_utils
       obsidian
       calibre
       elinks
       ffmpeg
       vdirsyncer
       todoman-git
+      libqalculate
+      kalker
+      zoom-us
       minigalaxy
       inputs.nix-gaming.packages.${pkgs.system}.osu-lazer-bin
       inputs.nix-gaming.packages.${pkgs.system}.osu-stable
       inputs.nix-gaming.packages.${pkgs.system}.wine-discord-ipc-bridge
       inputs.nix-gaming.packages.${pkgs.system}.wine-ge
+
+      # yubikey-manager-qt
     ];
 
 
@@ -89,7 +96,7 @@
     enable = true;
     settings = {
       shell = {
-        program = "${pkgs.zellij}/bin/zellij";
+        program = "${inputs.nixpkgs.legacyPackages.${pkgs.system}.zellij}/bin/zellij";
         args = [
           "options"
           "--default-shell"
