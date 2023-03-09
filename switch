@@ -1,0 +1,11 @@
+#/usr/bin/env bash
+
+set -e
+
+echo "Building system..."
+
+sudo nixos-rebuild switch --flake '.#spacedesktop'
+
+echo "Building home..."
+
+home-manager switch --flake ".#space@spacedesktop" --option extra-builtins-file extra-builtins.nix
