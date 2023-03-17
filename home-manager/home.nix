@@ -62,6 +62,7 @@
       todoman-git
       libqalculate
       kalker
+      zotero
       zoom-us
       minigalaxy
       inputs.nix-gaming.packages.${pkgs.system}.osu-lazer-bin
