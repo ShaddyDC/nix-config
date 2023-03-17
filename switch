@@ -4,6 +4,7 @@ set -e
 
 echo "Building system..."
 
+# sudo env LOCALE_ARCHIVE=$LOCALE_ARCHIVE nixos-rebuild switch --flake '.#spacedesktop'
 sudo nixos-rebuild switch --flake '.#spacedesktop'
 
 echo "Building home..."
