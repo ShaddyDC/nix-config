@@ -36,4 +36,5 @@ in
   "mail/private7-add.age".publicKeys = mail;
   "vdirsyncer.config.age".publicKeys = [ spacedesktop ] ++ admins;
   "freshrss-password.age".publicKeys = [ mediaVps ] ++ admins;
+  "nextcloud-password.age".publicKeys = [ mediaVps ] ++ admins;
 }
