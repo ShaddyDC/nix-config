@@ -5,5 +5,7 @@
   ];
 
   networking.hostName = "spacelaptop";
+
+  hardware.bluetooth.enable = true;
   workstation.enable = true;
 }
