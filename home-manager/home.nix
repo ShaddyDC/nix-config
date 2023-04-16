@@ -70,7 +70,8 @@
 #       inputs.nix-gaming.packages.${pkgs.system}.wine-discord-ipc-bridge
 #       inputs.nix-gaming.packages.${pkgs.system}.wine-ge
 
-    anki
+      anki
+      caffeine-ng
 
       # yubikey-manager-qt
     ];
