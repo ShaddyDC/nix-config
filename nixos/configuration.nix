@@ -232,15 +232,26 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMF3eBu9/qGpIYQCDaE9dv1YHsus+3dJlanQFjNNQwq0 userme@dockerhost"
     ];
 
+    services.tailscale.enable = true;
+
     services.flatpak.enable = lib.mkIf config.workstation.enable true;
 
     programs.kdeconnect.enable = lib.mkIf config.workstation.enable true;
 
-    # Open ports in the firewall.
-    # networking.firewall.allowedTCPPorts = [ ... ];
-    # networking.firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # networking.firewall.enable = false;
+    networking.firewall = {
+      # enable the firewall
+      enable = true;
+
+      # # always allow traffic from your Tailscale network
+      # trustedInterfaces = [ "tailscale0" ];
+
+      # allow the Tailscale UDP port through the firewall
+      allowedUDPPorts = [ config.services.tailscale.port ];
+
+      # allow you to SSH in over the public internet
+      allowedTCPPorts = [ 22 ];
+    };
+
 
     fonts.fonts = with pkgs; lib.mkIf config.workstation.enable [
       carlito
