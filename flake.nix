@@ -12,6 +12,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
     devenv.url = "github:cachix/devenv/v0.5";
 
     agenix.url = "github:ryantm/agenix";
@@ -27,7 +30,7 @@
     # nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { self, unstablepkgs, home-manager, agenix, deploy-rs, ... }@inputs: {
+  outputs = { self, unstablepkgs, home-manager, agenix, deploy-rs, nix-index-database, ... }@inputs: {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
@@ -45,7 +48,9 @@
         modules = [ ./hosts/mediaVps agenix.nixosModules.default ];
       };
     };
-
+       Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; }))).then(() => {
+                        console.log('images finished loading');
+                    });
     deploy.nodes = {
       mediaVps = {
         hostname = "138.201.206.23";
@@ -66,12 +71,12 @@
       "space@spacedesktop" = home-manager.lib.homeManagerConfiguration {
         pkgs = unstablepkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home-manager/home.nix ];
+        modules = [ ./home-manager/home.nix nix-index-database.hmModules.nix-index ];
       };
       "space@spacelaptop" = home-manager.lib.homeManagerConfiguration {
         pkgs = unstablepkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home-manager/home.nix ];
+        modules = [ ./home-manager/home.nix nix-index-database.hmModules.nix-index ];
       };
     };
   };
