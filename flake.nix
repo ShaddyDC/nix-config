@@ -48,9 +48,6 @@
         modules = [ ./hosts/mediaVps agenix.nixosModules.default ];
       };
     };
-       Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; }))).then(() => {
-                        console.log('images finished loading');
-                    });
     deploy.nodes = {
       mediaVps = {
         hostname = "138.201.206.23";
