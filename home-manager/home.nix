@@ -51,6 +51,7 @@
     let todoman-git = pkgs.callPackage ../extra-pkgs/todoman.nix { };
     in [
       discord
+      obs-studio
       urlscan
       ripmime
       poppler_utils
