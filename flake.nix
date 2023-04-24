@@ -25,22 +25,25 @@
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
+    fufexan.url = "github:fufexan/dotfiles/2383ae6";
+    hyprland.url = "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
+
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
     # nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { self, unstablepkgs, home-manager, agenix, deploy-rs, nix-index-database, ... }@inputs: {
+  outputs = { self, unstablepkgs, home-manager, agenix, deploy-rs, nix-index-database, hyprland, ... }@inputs: {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       spacedesktop = unstablepkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = [ ./hosts/spacedesktop agenix.nixosModules.default ];
+        modules = [ ./hosts/spacedesktop agenix.nixosModules.default hyprland.nixosModules.default ];
       };
       spacelaptop = unstablepkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = [ ./hosts/spacelaptop agenix.nixosModules.default ];
+        modules = [ ./hosts/spacelaptop agenix.nixosModules.default hyprland.nixosModules.default ];
       };
       mediaVps = unstablepkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -68,12 +71,12 @@
       "space@spacedesktop" = home-manager.lib.homeManagerConfiguration {
         pkgs = unstablepkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home-manager/home.nix nix-index-database.hmModules.nix-index ];
+        modules = [ ./home-manager/home.nix nix-index-database.hmModules.nix-index hyprland.homeManagerModules.default ];
       };
       "space@spacelaptop" = home-manager.lib.homeManagerConfiguration {
         pkgs = unstablepkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home-manager/home.nix nix-index-database.hmModules.nix-index ];
+        modules = [ ./home-manager/home.nix nix-index-database.hmModules.nix-index hyprland.homeManagerModules.default ];
       };
     };
   };

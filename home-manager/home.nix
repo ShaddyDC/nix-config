@@ -7,6 +7,7 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     ./mail.nix
+    # inputs.fufexan.homeManagerModules.eww-hyprland 
   ];
 
   nixpkgs = {
@@ -70,12 +71,50 @@
 #       inputs.nix-gaming.packages.${pkgs.system}.osu-stable
 #       inputs.nix-gaming.packages.${pkgs.system}.wine-discord-ipc-bridge
 #       inputs.nix-gaming.packages.${pkgs.system}.wine-ge
+      gamescope
 
       anki
       caffeine-ng
 
       # yubikey-manager-qt
+
+      dunst
+      polkit
+      kitty
+      eww-wayland
+      rofi-wayland-unwrapped
+      waybar
     ];
+  
+#   programs.eww-hyprland = {
+#     enable = true;
+#   };
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    recommendedEnvironment = true;
+    extraConfig = ''
+      $mod = SUPER
+
+      env = GDK_SCALE,2
+      exec-once xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2
+
+      exec-once = dunst
+      exec-once = pkttyagent
+
+      # exec-once = eww open bar
+      
+      bindr = $mod, Q, exec, kitty
+      bindr = $mod, SPACE, exec, pkill rofi || rofi -show run
+
+      input {
+        kb_layout = de
+      }
+
+      exec-once = waybar
+    '';
+
+  };
 
 
   programs.zathura.enable = true;
