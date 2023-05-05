@@ -121,7 +121,34 @@
       # Configure keymap in X11
       layout = "de";
       xkbVariant = "";
+
+
+      libinput = {
+        enable = true;
+        # disable mouse acceleration
+        mouse.accelProfile = "flat";
+        mouse.accelSpeed = "0";
+        mouse.middleEmulation = false;
+        # touchpad settings
+        touchpad.naturalScrolling = true;
+      };
     };
+
+    security.pam.services = lib.mkIf config.workstation.enable {
+      gdm.enableKwallet = true;
+      kdm.enableKwallet = true;
+      lightdm.enableKwallet = true;
+      sddm.enableKwallet = true;
+      slim.enableKwallet = true;
+
+      swaylock = {
+        text = ''
+          auth include login
+        '';
+      };
+    };
+
+    programs.light.enable = config.workstation.enable;
 
     programs.hyprland = lib.mkIf config.workstation.enable {
       enable = true;
@@ -159,7 +186,7 @@
     users.users.space = lib.mkIf config.workstation.enable {
       isNormalUser = true;
       description = "space";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" "video" ];
       packages = [ ];
     };
 
@@ -208,6 +235,8 @@
       # Nix languages
       nixpkgs-fmt
       nil
+
+      kwallet-pam
     ];
 
     programs.command-not-found.enable = true;

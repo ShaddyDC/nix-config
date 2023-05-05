@@ -25,8 +25,9 @@
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
-    fufexan.url = "github:fufexan/dotfiles/2383ae6";
-    hyprland.url = "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
+    fufexan.url = "github:fufexan/dotfiles";
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-contrib.url = "github:hyprwm/contrib";
 
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
