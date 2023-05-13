@@ -193,7 +193,6 @@
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
-      neovim
       vim
       wget
       curl
@@ -238,6 +237,11 @@
 
       kwallet-pam
     ];
+
+    programs.neovim = {
+      enable = true;
+      defaultEditor = true;
+    };
 
     programs.command-not-found.enable = true;
     virtualisation.podman.enable = true;
