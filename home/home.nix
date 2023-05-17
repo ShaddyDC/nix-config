@@ -6,36 +6,36 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    ./mail.nix
-    inputs.fufexan.homeManagerModules.eww-hyprland
+
+    # ./mail.nix
   ];
 
-  nixpkgs = {
-    # You can add overlays here
-    overlays = [
-      # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
+  # nixpkgs = {
+  #   # You can add overlays here
+  #   overlays = [
+  #     # If you want to use overlays exported from other flakes:
+  #     # neovim-nightly-overlay.overlays.default
 
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
-    ];
-    # Configure your nixpkgs instance
-    config = {
-      # Disable if you don't want unfree packages
-      allowUnfree = true;
-      # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = (_: true);
-    };
-  };
+  #     # Or define it inline, for example:
+  #     # (final: prev: {
+  #     #   hi = final.hello.overrideAttrs (oldAttrs: {
+  #     #     patches = [ ./change-hello-to-hi.patch ];
+  #     #   });
+  #     # })
+  #   ];
+  #   # Configure your nixpkgs instance
+  #   config = {
+  #     # Disable if you don't want unfree packages
+  #     allowUnfree = true;
+  #     # Workaround for https://github.com/nix-community/home-manager/issues/2942
+  #     allowUnfreePredicate = (_: true);
+  #   };
+  # };
 
-  home = {
-    username = "space";
-    homeDirectory = "/home/space";
-  };
+  # home = {
+  #   username = "space";
+  #   homeDirectory = "/home/space";
+  # };
 
   programs.firefox = {
     enable = true;
@@ -61,7 +61,7 @@
       elinks
       ffmpeg
       vdirsyncer
-      todoman-git
+      # todoman-git
       libqalculate
       kalker
       zotero
@@ -78,7 +78,6 @@
 
       # yubikey-manager-qt
 
-      dunst
       polkit
       kitty
       eww-wayland
@@ -108,49 +107,68 @@
       jaq
 
       inputs.hyprland-contrib.packages.${pkgs.hostPlatform.system}.grimblast
+
+      gnome.gnome-control-center
+
+      hello
+    ]
+    ++
+
+    [
+      libsForQt5.qtstyleplugin-kvantum
+      # (catppuccin-kvantum.override {
+      #   accent = "Mauve";
+      #   variant = "Mocha";
+      # })
     ];
+
+  # programs.atuin = {
+  #   enable = true;
+  #   enableBashIntegration = true;
+  #   enableNushellIntegration = true;
+  # };
 
   programs.eww-hyprland = {
     enable = true;
   };
 
-  programs.swaylock = {
-    enable = true;
-  };
+  # programs.swaylock = {
+  #   enable = true;
+  # };
 
-  # screen idle
-  services.swayidle =
-    let
-      suspendScript = pkgs.writeShellScript "suspend-script" ''
-        ${pkgs.pipewire}/bin/pw-cli i all | ${pkgs.ripgrep}/bin/rg running
-        # only suspend if audio isn't running
-        if [ $? == 1 ]; then
-          ${pkgs.systemd}/bin/systemctl suspend
-        fi
-      '';
-    in
-    {
-      enable = true;
-      events = [
-        {
-          event = "before-sleep";
-          command = "${pkgs.systemd}/bin/loginctl lock-session";
-        }
-        {
-          event = "lock";
-          command = "${pkgs.swaylock}/bin/swaylock -fF";
-        }
-      ];
-      timeouts = [
-        {
-          timeout = 330;
-          command = suspendScript.outPath;
-        }
-      ];
-    };
-  systemd.user.services.swayidle.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
+  # # screen idle
+  # services.swayidle =
+  #   let
+  #     suspendScript = pkgs.writeShellScript "suspend-script" ''
+  #       ${pkgs.pipewire}/bin/pw-cli i all | ${pkgs.ripgrep}/bin/rg running
+  #       # only suspend if audio isn't running
+  #       if [ $? == 1 ]; then
+  #         ${pkgs.systemd}/bin/systemctl suspend
+  #       fi
+  #     '';
+  #   in
+  #   {
+  #     enable = true;
+  #     events = [
+  #       {
+  #         event = "before-sleep";
+  #         command = "${pkgs.systemd}/bin/loginctl lock-session";
+  #       }
+  #       {
+  #         event = "lock";
+  #         command = "${pkgs.swaylock}/bin/swaylock -fF";
+  #       }
+  #     ];
+  #     timeouts = [
+  #       {
+  #         timeout = 330;
+  #         command = suspendScript.outPath;
+  #       }
+  #     ];
+  #   };
+  # systemd.user.services.swayidle.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
 
-  programs.obs-studio.plugins = with pkgs.obs-studio-plugins; [ wlrobs ];
+  # programs.obs-studio.plugins = with pkgs.obs-studio-plugins; [ wlrobs ];
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -168,13 +186,13 @@
       # Execute your favorite apps at launch
       exec-once = obsidian & firefox & discord
 
-      env = GDK_SCALE,2
+      env = GDK_SCALE,1
+      exec-once xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 1
+
       env = QT_QPA_PLATFORM,wayland
       env = SDL_VIDEODRIVER,wayland
       env = XDG_SESSION_TYPE,wayland
-      exec-once xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2
 
-      exec-once = dunst
       exec-once =  /nix/store/$(ls -la /nix/store | grep 'kwallet-pam' | grep '4096' | awk '{print $9}' | sed -n '$p')/libexec/pam_kwallet_init && nm-applet --indicator
       exec-once = eww open bar
 
@@ -393,6 +411,58 @@
 
   };
 
+  services.dunst = {
+    enable = true;
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    settings = {
+      global = {
+        alignment = "center";
+        corner_radius = 16;
+        follow = "mouse";
+        font = "Roboto 10";
+        format = "<b>%s</b>\\n%b";
+        frame_width = 1;
+        offset = "5x5";
+        horizontal_padding = 8;
+        icon_position = "left";
+        indicate_hidden = "yes";
+        markup = "yes";
+        max_icon_size = 64;
+        mouse_left_click = "do_action";
+        mouse_middle_click = "close_all";
+        mouse_right_click = "close_current";
+        padding = 8;
+        plain_text = "no";
+        separator_color = "auto";
+        separator_height = 1;
+        show_indicators = false;
+        shrink = "no";
+        word_wrap = "yes";
+      };
+
+      fullscreen_delay_everything = { fullscreen = "delay"; };
+
+      # urgency_critical = {
+      #   background = default.xcolors.bg;
+      #   foreground = default.xcolors.fg;
+      #   frame_color = default.xcolors.red;
+      # };
+      # urgency_low = {
+      #   background = default.xcolors.bg;
+      #   foreground = default.xcolors.fg;
+      #   frame_color = default.xcolors.blue;
+      # };
+      # urgency_normal = {
+      #   background = default.xcolors.bg;
+      #   foreground = default.xcolors.fg;
+      #   frame_color = default.xcolors.green;
+      # };
+    };
+  };
+
   # fake a tray to let apps start
   # https://github.com/nix-community/home-manager/issues/2064
   systemd.user.targets.tray = {
@@ -457,6 +527,48 @@
       ]);
   };
 
+
+  home.pointerCursor = {
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
+  };
+
+  gtk = {
+    enable = true;
+
+    font = {
+      name = "Roboto";
+      package = pkgs.roboto;
+    };
+
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+
+    theme = {
+      name = "Catppuccin-Mocha-Compact-Mauve-Dark";
+      # package = pkgs.catppuccin-gtk.override {
+      #   accents = [ "mauve" ];
+      #   size = "compact";
+      #   variant = "mocha";
+      # };
+    };
+  };
+
+  home.sessionVariables = {
+    QT_STYLE_OVERRIDE = "kvantum";
+  };
+
+  xdg.configFile."Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini { }).generate "kvantum.kvconfig" {
+    General.Theme = "Catppuccin-Mocha-Mauve";
+  };
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
@@ -489,35 +601,35 @@
     };
   };
 
-  # vdirsyncer
-  systemd.user.services.vdirsyncer = {
-    Unit = {
-      Description = "Runs vdirsyncer every 15 mins";
-      Wants = "network-online.target";
-      After = "network-online.target";
-    };
+  # # vdirsyncer
+  # systemd.user.services.vdirsyncer = {
+  #   Unit = {
+  #     Description = "Runs vdirsyncer every 15 mins";
+  #     Wants = "network-online.target";
+  #     After = "network-online.target";
+  #   };
 
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.vdirsyncer}/bin/vdirsyncer -c /run/agenix/vdirsyncer-config sync";
-    };
-  };
+  #   Service = {
+  #     Type = "oneshot";
+  #     ExecStart = "${pkgs.vdirsyncer}/bin/vdirsyncer -c /run/agenix/vdirsyncer-config sync";
+  #   };
+  # };
 
-  systemd.user.timers.vdirsyncer = {
-    Unit = {
-      Description = "Runs vdirsyncer every 5 mins";
-    };
+  # systemd.user.timers.vdirsyncer = {
+  #   Unit = {
+  #     Description = "Runs vdirsyncer every 5 mins";
+  #   };
 
-    Timer = {
-      OnBootSec = "2m";
-      OnUnitActiveSec = "15m";
-      Unit = "vdirsyncer.service";
-    };
+  #   Timer = {
+  #     OnBootSec = "2m";
+  #     OnUnitActiveSec = "15m";
+  #     Unit = "vdirsyncer.service";
+  #   };
 
-    Install = { WantedBy = [ "timers.target" ]; };
-  };
+  #   Install = { WantedBy = [ "timers.target" ]; };
+  # };
 
-  home.file.".config/todoman/config.py".source = ./todoman.config.py;
+  # home.file.".config/todoman/config.py".source = ./todoman.config.py;
 
   programs.ssh.enable = true;
   programs.ssh.matchBlocks = {
@@ -534,11 +646,14 @@
       hostname = "88.198.105.181";
       identityFile = "~/.ssh/id_rsa.pub";
     };
+    "mediaVps" = {
+      user = "root";
+      hostname = "138.201.206.23";
+      identityFile = "~/.ssh/id_rsa.pub";
+    };
 
   };
 
   home.file.".ssh/id_rsa.pub".source = ./id_rsa.pub;
 
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "22.11";
 }

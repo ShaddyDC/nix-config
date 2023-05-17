@@ -5,13 +5,13 @@
     inputs.hardware.nixosModules.common-pc-ssd
 
     ./hardware-configuration.nix
-    ../../nixos/configuration.nix
-    ../../nixos/mail.nix
+    # ../../nixos/configuration.nix
+    # ../../nixos/mail.nix
   ];
 
   hardware.opentabletdriver.enable = true;
   virtualisation.libvirtd.enable = true;
 
   networking.hostName = "spacedesktop";
-  workstation.enable = true;
+  # workstation.enable = true;
 }

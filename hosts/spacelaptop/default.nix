@@ -1,14 +1,13 @@
 { pkgs, inputs, ... }: {
   imports = [
     ./hardware-configuration.nix
-    ../../nixos/configuration.nix
-    ../../nixos/mail.nix
+    # ../../nixos/configuration.nix
+    # ../../nixos/mail.nix
   ];
 
   networking.hostName = "spacelaptop";
 
   hardware.bluetooth.enable = true;
-  workstation.enable = true;
   services.upower.enable = true;
   programs.dconf.enable = true;
   # needed for GNOME services outside of GNOME Desktop
