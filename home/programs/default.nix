@@ -56,13 +56,6 @@
   };
 
   services = {
-    gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-      pinentryFlavor = "gnome3";
-      sshKeys = [ "656EA5B1C014156AA732971C263E78EF77BBEEBA" ];
-    };
-
     caffeine.enable = true;
   };
 

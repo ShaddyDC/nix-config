@@ -56,6 +56,11 @@
     };
   };
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
   # make HM-managed GTK stuff work
   programs.dconf.enable = true;
 
