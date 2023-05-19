@@ -27,6 +27,17 @@ let
       ]
       ++ sharedWorkstationModules
       ++ sharedModules;
+    "space@spacedesktop" =
+      [
+        ./spacedesktop
+      ]
+      ++ sharedWorkstationModules
+      ++ sharedModules;
+    "space@mediavps" =
+      [
+        # ./mediavps
+      ]
+      ++ sharedModules;
   };
 
   inherit (inputs.hm.lib) homeManagerConfiguration;
@@ -40,6 +51,14 @@ in
     homeConfigurations = withSystem "x86_64-linux" ({ pkgs, ... }: {
       "space@spacelaptop" = homeManagerConfiguration {
         modules = homeImports."space@spacelaptop" ++ module_args;
+        inherit pkgs;
+      };
+      "space@spacedesktop" = homeManagerConfiguration {
+        modules = homeImports."space@spacedesktop" ++ module_args;
+        inherit pkgs;
+      };
+      "space@mediavps" = homeManagerConfiguration {
+        modules = homeImports."space@mediavps" ++ module_args;
         inherit pkgs;
       };
     });

@@ -2,11 +2,13 @@
 
 set -e
 
-echo "Building system..."
+sudo nixos-rebuild switch --flake '.?submodules=1'
 
-# sudo env LOCALE_ARCHIVE=$LOCALE_ARCHIVE nixos-rebuild switch --flake '.#spacedesktop'
-sudo nixos-rebuild switch --flake '.?submodules=1#spacedesktop'
+# echo "Building system..."
 
-echo "Building home..."
+# # sudo env LOCALE_ARCHIVE=$LOCALE_ARCHIVE nixos-rebuild switch --flake '.#spacedesktop'
+# sudo nixos-rebuild switch --flake '.?submodules=1#spacelaptop'
 
-home-manager switch --flake ".?submodules=1#space@spacedesktop" --option extra-builtins-file extra-builtins.nix
+# echo "Building home..."
+
+# home-manager switch --flake ".?submodules=1#space@spacelaptop" --option extra-builtins-file extra-builtins.nix
