@@ -1,4 +1,13 @@
 { inputs, pkgs, config, ... }: {
+  home.packages =
+    with pkgs;
+    let todoman-git = pkgs.callPackage ../extra-pkgs/todoman.nix { };
+    in [
+      urlscan
+      ripmime
+      elinks
+    ];
+
   programs.neomutt = {
     enable = true;
     vimKeys = true;

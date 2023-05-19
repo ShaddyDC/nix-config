@@ -33,13 +33,8 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib.url = "github:hyprwm/contrib";
 
-
-    nix-xilinx = {
-      url = "gitlab:doronbehar/nix-xilinx";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    spicetify-nix = {
-      url = "github:the-argus/spicetify-nix";
+    anyrun = {
+      url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -56,8 +51,8 @@
         ./home/profiles
         ./hosts
         ./modules
-        # ./pkgs
-        # ./lib
+        ./pkgs
+        ./lib
         { config._module.args._inputs = inputs // { inherit (inputs) self; }; }
       ];
 

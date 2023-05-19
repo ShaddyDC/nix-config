@@ -1,48 +1,6 @@
 { inputs, lib, config, pkgs, ... }: {
-  imports = [
-    ./mail.nix
-  ];
-
-  boot = {
-    # Bootloader.
-    loader = {
-      systemd-boot.enable = true;
-      systemd-boot.configurationLimit = 4;
-      efi.canTouchEfiVariables = true;
-      efi.efiSysMountPoint = "/boot/efi";
-    };
-
-    # Setup keyfile
-    initrd.secrets = {
-      "/crypto_keyfile.bin" = null;
-    };
-  };
-
-  networking.networkmanager.enable = true;
-
-  services.xserver = {
-    # Enable the X11 windowing system.
-    enable = true;
-
-    # Enable the KDE Plasma Desktop Environment.
-    displayManager.sddm.enable = true;
-    desktopManager.plasma5.enable = true;
-
-    # Configure keymap in X11
-    layout = "de";
-    xkbVariant = "";
-
-
-    libinput = {
-      enable = true;
-      # disable mouse acceleration
-      mouse.accelProfile = "flat";
-      mouse.accelSpeed = "0";
-      mouse.middleEmulation = false;
-      # touchpad settings
-      touchpad.naturalScrolling = true;
-    };
-  };
+  # use Wayland where possible (electron)
+  environment.variables.NIXOS_OZONE_WL = "1";
 
   security.pam.services = {
     gdm.enableKwallet = true;
@@ -51,121 +9,133 @@
     sddm.enableKwallet = true;
     slim.enableKwallet = true;
 
-    swaylock = {
-      text = ''
-        auth include login
-      '';
-    };
+    # allow wayland lockers to unlock the screen
+    swaylock.text = "auth include login";
   };
 
+  # enable location service
+  services.geoclue2.enable = true;
+  location.provider = "geoclue2";
+
   programs.light.enable = true;
+
+
+  nix = {
+    # package = inputs.nix-super.packages.${pkgs.hostPlatform.system}.nix;
+    settings = {
+      substituters = [
+        "https://nix-gaming.cachix.org"
+        "https://hyprland.cachix.org"
+        "https://cache.privatevoid.net"
+      ];
+      trusted-public-keys = [
+        "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "cache.privatevoid.net:SErQ8bvNWANeAvtsOESUwVYr2VJynfuc9JRwlzTTkVg="
+      ];
+    };
+  };
 
   programs.hyprland = {
     enable = true;
     xwayland.hidpi = true;
   };
 
-  # Configure console keymap
-  console.keyMap = "de";
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
+  services.clight = {
+    enable = true;
+    settings = {
+      verbose = true;
+      dpms.timeouts = [ 900 300 ];
+      dimmer.timeouts = [ 870 270 ];
+      screen.disabled = true;
+    };
+  };
+
+  # make HM-managed GTK stuff work
+  programs.dconf.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
-  # hardware.pulseaudio.enable =  false; # TODO check
+  hardware.pulseaudio.enable =  false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    lowLatency.enable = true;
     jack.enable = true;
+    lowLatency.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.space = {
-    isNormalUser = true;
-    description = "space";
-    extraGroups = [ "networkmanager" "wheel" "video" ];
-    packages = [ ];
-  };
+  hardware.opengl.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs;  [
-    vlc
-    mpv
-    zathura
-    okular
+  # battery info & stuff
+  services.upower.enable = true;
 
-    ripgrep
-    youtube-dl
-    gcc
-    pandoc
-    gdb
-
-    inputs.agenix.packages.x86_64-linux.default
-    inputs.deploy-rs.packages.${pkgs.system}.deploy-rs
-    rage
-
-    direnv
-    keepassxc
-    chromium
-
-    # Nix languages
-    nixpkgs-fmt
-    nil
-
-    kwallet-pam
-  ];
+  # needed for GNOME services outside of GNOME Desktop
+  services.dbus.packages = [ pkgs.gcr ];
+  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
   };
 
-  age.secrets.vdirsyncer-config = {
-    file = ../secrets/vdirsyncer.config.age;
-    owner = config.users.users.space.name;
-  };
+  # age.secrets.vdirsyncer-config = {
+  #   file = ../secrets/vdirsyncer.config.age;
+  #   owner = config.users.users.space.name;
+  # };
 
   services.flatpak.enable = true;
   programs.kdeconnect.enable = true;
 
 
-  fonts.fonts = with pkgs; [
-    carlito
-    dejavu_fonts
-    ipafont
-    kochi-substitute
-    source-code-pro
-    ttf_bitstream_vera
-    (nerdfonts.override { fonts = [ "3270" "JetBrainsMono" ]; })
-  ];
-  #   fonts.fontconfig.defaultFonts = {
-  #     monospace = [
-  #       "JetBrainsMono"
-  #       "IPAGothic"
-  #     ];
-  #     sansSerif = [
-  #       "DejaVu Sans"
-  #       "IPAPGothic"
-  #     ];
-  #     serif = [
-  #       "DejaVu Serif"
-  #       "IPAPMincho"
-  #     ];
-  #   };
-  #   i18n = {
-  #     inputMethod = {
-  #       enabled = "fcitx5";
-  #       fcitx.engines = with pkgs.fcitx-engines; [ mozc ];
-  #       fcitx5.addons = with pkgs; [
-  #         fcitx5-mozc
-  #         fcitx5-gtk
-  #       ];
-  #     };
-  #   };
+  fonts = {
+    fonts = with pkgs; [
+      # icon fonts
+      material-symbols
+
+      # normal fonts
+      jost
+      lexend
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      roboto
+
+      # nerdfonts
+      (nerdfonts.override { fonts = [ "3270" "FiraCode" "JetBrainsMono" ]; })
+    ];
+
+    # use fonts specified by user rather than default ones
+    enableDefaultFonts = false;
+
+    # user defined fonts
+    # the reason there's Noto Color Emoji everywhere is to override DejaVu's
+    # B&W emojis that would sometimes show instead of some Color emojis
+    fontconfig.defaultFonts = {
+      serif = [ "Noto Serif" "Noto Color Emoji" ];
+      sansSerif = [ "Noto Sans" "Noto Color Emoji" ];
+      monospace = [ "JetBrainsMono Nerd Font" "Noto Color Emoji" ];
+      emoji = [ "Noto Color Emoji" ];
+    };
+
+
+
+  };
+  environment.sessionVariables = {
+    XDG_CACHE_HOME  = "/home/space/.local/cache";
+    XDG_CONFIG_HOME = "/home/space/.config";
+    XDG_DATA_HOME   = "/home/space/.local/share";
+    XDG_STATE_HOME  = "/home/space/.local/state";
+    test_var = "OOOPSIE";
+  };
 }

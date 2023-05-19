@@ -21,15 +21,17 @@ in
           { home-manager.useGlobalPkgs = true; }
           inputs.hm.nixosModule
           inputs.agenix.nixosModules.default
-          ./configuration.nix
+          ./common.nix
+          ./nix.nix
           module_args
         ];
 
         workstationModules = with inputs; [
           hyprland.nixosModules.default
           nix-gaming.nixosModules.default
-          ./workstation.nix
           ./mail.nix
+          ./workstation.nix
+          ./xserver.nix
         ];
       };
     }

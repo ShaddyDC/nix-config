@@ -6,19 +6,26 @@
 let
   sharedModules = [
     ../.
-    # ../shell
+    ../common.nix
+    ../shell
+    inputs.nix-index-db.hmModules.nix-index
     module_args
+  ];
+
+  sharedWorkstationModules = [
+    ../programs
+    ../wayland
+    ../games.nix
+    inputs.hyprland.homeManagerModules.default
+    inputs.fufexan.homeManagerModules.eww-hyprland
   ];
 
   homeImports = {
     "space@spacelaptop" =
       [
         ./spacelaptop
-        inputs.nix-index-db.hmModules.nix-index
-        inputs.spicetify-nix.homeManagerModule
-        inputs.hyprland.homeManagerModules.default
-        inputs.fufexan.homeManagerModules.eww-hyprland
       ]
+      ++ sharedWorkstationModules
       ++ sharedModules;
   };
 

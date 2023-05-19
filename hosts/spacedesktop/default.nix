@@ -9,6 +9,21 @@
     # ../../nixos/mail.nix
   ];
 
+  boot = {
+    # Bootloader.
+    loader = {
+      systemd-boot.enable = true;
+      systemd-boot.configurationLimit = 4;
+      efi.canTouchEfiVariables = true;
+      efi.efiSysMountPoint = "/boot/efi";
+    };
+
+    # Setup keyfile
+    initrd.secrets = {
+      "/crypto_keyfile.bin" = null;
+    };
+  };
+
   hardware.opentabletdriver.enable = true;
   virtualisation.libvirtd.enable = true;
 
