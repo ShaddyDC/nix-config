@@ -19,7 +19,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    devenv.url = "github:cachix/devenv/v0.5";
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     agenix.url = "github:ryantm/agenix";
 
@@ -44,8 +47,8 @@
   };
 
   outputs = inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux"];
 
       imports = [
         ./home/profiles
@@ -53,22 +56,32 @@
         ./modules
         ./pkgs
         ./lib
-        { config._module.args._inputs = inputs // { inherit (inputs) self; }; }
+        {config._module.args._inputs = inputs // {inherit (inputs) self;};}
       ];
 
-      perSystem =
-        { config
-        , inputs'
-        , pkgs
-        , system
-        , ...
-        }: {
-          imports = [
-            {
-              _module.args.pkgs = inputs.self.legacyPackages.${system};
-            }
+      perSystem = {
+        config,
+        inputs',
+        pkgs,
+        system,
+        ...
+      }: {
+        imports = [
+          {
+            _module.args.pkgs = inputs.self.legacyPackages.${system};
+          }
+        ];
+
+        devShells.default = inputs'.devshell.legacyPackages.mkShell {
+          packages = [
+            pkgs.alejandra
+            pkgs.git
           ];
+          name = "dots";
         };
+
+        formatter = pkgs.alejandra;
+      };
     };
 
   nixConfig = {
@@ -86,4 +99,3 @@
     ];
   };
 }
-
