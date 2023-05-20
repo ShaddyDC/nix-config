@@ -44,7 +44,6 @@
   services = {
     openssh = {
       enable = true;
-      settings.UseDns = true;
     };
 
     # DNS resolver
@@ -60,7 +59,6 @@
     targets.network-online.wantedBy = pkgs.lib.mkForce [ ]; # Normally ["multi-user.target"]
     services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce [ ]; # Normally ["network-online.target"]
   };
-
 
   # don't ask for password for wheel group
   security.sudo.wheelNeedsPassword = false;

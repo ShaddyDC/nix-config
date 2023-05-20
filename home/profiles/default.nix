@@ -33,9 +33,9 @@ let
       ]
       ++ sharedWorkstationModules
       ++ sharedModules;
-    "space@mediavps" =
+    "space@mediaVps" =
       [
-        # ./mediavps
+        # ./mediaVps
       ]
       ++ sharedModules;
   };
@@ -57,8 +57,8 @@ in
         modules = homeImports."space@spacedesktop" ++ module_args;
         inherit pkgs;
       };
-      "space@mediavps" = homeManagerConfiguration {
-        modules = homeImports."space@mediavps" ++ module_args;
+      "space@mediaVps" = homeManagerConfiguration {
+        modules = homeImports."space@mediaVps" ++ module_args;
         inherit pkgs;
       };
     });

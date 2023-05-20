@@ -28,13 +28,13 @@
         ++ sharedModules
         ++ workstationModules;
     };
-    mediavps = inputs.nixpkgs.lib.nixosSystem {
+    mediaVps = inputs.nixpkgs.lib.nixosSystem {
       inherit system;
 
       modules =
         [
-          ./mediavps
-          { home-manager.users.space.imports = homeImports."space@mediavps"; }
+          ./mediaVps
+          { home-manager.users.space.imports = homeImports."space@mediaVps"; }
         ]
         ++ sharedModules;
     };
