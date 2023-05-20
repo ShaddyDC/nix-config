@@ -85,53 +85,5 @@
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
     ];
   };
-
-  # outputs = { self, unstablepkgs, home-manager, agenix, deploy-rs, nix-index-database, hyprland, ... }@inputs: {
-  #   # NixOS configuration entrypoint
-  #   # Available through 'nixos-rebuild --flake .#your-hostname'
-  #   nixosConfigurations = {
-  #     spacedesktop = unstablepkgs.lib.nixosSystem {
-  #       specialArgs = { inherit inputs; };
-  #       modules = [ ./hosts/spacedesktop agenix.nixosModules.default hyprland.nixosModules.default ];
-  #     };
-  #     spacelaptop = unstablepkgs.lib.nixosSystem {
-  #       specialArgs = { inherit inputs; };
-  #       modules = [ ./hosts/spacelaptop agenix.nixosModules.default hyprland.nixosModules.default ];
-  #     };
-  #     mediaVps = unstablepkgs.lib.nixosSystem {
-  #       system = "x86_64-linux";
-  #       specialArgs = { inherit inputs; };
-  #       modules = [ ./hosts/mediaVps agenix.nixosModules.default ];
-  #     };
-  #   };
-  #   deploy.nodes = {
-  #     mediaVps = {
-  #       hostname = "138.201.206.23";
-  #       user = "root";
-  #       profiles.system = {
-  #         user = "root";
-  #         sshUser = "root";
-  #         path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.mediaVps;
-  #       };
-  #     };
-  #   };
-
-  #   checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-
-
-  #   # Available through 'home-manager --flake .#your-username@your-hostname'
-  #   homeConfigurations = {
-  #     "space@spacedesktop" = home-manager.lib.homeManagerConfiguration {
-  #       pkgs = unstablepkgs.legacyPackages.x86_64-linux;
-  #       extraSpecialArgs = { inherit inputs; };
-  #       modules = [ ./home-manager/home.nix nix-index-database.hmModules.nix-index hyprland.homeManagerModules.default ];
-  #     };
-  #     "space@spacelaptop" = home-manager.lib.homeManagerConfiguration {
-  #       pkgs = unstablepkgs.legacyPackages.x86_64-linux;
-  #       extraSpecialArgs = { inherit inputs; };
-  #       modules = [ ./home-manager/home.nix nix-index-database.hmModules.nix-index hyprland.homeManagerModules.default ];
-  #     };
-  #   };
-  # };
 }
 
