@@ -1,8 +1,7 @@
-{ pkgs, ... }: {
-  home.packages =
-    with pkgs;[
-      vdirsyncer
-    ];
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    vdirsyncer
+  ];
   # systemd.user.services.vdirsyncer = {
   #   Unit = {
   #     Description = "Runs vdirsyncer every 15 mins";

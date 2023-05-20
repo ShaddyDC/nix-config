@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs;  [
+{pkgs, ...}: {
+  home.packages = with pkgs; [
     rclone
   ];
 
@@ -11,7 +11,7 @@
       After = "network-online.target";
     };
     Install = {
-      WantedBy = [ "default.target" ];
+      WantedBy = ["default.target"];
     };
     Service = {
       Type = "notify";

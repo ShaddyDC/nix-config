@@ -1,4 +1,8 @@
-{ pkgs, inputs, ... }: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   wayland.windowManager.hyprland.extraConfig = ''
     $mod = SUPER
 
@@ -119,7 +123,8 @@
     bind = $mod, T, exec, kitty
     bind = $mod, Q, killactive,
     bind = $mod SHIFT, E, exit
-    bind = $mod ALT, F4, exit
+    bind = ALT, F4, killactive
+    bind = $mod, Escape, exec, wlogout -p layer-shell
     bind = $mod, L, exec, loginctl lock-session
     bind = $mod, O, exec, wl-ocr
     bind = $mod, F, fullscreen,

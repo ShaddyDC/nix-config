@@ -1,12 +1,16 @@
-{ inputs, pkgs, config, ... }: {
-  home.packages =
-    with pkgs;
-    let todoman-git = pkgs.callPackage ../extra-pkgs/todoman.nix { };
-    in [
-      urlscan
-      ripmime
-      elinks
-    ];
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}: {
+  home.packages = with pkgs; let
+    todoman-git = pkgs.callPackage ../extra-pkgs/todoman.nix {};
+  in [
+    urlscan
+    ripmime
+    elinks
+  ];
 
   programs.neomutt = {
     enable = true;
@@ -22,27 +26,27 @@
       {
         action = "!mbsync -a";
         key = "O";
-        map = [ "index" "pager" ];
+        map = ["index" "pager"];
       }
       {
         action = "<pipe-message> urlscan<Enter>";
         key = "B";
-        map = [ "pager" ];
+        map = ["pager"];
       }
       {
         action = "<pipe-message> ripmime -i - -d ~/Downloads && rm ~/Downloads/textfile*<Enter>";
         key = "S";
-        map = [ "pager" ];
+        map = ["pager"];
       }
       {
         action = "<save-message>+Archive<Enter><Enter>";
         key = "n2";
-        map = [ "index" ];
+        map = ["index"];
       }
       {
         action = "<save-message>+INBOX<Enter><Enter>";
         key = "n3";
-        map = [ "index" ];
+        map = ["index"];
       }
     ];
 
@@ -50,23 +54,23 @@
       {
         action = "sidebar-prev";
         key = "<up>";
-        map = [ "index" "pager" ];
+        map = ["index" "pager"];
       }
       {
         action = "sidebar-next";
         key = "<down>";
-        map = [ "index" "pager" ];
+        map = ["index" "pager"];
       }
       {
         action = "sidebar-open";
         key = "<right>";
-        map = [ "index" "pager" ];
+        map = ["index" "pager"];
       }
 
       {
         action = "toggle-new";
         key = "n1";
-        map = [ "index" ];
+        map = ["index"];
       }
     ];
 
@@ -132,26 +136,26 @@
 
   accounts.email.maildirBasePath = "Mail";
 
-  accounts.email.accounts =
-    let
-      unsafeMailAddr = file: builtins.extraBuiltins.unsafeEvalTimeDecryptAsString "${config.home.homeDirectory}/.ssh/id_ed25519" file;
-      defaultSettings = {
-        folders.inbox = "INBOX";
-        folders.drafts = "Drafts";
-        folders.sent = "Sent";
-        folders.trash = "Trash";
+  accounts.email.accounts = let
+    unsafeMailAddr = file: builtins.extraBuiltins.unsafeEvalTimeDecryptAsString "${config.home.homeDirectory}/.ssh/id_ed25519" file;
+    defaultSettings = {
+      folders.inbox = "INBOX";
+      folders.drafts = "Drafts";
+      folders.sent = "Sent";
+      folders.trash = "Trash";
 
-        mbsync = {
-          enable = true;
-          create = "both";
-          expunge = "both";
-        };
-
-        msmtp.enable = true;
+      mbsync = {
+        enable = true;
+        create = "both";
+        expunge = "both";
       };
-    in
-    {
-      "shaddy" = defaultSettings // {
+
+      msmtp.enable = true;
+    };
+  in {
+    "shaddy" =
+      defaultSettings
+      // {
         primary = true;
         realName = "Shaddy";
         address = unsafeMailAddr ../secrets/mail/shaddy-mail-add.age;
@@ -167,28 +171,30 @@
         neomutt = {
           enable = true;
           mailboxName = "-" + unsafeMailAddr ../secrets/mail/shaddy-mail-add.age;
-          extraMailboxes = [ "Junk" ];
+          extraMailboxes = ["Junk"];
         };
         passwordCommand = "cat /run/agenix/mail-shaddy-pw";
       };
 
-      # I don't want to set up 2fa for this, so I guess I won't be reading it for now
-      # "shaddy2" = defaultSettings // {
-      #   realName = "Shaddy";
-      #   address = "ShaddyTheFirst@gmail.com";
-      #   userName = "ShaddyTheFirst@gmail.com";
-      #   imap = {
-      #     host = "imap.gmail.com";
-      #     tls.enable = true;
-      #   };
-      #   smtp = {
-      #     host = "smtp.gmail.com";
-      #     tls.enable = true;
-      #   };
-      #   passwordCommand = "cat /run/agenix/mail-shaddy2-pw";
-      # };
+    # I don't want to set up 2fa for this, so I guess I won't be reading it for now
+    # "shaddy2" = defaultSettings // {
+    #   realName = "Shaddy";
+    #   address = "ShaddyTheFirst@gmail.com";
+    #   userName = "ShaddyTheFirst@gmail.com";
+    #   imap = {
+    #     host = "imap.gmail.com";
+    #     tls.enable = true;
+    #   };
+    #   smtp = {
+    #     host = "smtp.gmail.com";
+    #     tls.enable = true;
+    #   };
+    #   passwordCommand = "cat /run/agenix/mail-shaddy2-pw";
+    # };
 
-      "private1" = defaultSettings // {
+    "private1" =
+      defaultSettings
+      // {
         realName = unsafeMailAddr ../secrets/mail/private1-name.age;
         address = unsafeMailAddr ../secrets/mail/private1-add.age;
         userName = unsafeMailAddr ../secrets/mail/private1-add.age;
@@ -203,12 +209,14 @@
         neomutt = {
           enable = true;
           mailboxName = "-" + unsafeMailAddr ../secrets/mail/private1-add.age;
-          extraMailboxes = [ "Junk" ];
+          extraMailboxes = ["Junk"];
         };
         passwordCommand = "cat /run/agenix/mail-private1-pw";
       };
 
-      "private2" = defaultSettings // {
+    "private2" =
+      defaultSettings
+      // {
         realName = unsafeMailAddr ../secrets/mail/private2-name.age;
         address = unsafeMailAddr ../secrets/mail/private2-add.age;
         userName = unsafeMailAddr ../secrets/mail/private2-add.age;
@@ -223,13 +231,15 @@
         neomutt = {
           enable = true;
           mailboxName = "-" + unsafeMailAddr ../secrets/mail/private2-add.age;
-          extraMailboxes = [ "Archives" "Bulk" "Remember" "Spam" "Unbekannt" ];
+          extraMailboxes = ["Archives" "Bulk" "Remember" "Spam" "Unbekannt"];
         };
 
         passwordCommand = "cat /run/agenix/mail-private2-pw";
       };
 
-      "private3" = defaultSettings // {
+    "private3" =
+      defaultSettings
+      // {
         realName = unsafeMailAddr ../secrets/mail/private3-name.age;
         address = unsafeMailAddr ../secrets/mail/private3-add.age;
         userName = unsafeMailAddr ../secrets/mail/private3-add.age;
@@ -245,13 +255,15 @@
         neomutt = {
           enable = true;
           mailboxName = "-" + unsafeMailAddr ../secrets/mail/private3-add.age;
-          extraMailboxes = [ "Archives" "Spam" "Templates" "Unbekannt" ];
+          extraMailboxes = ["Archives" "Spam" "Templates" "Unbekannt"];
         };
 
         passwordCommand = "cat /run/agenix/mail-private3-pw";
       };
 
-      "private4" = defaultSettings // {
+    "private4" =
+      defaultSettings
+      // {
         realName = unsafeMailAddr ../secrets/mail/private4-name.age;
         address = unsafeMailAddr ../secrets/mail/private4-add.age;
         userName = unsafeMailAddr ../secrets/mail/private4-add.age;
@@ -267,13 +279,15 @@
         neomutt = {
           enable = true;
           mailboxName = "-" + unsafeMailAddr ../secrets/mail/private4-add.age;
-          extraMailboxes = [ "Archives" "Spam" "Unbekannt" ];
+          extraMailboxes = ["Archives" "Spam" "Unbekannt"];
         };
 
         passwordCommand = "cat /run/agenix/mail-private4-pw";
       };
 
-      "private5" = defaultSettings // {
+    "private5" =
+      defaultSettings
+      // {
         realName = unsafeMailAddr ../secrets/mail/private5-name.age;
         address = unsafeMailAddr ../secrets/mail/private5-add.age;
         userName = unsafeMailAddr ../secrets/mail/private5-use.age;
@@ -288,13 +302,15 @@
         neomutt = {
           enable = true;
           mailboxName = "-" + unsafeMailAddr ../secrets/mail/private5-add.age;
-          extraMailboxes = [ ];
+          extraMailboxes = [];
         };
 
         passwordCommand = "cat /run/agenix/mail-private5-pw";
       };
 
-      "private6" = defaultSettings // {
+    "private6" =
+      defaultSettings
+      // {
         realName = unsafeMailAddr ../secrets/mail/private6-name.age;
         address = unsafeMailAddr ../secrets/mail/private6-add.age;
         userName = unsafeMailAddr ../secrets/mail/private6-add.age;
@@ -313,12 +329,14 @@
         neomutt = {
           enable = true;
           mailboxName = "-" + unsafeMailAddr ../secrets/mail/private6-add.age;
-          extraMailboxes = [ ];
+          extraMailboxes = [];
         };
         passwordCommand = "cat /run/agenix/mail-private6-pw";
       };
 
-      "private7" = defaultSettings // {
+    "private7" =
+      defaultSettings
+      // {
         realName = unsafeMailAddr ../secrets/mail/private7-name.age;
         address = unsafeMailAddr ../secrets/mail/private7-add.age;
         userName = unsafeMailAddr ../secrets/mail/private7-add.age;
@@ -337,11 +355,11 @@
         neomutt = {
           enable = true;
           mailboxName = "-" + unsafeMailAddr ../secrets/mail/private7-add.age;
-          extraMailboxes = [ ];
+          extraMailboxes = [];
         };
         passwordCommand = "cat /run/agenix/mail-private7-pw";
       };
-    };
+  };
 
   # TODO set up imapnotify
 
@@ -370,6 +388,6 @@
       Unit = "mbsync.service";
     };
 
-    Install = { WantedBy = [ "timers.target" ]; };
+    Install = {WantedBy = ["timers.target"];};
   };
 }

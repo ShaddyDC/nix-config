@@ -1,24 +1,23 @@
-{ _inputs
-, inputs
-, default
-, ...
-}:
-let
+{
+  _inputs,
+  inputs,
+  default,
+  ...
+}: let
   module_args = {
     _module.args = {
       inputs = _inputs;
       inherit default;
     };
   };
-in
-{
+in {
   imports = [
     {
       _module.args = {
         inherit module_args;
 
         sharedModules = [
-          { home-manager.useGlobalPkgs = true; }
+          {home-manager.useGlobalPkgs = true;}
           inputs.hm.nixosModule
           inputs.agenix.nixosModules.default
           ./common.nix

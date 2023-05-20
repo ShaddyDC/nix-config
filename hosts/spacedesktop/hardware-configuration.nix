@@ -1,25 +1,27 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
 {
-  imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
-
+  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
+  boot.initrd.kernelModules = ["amdgpu"];
+  boot.kernelModules = ["kvm-amd"];
+  boot.extraModulePackages = [];
 
   boot = {
     # kernelPackages = pkgs.linuxPackages_xanmod_latest;
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = ["ntfs"];
   };
 
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages = with pkgs;[
+  hardware.opengl.extraPackages = with pkgs; [
     rocm-opencl-icd
     rocm-runtime
     amdvlk
@@ -28,27 +30,24 @@
     # driversi686Linux.amdvlk
   ];
 
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.videoDrivers = ["amdgpu"];
 
   # Software like Blender may support HIP for GPU acceleration. Most software has the HIP libraries hard-coded. You can work around it on NixOS by using
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
   ];
 
-
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/0ef5e13c-1cad-4a07-a213-b6768b458c4d";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/0ef5e13c-1cad-4a07-a213-b6768b458c4d";
+    fsType = "ext4";
+  };
 
   boot.initrd.luks.devices."luks-48b947d1-eb21-4333-aaf8-48769b0cf3a4".device = "/dev/disk/by-uuid/48b947d1-eb21-4333-aaf8-48769b0cf3a4";
 
-  fileSystems."/boot/efi" =
-    {
-      device = "/dev/disk/by-uuid/75C3-A9A7";
-      fsType = "vfat";
-    };
+  fileSystems."/boot/efi" = {
+    device = "/dev/disk/by-uuid/75C3-A9A7";
+    fsType = "vfat";
+  };
 
   fileSystems."/run/media/space/ext4" = {
     device = "/dev/disk/by-uuid/c21e248c-11b2-47de-946a-892852f3c43b";
@@ -60,7 +59,7 @@
     device = "/dev/disk/by-uuid/36B2588FB2585589";
   };
 
-  swapDevices = [ ];
+  swapDevices = [];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

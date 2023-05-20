@@ -1,6 +1,7 @@
-{ pkgs
-, config
-, ...
+{
+  pkgs,
+  config,
+  ...
 }: {
   imports = [
     ./alacritty.nix
@@ -23,18 +24,18 @@
   programs = {
     chromium = {
       enable = true;
-      commandLineArgs = [ "--enable-features=TouchpadOverscrollHistoryNavigation" ];
+      commandLineArgs = ["--enable-features=TouchpadOverscrollHistoryNavigation"];
       extensions = [
-        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }
-        { id = "bkkmolkhemgaeaeggcmfbghljjjoofoh"; }
+        {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";}
+        {id = "bkkmolkhemgaeaeggcmfbghljjjoofoh";}
       ];
     };
 
     firefox = {
       enable = true;
-      profiles.shaddy = { };
+      profiles.shaddy = {};
       package = pkgs.firefox.override {
-        cfg = { enableTridactylNative = true; };
+        cfg = {enableTridactylNative = true;};
       };
     };
 
@@ -45,12 +46,11 @@
 
     password-store = {
       enable = true;
-      package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
+      package = pkgs.pass.withExtensions (exts: [exts.pass-otp]);
       settings.PASSWORD_STORE_DIR = "${config.xdg.dataHome}/password-store";
     };
 
     java.enable = true;
-
 
     rofi.enable = true;
   };

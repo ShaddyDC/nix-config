@@ -1,4 +1,10 @@
-{ inputs, lib, config, pkgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   # use Wayland where possible (electron)
   environment.variables.NIXOS_OZONE_WL = "1";
 
@@ -18,7 +24,6 @@
   location.provider = "geoclue2";
 
   programs.light.enable = true;
-
 
   nix = {
     settings = {
@@ -40,15 +45,15 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
   services.clight = {
     enable = true;
     settings = {
       verbose = true;
-      dpms.timeouts = [ 900 300 ];
-      dimmer.timeouts = [ 870 270 ];
+      dpms.timeouts = [900 300];
+      dimmer.timeouts = [870 270];
       screen.disabled = true;
     };
   };
@@ -66,7 +71,7 @@
 
   # Enable sound with pipewire.
   sound.enable = true;
-  hardware.pulseaudio.enable =  false;
+  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -83,8 +88,8 @@
   services.upower.enable = true;
 
   # needed for GNOME services outside of GNOME Desktop
-  services.dbus.packages = [ pkgs.gcr ];
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+  services.dbus.packages = [pkgs.gcr];
+  services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
 
   programs.steam = {
     enable = true;
@@ -98,7 +103,6 @@
 
   services.flatpak.enable = true;
   programs.kdeconnect.enable = true;
-
 
   fonts = {
     fonts = with pkgs; [
@@ -114,7 +118,7 @@
       roboto
 
       # nerdfonts
-      (nerdfonts.override { fonts = [ "3270" "FiraCode" "JetBrainsMono" ]; })
+      (nerdfonts.override {fonts = ["3270" "FiraCode" "JetBrainsMono"];})
     ];
 
     # use fonts specified by user rather than default ones
@@ -124,20 +128,17 @@
     # the reason there's Noto Color Emoji everywhere is to override DejaVu's
     # B&W emojis that would sometimes show instead of some Color emojis
     fontconfig.defaultFonts = {
-      serif = [ "Noto Serif" "Noto Color Emoji" ];
-      sansSerif = [ "Noto Sans" "Noto Color Emoji" ];
-      monospace = [ "JetBrainsMono Nerd Font" "Noto Color Emoji" ];
-      emoji = [ "Noto Color Emoji" ];
+      serif = ["Noto Serif" "Noto Color Emoji"];
+      sansSerif = ["Noto Sans" "Noto Color Emoji"];
+      monospace = ["JetBrainsMono Nerd Font" "Noto Color Emoji"];
+      emoji = ["Noto Color Emoji"];
     };
-
-
-
   };
   environment.sessionVariables = {
-    XDG_CACHE_HOME  = "/home/space/.local/cache";
+    XDG_CACHE_HOME = "/home/space/.local/cache";
     XDG_CONFIG_HOME = "/home/space/.config";
-    XDG_DATA_HOME   = "/home/space/.local/share";
-    XDG_STATE_HOME  = "/home/space/.local/state";
+    XDG_DATA_HOME = "/home/space/.local/share";
+    XDG_STATE_HOME = "/home/space/.local/state";
     test_var = "OOOPSIE";
   };
 }

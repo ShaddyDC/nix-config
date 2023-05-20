@@ -1,8 +1,9 @@
-{ pkgs
-, default
-, ...
+{
+  pkgs,
+  default,
+  ...
 }: {
-  home.packages = [ pkgs.gh ];
+  home.packages = [pkgs.gh];
 
   programs.git = {
     enable = true;
@@ -42,5 +43,4 @@
   };
 
   programs.lazygit.enable = true;
-
 }

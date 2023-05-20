@@ -1,7 +1,7 @@
-{ 
+{
   # default,
-   pkgs
-, ...
+  pkgs,
+  ...
 }: {
   programs.swaylock = {
     enable = true;
@@ -9,7 +9,7 @@
     settings =
       #  let
       #   inherit (default) xcolors;
-      # in 
+      # in
       {
         clock = true;
         font = "Jost *";

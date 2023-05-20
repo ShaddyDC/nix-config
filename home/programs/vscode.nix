@@ -1,10 +1,9 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.vscode = {
     enable = true;
-    extensions = (with pkgs;
-      with vscode-extensions; [
-        ms-vscode.cpptools
-      ]);
+    extensions = with pkgs;
+    with vscode-extensions; [
+      ms-vscode.cpptools
+    ];
   };
-
 }

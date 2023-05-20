@@ -1,9 +1,9 @@
-{ inputs
-, withSystem
-, module_args
-, ...
-}:
-let
+{
+  inputs,
+  withSystem,
+  module_args,
+  ...
+}: let
   sharedModules = [
     ../.
     ../common.nix
@@ -41,14 +41,13 @@ let
   };
 
   inherit (inputs.hm.lib) homeManagerConfiguration;
-in
-{
+in {
   imports = [
-    { _module.args = { inherit homeImports; }; }
+    {_module.args = {inherit homeImports;};}
   ];
 
   flake = {
-    homeConfigurations = withSystem "x86_64-linux" ({ pkgs, ... }: {
+    homeConfigurations = withSystem "x86_64-linux" ({pkgs, ...}: {
       "space@spacelaptop" = homeManagerConfiguration {
         modules = homeImports."space@spacelaptop" ++ module_args;
         inherit pkgs;
