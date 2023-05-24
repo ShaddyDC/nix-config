@@ -10,6 +10,7 @@
     ./dunst.nix
     ./git.nix
     ./gtk.nix
+    ./kitty.nix
     ./media.nix
     ./packages.nix
     ./qt.nix
@@ -64,5 +65,4 @@
   };
 
   programs.alacritty.enable = true;
-  programs.kitty.enable = true;
 }
