@@ -16,6 +16,8 @@
     ../programs
     ../wayland
     ../games.nix
+    ../mail
+    ../../secrets/accounts.nix
     inputs.hyprland.homeManagerModules.default
     inputs.fufexan.homeManagerModules.eww-hyprland
   ];
