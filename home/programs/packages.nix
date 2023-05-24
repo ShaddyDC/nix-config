@@ -13,6 +13,7 @@
     #util
     libqalculate
     kalker
+    inputs.highlight-extract.packages.${pkgs.system}.highlight-extract
 
     # messaging & communication
     tdesktop
