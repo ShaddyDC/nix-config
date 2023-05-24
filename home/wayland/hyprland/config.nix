@@ -37,7 +37,7 @@
       kb_layout = de
 
       force_no_accel = true
-      natural_scroll = true
+      natural_scroll = false
       follow_mouse = 1
       accel_profile = "flat"
 
