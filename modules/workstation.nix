@@ -23,7 +23,7 @@
   services.geoclue2.enable = true;
   location.provider = "geoclue2";
 
-  programs.light.enable = true;
+  hardware.brillo.enable = true;
 
   nix = {
     settings = {
