@@ -21,7 +21,7 @@ in {
     # enable scrolling in git diff
     DELTA_PAGER = "less -R";
 
-    # EDITOR = "nvim";
+    EDITOR = "nvim";
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
   };
 }

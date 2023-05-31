@@ -14,6 +14,7 @@
     libqalculate
     kalker
     inputs.highlight-extract.packages.${pkgs.system}.highlight-extract
+    inputs.agenix.packages.x86_64-linux.default
 
     # messaging & communication
     tdesktop
