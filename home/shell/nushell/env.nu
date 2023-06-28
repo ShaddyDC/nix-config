@@ -52,7 +52,5 @@ let-env NU_PLUGIN_DIRS = [
 
 let-env EDITOR = "nvim"
 
-alias lg = lazygit
-
 alias nix-home-cd = cd ~/Documents/nix-config
 alias nix-home-man = man home-configuration.nix
