@@ -16,11 +16,11 @@
     # ./mail.nix
   ];
 
-  # programs.atuin = {
-  #   enable = true;
-  #   enableBashIntegration = true;
-  #   enableNushellIntegration = true;
-  # };
+  programs.atuin = {
+    enable = true;
+    enableBashIntegration = true;
+    enableNushellIntegration = true;
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
