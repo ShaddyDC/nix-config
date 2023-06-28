@@ -107,4 +107,8 @@
       ${pkgs.comma}/bin/comma "$@"
     }
   '';
+
+  home.shellAliases = {
+    cdsk = "cd $(${pkgs.skim}/bin/sk)";
+  };
 }
