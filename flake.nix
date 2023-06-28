@@ -33,6 +33,24 @@
     deploy-rs.url = "github:serokell/deploy-rs";
 
     fufexan.url = "github:fufexan/dotfiles";
+    eww = {
+      url = "github:elkowar/eww";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+    gross = {
+      url = "github:fufexan/gross";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
+    # https://github.com/elkowar/eww/issues/817
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      #                                                         inputs.flake-utils.follows = "fu";
+    };
+
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib.url = "github:hyprwm/contrib";
 

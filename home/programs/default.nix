@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }: {
   imports = [
@@ -62,6 +63,7 @@
 
   programs.eww-hyprland = {
     enable = true;
+    package = inputs.eww.packages.${pkgs.hostPlatform.system}.eww-wayland;
   };
 
   programs.alacritty.enable = true;
