@@ -2,7 +2,13 @@
 # personal lib
 let
   inherit (inputs.nixpkgs) lib;
+
+  default = import ./theme {inherit lib;};
 in {
+  imports = [
+    {_module.args = {inherit default;};}
+  ];
+
   perSystem = {system, ...}: {
     legacyPackages = import inputs.nixpkgs {
       inherit system;

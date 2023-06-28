@@ -17,6 +17,7 @@ in {
     ./hyprland
     ./anyrun.nix
     ./swayidle.nix
+    ./swaybg.nix
     ./swaylock.nix
   ];
 
