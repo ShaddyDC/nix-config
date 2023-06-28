@@ -18,7 +18,7 @@
 
     # messaging & communication
     tdesktop
-    discord
+    # discord
     zoom-us
 
     # torrents

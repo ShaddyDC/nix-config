@@ -8,6 +8,7 @@
     ./alacritty.nix
     ./files
     ./media.nix
+    ./discocss.nix
     ./dunst.nix
     ./git.nix
     ./gtk.nix
