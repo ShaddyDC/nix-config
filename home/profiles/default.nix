@@ -31,6 +31,7 @@
       [
         ./spacelaptop
         ../mail
+        ../programs/rclone.nix
         ../../secrets/accounts.nix
       ]
       ++ sharedWorkstationModules
@@ -39,6 +40,7 @@
       [
         ./spacedesktop
         ../mail
+        ../programs/rclone.nix
         ../../secrets/accounts.nix
       ]
       ++ sharedWorkstationModules
