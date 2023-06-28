@@ -65,6 +65,8 @@
         "--exact"
       ];
     };
+
+    bash.enable = true;
   };
 
   programs.bash.bashrcExtra = ''
