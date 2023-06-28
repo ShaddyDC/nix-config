@@ -22,7 +22,8 @@
           inputs.hardware.nixosModules.common-cpu-intel
         ]
         ++ sharedModules
-        ++ workstationModules ++ (withSystemInputs system);
+        ++ workstationModules
+        ++ (withSystemInputs system);
     };
     spacelaptop = inputs.nixpkgs.lib.nixosSystem {
       inherit system;
@@ -34,7 +35,8 @@
           {home-manager.users.space.imports = homeImports."space@spacelaptop";}
         ]
         ++ sharedModules
-        ++ workstationModules ++ (withSystemInputs system);
+        ++ workstationModules
+        ++ (withSystemInputs system);
     };
     spacedesktop = inputs.nixpkgs.lib.nixosSystem {
       inherit system;
@@ -47,7 +49,8 @@
           {home-manager.users.space.imports = homeImports."space@spacedesktop";}
         ]
         ++ sharedModules
-        ++ workstationModules ++ (withSystemInputs system);
+        ++ workstationModules
+        ++ (withSystemInputs system);
     };
     mediaVps = inputs.nixpkgs.lib.nixosSystem {
       inherit system;
@@ -57,7 +60,8 @@
           ./mediaVps
           {home-manager.users.space.imports = homeImports."space@mediaVps";}
         ]
-        ++ sharedModules ++ (withSystemInputs system);
+        ++ sharedModules
+        ++ (withSystemInputs system);
     };
   });
 }

@@ -9,7 +9,7 @@
     inputs',
     self',
     ...
-    }: [
+  }: [
     ../.
     ../common.nix
     ../shell
@@ -66,7 +66,11 @@ in {
   ];
 
   flake = {
-    homeConfigurations = withSystem "x86_64-linux" ({pkgs, system, ...}: {
+    homeConfigurations = withSystem "x86_64-linux" ({
+      pkgs,
+      system,
+      ...
+    }: {
       "space@spacelaptop" = homeManagerConfiguration {
         modules = homeImports."space@spacelaptop" ++ module_args ++ (withSystemInputs system);
         inherit pkgs;

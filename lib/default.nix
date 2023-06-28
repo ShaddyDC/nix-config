@@ -1,4 +1,8 @@
-{inputs, withSystem, ...}:
+{
+  inputs,
+  withSystem,
+  ...
+}:
 # personal lib
 let
   inherit (inputs.nixpkgs) lib;
@@ -17,7 +21,8 @@ in {
             ...
           }: [{_module.args = {inherit self' inputs';};}]);
       };
-    }  ];
+    }
+  ];
 
   perSystem = {system, ...}: {
     legacyPackages = import inputs.nixpkgs {
