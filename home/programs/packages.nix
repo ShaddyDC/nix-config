@@ -9,6 +9,7 @@
     okular
     pandoc
     calibre
+    gnucash
 
     #util
     libqalculate
@@ -20,9 +21,6 @@
     tdesktop
     # discord
     zoom-us
-
-    # torrents
-    transmission-remote-gtk
 
     # misc
     libnotify
