@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 # nix tooling
@@ -9,7 +8,7 @@
     alejandra
     deadnix
     statix
-    # inputs.self.packages.${pkgs.hostPlatform.system}.repl
+    # self.packages.${pkgs.hostPlatform.system}.repl
   ];
 
   programs.direnv = {

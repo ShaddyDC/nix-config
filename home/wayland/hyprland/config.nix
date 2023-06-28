@@ -1,6 +1,6 @@
 {
   pkgs,
-  inputs,
+  inputs',
   ...
 }: {
   wayland.windowManager.hyprland.extraConfig = ''
@@ -131,7 +131,7 @@
     bind = $mod, E, exec, dolphin
     bind = $mod, V, togglefloating,
     # bind = $mod, SPACE, exec, pkill rofi || rofi -show run
-    bind = $mod, SPACE, exec, pkill anyrun || ${inputs.anyrun.packages.${pkgs.system}.anyrun}/bin/anyrun
+    bind = $mod, SPACE, exec, pkill anyrun || ${inputs'.anyrun.packages.anyrun}/bin/anyrun
     bind = $mod, P, pseudo, # dwindle
     bind = $mod, J, togglesplit, # dwindle
 

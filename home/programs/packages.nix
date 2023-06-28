@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  inputs',
   ...
 }: {
   home.packages = with pkgs; [
@@ -14,8 +15,8 @@
     #util
     libqalculate
     kalker
-    inputs.highlight-extract.packages.${pkgs.system}.highlight-extract
-    inputs.agenix.packages.x86_64-linux.default
+    inputs'.highlight-extract.packages.highlight-extract
+    inputs'.agenix.packages.default
 
     # messaging & communication
     tdesktop
@@ -28,7 +29,7 @@
     xdg-utils
     gnome.gnome-control-center
     keepassxc
-    inputs.deploy-rs.packages.${pkgs.system}.deploy-rs
+    inputs'.deploy-rs.packages.deploy-rs
 
     # productivity
     obsidian

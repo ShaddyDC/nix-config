@@ -1,16 +1,22 @@
 {
   inputs,
   withSystem,
+  withSystemInputs,
   module_args,
   ...
 }: let
-  sharedModules = [
+  sharedModules = withSystem "x86_64-linux" ({
+    inputs',
+    self',
+    ...
+    }: [
     ../.
     ../common.nix
     ../shell
     inputs.nix-index-db.hmModules.nix-index
     module_args
-  ];
+    {_module.args = {inherit inputs' self';};}
+  ]);
 
   sharedWorkstationModules = [
     ../programs
@@ -18,6 +24,7 @@
     ../games.nix
     inputs.hyprland.homeManagerModules.default
     inputs.fufexan.homeManagerModules.eww-hyprland
+    inputs.anyrun.homeManagerModules.default
   ];
 
   homeImports = {
@@ -59,17 +66,17 @@ in {
   ];
 
   flake = {
-    homeConfigurations = withSystem "x86_64-linux" ({pkgs, ...}: {
+    homeConfigurations = withSystem "x86_64-linux" ({pkgs, system, ...}: {
       "space@spacelaptop" = homeManagerConfiguration {
-        modules = homeImports."space@spacelaptop" ++ module_args;
+        modules = homeImports."space@spacelaptop" ++ module_args ++ (withSystemInputs system);
         inherit pkgs;
       };
       "space@spacedesktop" = homeManagerConfiguration {
-        modules = homeImports."space@spacedesktop" ++ module_args;
+        modules = homeImports."space@spacedesktop" ++ module_args ++ (withSystemInputs system);
         inherit pkgs;
       };
       "space@mediaVps" = homeManagerConfiguration {
-        modules = homeImports."space@mediaVps" ++ module_args;
+        modules = homeImports."space@mediaVps" ++ module_args ++ (withSystemInputs system);
         inherit pkgs;
       };
     });

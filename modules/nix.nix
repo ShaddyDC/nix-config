@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   lib,
+  self,
   ...
 }: {
   # we need git for flakes
@@ -54,5 +55,5 @@
   };
 
   # pick up pkgs from flake export
-  nixpkgs.pkgs = inputs.self.legacyPackages.${config.nixpkgs.system};
+  nixpkgs.pkgs = self.legacyPackages.${config.nixpkgs.system};
 }

@@ -74,26 +74,21 @@
       imports = [
         ./home/profiles
         ./hosts
+        ./lib
         ./modules
         ./pkgs
-        ./lib
-        {config._module.args._inputs = inputs // {inherit (inputs) self;};}
       ];
 
       perSystem = {
         config,
-        inputs',
         pkgs,
         system,
         ...
       }: {
-        imports = [
-          {
-            _module.args.pkgs = inputs.self.legacyPackages.${system};
-          }
-        ];
+        # set flake-wide pkgs to the one exported by ./lib
+        imports = [ { _module.args.pkgs = config.legacyPackages; } ];
 
-        devShells.default = inputs'.devshell.legacyPackages.mkShell {
+        devShells.default = pkgs.mkShell {
           packages = [
             pkgs.alejandra
             pkgs.git

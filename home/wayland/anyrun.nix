@@ -1,9 +1,8 @@
 {
-  inputs,
-  pkgs,
+  inputs',
   ...
 }: let
-  inherit (inputs.anyrun.packages.${pkgs.system}) anyrun;
+  inherit (inputs'.anyrun.packages) anyrun;
 in {
   home.packages = [anyrun];
 
