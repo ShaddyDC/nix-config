@@ -28,7 +28,6 @@ in {
         workstationModules = with inputs; [
           hyprland.nixosModules.default
           nix-gaming.nixosModules.default
-          ./mail.nix
           ./workstation.nix
           ./xserver.nix
         ];

@@ -230,7 +230,10 @@
 
 
     # throw sharing indicators away
-    windowrulev2 = workspace special silent, title:^(Firefox — Sharing Indicator)$
+    windowrule = float, title:^(Firefox — Sharing Indicator)$
+    windowrule = move 0 0, title:^(Firefox — Sharing Indicator)$
+    windowrule = nofocus, title:^(Firefox — Sharing Indicator)$
+    # windowrulev2 = workspace special silent, title:^(Firefox — Sharing Indicator)$
     windowrulev2 = workspace special silent, title:^(.*is sharing (your screen|a window)\.)$
 
     # make Firefox PiP window floating and sticky

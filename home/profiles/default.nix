@@ -16,22 +16,30 @@
     ../programs
     ../wayland
     ../games.nix
-    ../mail
-    ../../secrets/accounts.nix
     inputs.hyprland.homeManagerModules.default
     inputs.fufexan.homeManagerModules.eww-hyprland
   ];
 
   homeImports = {
+    "space@worklaptop" =
+      [
+        ./worklaptop
+      ]
+      ++ sharedWorkstationModules
+      ++ sharedModules;
     "space@spacelaptop" =
       [
         ./spacelaptop
+        ../mail
+        ../../secrets/accounts.nix
       ]
       ++ sharedWorkstationModules
       ++ sharedModules;
     "space@spacedesktop" =
       [
         ./spacedesktop
+        ../mail
+        ../../secrets/accounts.nix
       ]
       ++ sharedWorkstationModules
       ++ sharedModules;
