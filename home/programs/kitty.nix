@@ -17,6 +17,9 @@
 
       copy_on_select = "clipboard";
 
+      kitty_mod = "cmd";
+      "map kitty_mod+n" = "new_os_window_with_cwd";
+
 # The basic colors
 foreground              ="#CDD6F4";
 background              ="#1E1E2E";
