@@ -1,4 +1,4 @@
-{
+{ 
   config,
   pkgs,
   inputs,
@@ -51,9 +51,6 @@
     };
 
     package = pkgs.nixFlakes;
-    extraOptions = ''
-      plugin-files = ${pkgs.nix-plugins}/lib/nix/plugins
-    '';
   };
 
   # pick up pkgs from flake export
