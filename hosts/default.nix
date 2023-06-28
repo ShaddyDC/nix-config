@@ -1,18 +1,36 @@
-{ inputs
-, withSystem
-, sharedModules
-, workstationModules
-, homeImports
-, ...
+{
+  inputs,
+  withSystem,
+  sharedModules,
+  workstationModules,
+  homeImports,
+  ...
 }: {
-  flake.nixosConfigurations = withSystem "x86_64-linux" ({ system, ... }: {
+  flake.nixosConfigurations = withSystem "x86_64-linux" ({system, ...}: {
+    worklaptop = inputs.nixpkgs.lib.nixosSystem {
+      inherit system;
+
+      modules =
+        [
+          ./worklaptop
+          {home-manager.users.space.imports = homeImports."space@worklaptop";}
+
+          inputs.hardware.nixosModules.common-pc-ssd
+          inputs.hardware.nixosModules.common-pc-laptop
+
+          inputs.hardware.nixosModules.common-cpu-intel
+        ]
+        ++ sharedModules
+        ++ workstationModules;
+    };
     spacelaptop = inputs.nixpkgs.lib.nixosSystem {
       inherit system;
 
       modules =
         [
           ./spacelaptop
-          { home-manager.users.space.imports = homeImports."space@spacelaptop"; }
+          ../modules/mail.nix
+          {home-manager.users.space.imports = homeImports."space@spacelaptop";}
         ]
         ++ sharedModules
         ++ workstationModules;
@@ -23,6 +41,7 @@
       modules =
         [
           ./spacedesktop
+          ../modules/mail.nix
           inputs.hardware.nixosModules.common-pc-ssd
           {home-manager.users.space.imports = homeImports."space@spacedesktop";}
         ]
@@ -35,7 +54,7 @@
       modules =
         [
           ./mediaVps
-          { home-manager.users.space.imports = homeImports."space@mediaVps"; }
+          {home-manager.users.space.imports = homeImports."space@mediaVps";}
         ]
         ++ sharedModules;
     };
