@@ -58,6 +58,7 @@
 
   services = {
     caffeine.enable = true;
+    batsignal.enable = true;
   };
 
   programs.eww-hyprland = {
