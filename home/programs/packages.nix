@@ -21,7 +21,6 @@
     # messaging & communication
     tdesktop
     # discord
-    zoom-us
 
     # misc
     libnotify
