@@ -4,7 +4,15 @@
     config = {
       plugins = [
         inputs'.anyrun.packages.applications
-        "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/kidex"
+        "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libapplications.so"
+        "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libdictionary.so"
+        "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libkidex.so"
+        "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/librandr.so"
+        "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/librink.so"
+        "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libshell.so"
+        "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libstdin.so"
+        "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libsymbols.so"
+        "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libtranslate.so"
       ];
       width = {fraction = 0.3;};
       position = "top";
@@ -54,7 +62,8 @@
 
       row:first-child {
         margin-top: 6px;
-      }    '';
+      }
+    '';
 
     extraConfigFiles."some-plugin.ron".text = ''
       Config(
