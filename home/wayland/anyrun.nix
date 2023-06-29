@@ -65,11 +65,13 @@
       }
     '';
 
-    extraConfigFiles."some-plugin.ron".text = ''
+    extraConfigFiles."symbols.ron".text = ''
       Config(
-        // for any other plugin
-        // this file will be put in ~/.config/anyrun/some-plugin.ron
-        // refer to docs of xdg.configFile for available options
+        symbols: {
+          // "name": "text to be copied"
+          "shrug": "¯\_(ツ)_/¯",
+        },
+        max_entries: 3,
       )
     '';
   };
