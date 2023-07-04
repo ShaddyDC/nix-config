@@ -68,11 +68,11 @@
     options = ["x-systemd.automount" "noauto" "x-systemd.idle-timeout=600"];
   };
 
-  fileSystems."/mnt/berta/dev-archive" = {
-    device = "192.168.1.56:/volume1/dev-archive";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto" "x-systemd.idle-timeout=600"];
-  };
+  # fileSystems."/mnt/berta/dev-archive" = {
+  #   device = "192.168.1.56:/volume1/dev-archive";
+  #   fsType = "nfs";
+  #   options = ["x-systemd.automount" "noauto" "x-systemd.idle-timeout=600"];
+  # };
 
   fileSystems."/mnt/berta/homes" = {
     device = "192.168.1.56:/volume1/homes/@LH-RIIICO.DEV/61/ ";
