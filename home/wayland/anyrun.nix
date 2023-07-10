@@ -15,8 +15,6 @@
         "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libtranslate.so"
       ];
       width = {fraction = 0.3;};
-      position = "top";
-      verticalOffset = {absolute = 15;};
       hideIcons = false;
       ignoreExclusiveZones = false;
       layer = "overlay";
