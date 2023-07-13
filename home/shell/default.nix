@@ -5,6 +5,7 @@
 in {
   imports = [
     ./cli.nix
+    ./helix.nix
     ./nushell
     ./nix.nix
     ./starship.nix

@@ -51,6 +51,13 @@
       #                                                         inputs.flake-utils.follows = "fu";
     };
 
+    helix = {
+      url = "github:SoraTenshi/helix/new-daily-driver";
+      inputs.parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib.url = "github:hyprwm/contrib";
 
