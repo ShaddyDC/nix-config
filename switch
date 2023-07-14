@@ -3,6 +3,7 @@
 set -e
 
 sudo nixos-rebuild switch --flake '.?submodules=1'
+sudo chown -R space ~/.local/cache/nix # fix permissions
 
 # echo "Building system..."
 
