@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  store-path = pkgs.writeScriptBin "store-path" ''
+        nix --extra-experimental-features flakes eval -f "<nixpkgs>" --raw "''${1}"
+      '';
+in{
   home.packages = with pkgs; [
     # archives
     zip
@@ -23,6 +27,7 @@
 
     # nix
     comma
+    store-path
   ];
 
   programs = {
