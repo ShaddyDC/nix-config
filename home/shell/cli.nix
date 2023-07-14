@@ -80,6 +80,15 @@ in{
     }
   '';
 
+  services.pueue = {
+    enable = true;
+    settings = {
+      shared = {};
+      client = {};
+      daemon = {};
+    };
+  };
+
   home.shellAliases = {
     cdsk = "cd $(${pkgs.skim}/bin/sk)";
     p = "cd ~/repos && cd `${pkgs.skim}/bin/sk -p 'Open project?' -c ${pkgs.exa}/bin/exa`";
