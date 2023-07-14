@@ -74,7 +74,11 @@
     # nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = inputs:
+  outputs = inputs @ {
+    deploy-rs,
+    self,
+    ...
+  }:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
 
@@ -105,8 +109,21 @@
 
         formatter = pkgs.alejandra;
       };
+      flake = {
+        deploy.nodes = {
+          mediaVps = {
+            hostname = "138.201.206.23";
+            user = "root";
+            profiles.system = {
+              user = "root";
+              sshUser = "root";
+              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.mediaVps;
+            };
+          };
+        };
+        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+      };
     };
-
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"

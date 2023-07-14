@@ -1,7 +1,7 @@
 #/usr/bin/env bash
 
-nixos-rebuild switch --fast --flake ".?submodules=1#mediaVps" \
-    --target-host root@mediavps
-    # --build-host root@mediavps
+# nixos-rebuild switch --fast --flake ".?submodules=1#mediaVps" \
+#   --target-host root@mediavps
+#   --build-host root@mediavps
 
-# deploy ".?submodules=1"
+ deploy ".?submodules=1"
