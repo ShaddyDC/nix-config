@@ -61,11 +61,23 @@
           file-types = ["py"];
           language-servers = [{name = "pyright";}];
         }
+        {
+          name = "markdown";
+          file-types = ["md"];
+          language-servers = [{name = "marksman";} {name="ltex";}];
+        }
       ];
-      language-server.pyright = {
-        command = "${pkgs.nodePackages.pyright}/bin/pyright-langserver";
-        args = ["--stdio"];
-        config = {};
+      language-server = {
+        pyright = {
+          command = "${pkgs.nodePackages.pyright}/bin/pyright-langserver";
+          args = ["--stdio"];
+          config = {};
+        };
+        ltex = {
+          command = "${pkgs.ltex-ls}/bin/ltex-ls";
+          args = [];
+          configi = {};
+        };
       };
     };
   };
