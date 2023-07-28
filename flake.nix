@@ -1,5 +1,6 @@
 {
   description = "Shaddy's NixOS and Home-Manager flake";
+  # TODO Fix all follows
 
   inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs";
@@ -32,7 +33,13 @@
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
-    fufexan.url = "github:fufexan/dotfiles";
+    fufexan = {
+      url = "github:fufexan/dotfiles";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-gaming.follows = "nix-gaming";
+      inputs.nix-index-db.follows = "nix-index-db";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
     eww = {
       url = "github:elkowar/eww";
       inputs.nixpkgs.follows = "nixpkgs";
