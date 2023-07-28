@@ -1,8 +1,8 @@
 {pkgs, ...}: let
   store-path = pkgs.writeScriptBin "store-path" ''
-        nix --extra-experimental-features flakes eval -f "<nixpkgs>" --raw "''${1}"
-      '';
-in{
+    nix --extra-experimental-features flakes eval -f "<nixpkgs>" --raw "''${1}"
+  '';
+in {
   home.packages = with pkgs; [
     # archives
     zip
@@ -48,7 +48,7 @@ in{
     vim.enable = true;
     neovim = {
       enable = true;
-      defaultEditor = true;
+      # defaultEditor = true;
     };
 
     zellij = {
