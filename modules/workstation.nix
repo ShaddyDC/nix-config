@@ -1,7 +1,5 @@
 {
-  inputs,
-  lib,
-  config,
+  inputs',
   pkgs,
   ...
 }: {
@@ -43,6 +41,7 @@
   programs.hyprland = {
     enable = true;
     xwayland.hidpi = true;
+    package = inputs'.hyprland.packages.hyprland;
   };
 
   xdg.portal = {
@@ -141,6 +140,5 @@
     XDG_CONFIG_HOME = "/home/space/.config";
     XDG_DATA_HOME = "/home/space/.local/share";
     XDG_STATE_HOME = "/home/space/.local/state";
-    test_var = "OOOPSIE";
   };
 }
