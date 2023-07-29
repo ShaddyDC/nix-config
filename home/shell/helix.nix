@@ -65,7 +65,7 @@
         {
           name = "markdown";
           file-types = ["md"];
-          language-servers = [{name = "marksman";} {name="ltex";}];
+          language-servers = [{name = "marksman";} {name = "ltex";}];
         }
       ];
       language-server = {
