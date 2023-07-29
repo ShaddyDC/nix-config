@@ -25,6 +25,8 @@
 
   hardware.brillo.enable = true;
 
+  hardware.keyboard.qmk.enable = true;
+
   nix = {
     settings = {
       substituters = [
