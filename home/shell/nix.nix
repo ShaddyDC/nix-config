@@ -13,4 +13,5 @@
     nix-direnv.enable = true;
     enableBashIntegration = true;
   };
+  programs.nix-direnv.enable = true;
 }
