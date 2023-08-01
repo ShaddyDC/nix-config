@@ -39,6 +39,12 @@
       inputs.nix-gaming.follows = "nix-gaming";
       inputs.nix-index-db.follows = "nix-index-db";
       inputs.rust-overlay.follows = "rust-overlay";
+      inputs.anyrun.follows = "anyrun";
+      inputs.agenix.follows = "agenix";
+      inputs.hm.follows = "hm";
+      inputs.hyprland.follows = "hyprland";
+      inputs.hyprland-contrib.follows = "hyprland-contrib";
+      inputs.gross.follows = "gross";
     };
     eww = {
       url = "github:elkowar/eww";
