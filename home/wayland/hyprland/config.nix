@@ -235,6 +235,7 @@
     windowrule = nofocus, title:^(Firefox — Sharing Indicator)$
     # windowrulev2 = workspace special silent, title:^(Firefox — Sharing Indicator)$
     windowrulev2 = workspace special silent, title:^(.*is sharing (your screen|a window)\.)$
+    windowrule = float, title:^(KeePassXC - Browser Access Request)$
 
     # make Firefox PiP window floating and sticky
     windowrulev2 = float, title:^(Picture-in-Picture)$
