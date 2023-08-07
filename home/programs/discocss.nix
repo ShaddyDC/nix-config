@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  programs.discocss.enable = true;
+  # programs.discocss.enable = true;
 
   xdg.configFile."discocss/custom.css" = {
     source = pkgs.fetchurl {
