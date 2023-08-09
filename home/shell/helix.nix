@@ -22,6 +22,7 @@
             nodePackages.vscode-langservers-extracted
             nodePackages.typescript-language-server
             shellcheck
+            cmake-language-server
           ])
         ];
     });
