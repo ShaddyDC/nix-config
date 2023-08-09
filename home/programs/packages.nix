@@ -16,6 +16,7 @@
     kalker
     inputs'.highlight-extract.packages.highlight-extract
     inputs'.agenix.packages.default
+    bottles
 
     # messaging & communication
     tdesktop
