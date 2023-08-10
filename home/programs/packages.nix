@@ -22,7 +22,7 @@
     # messaging & communication
     tdesktop
     # discord
-    webcord-vencord
+    webcord
 
     # misc
     libnotify
