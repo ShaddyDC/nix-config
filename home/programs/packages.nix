@@ -18,6 +18,7 @@
     inputs'.agenix.packages.default
     bottles
     streamlink
+    ripdrag
 
     # messaging & communication
     tdesktop
