@@ -13,7 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
     nix-index-db = {
       url = "github:Mic92/nix-index-database";
@@ -25,13 +28,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agenix.url = "github:ryantm/agenix";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.home-manager.follows = "hm";
+    };
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hardware.url = "github:nixos/nixos-hardware";
 
-    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     fufexan = {
       url = "github:fufexan/dotfiles";
@@ -41,6 +54,9 @@
       inputs.rust-overlay.follows = "rust-overlay";
       inputs.anyrun.follows = "anyrun";
       inputs.agenix.follows = "agenix";
+      inputs.eww.follows = "eww";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.helix.follows = "helix";
       inputs.hm.follows = "hm";
       inputs.hyprland.follows = "hyprland";
       inputs.hyprland-contrib.follows = "hyprland-contrib";
@@ -71,16 +87,29 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-contrib.url = "github:hyprwm/contrib";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.hyprland-protocols.inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.xdph.inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     anyrun = {
       url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     # My tools
-    highlight-extract.url = "github:ShaddyDC/highlight-extract";
+    highlight-extract = {
+      url = "github:ShaddyDC/highlight-extract";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.parts.follows = "flake-parts";
+    };
 
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
