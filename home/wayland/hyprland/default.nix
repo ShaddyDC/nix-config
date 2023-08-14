@@ -23,9 +23,6 @@
     eww-hyprland = {
       enable = true;
     };
-    # swaylock = {
-    #   enable = true;
-    # };
   };
 
   systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];

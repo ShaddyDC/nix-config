@@ -18,7 +18,7 @@ in {
     ./anyrun.nix
     ./swayidle.nix
     ./swaybg.nix
-    ./swaylock.nix
+    ./gtklock.nix
   ];
 
   home.packages = with pkgs; [
@@ -28,7 +28,6 @@ in {
 
     # idle/lock
     swaybg
-    swaylock
 
     # utils
     ocrScript

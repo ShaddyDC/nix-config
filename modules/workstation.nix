@@ -14,7 +14,7 @@
     slim.enableKwallet = true;
 
     # allow wayland lockers to unlock the screen
-    swaylock.text = "auth include login";
+    gtklock.text = "auth include login";
   };
 
   # enable location service
