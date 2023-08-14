@@ -1,8 +1,11 @@
 {
   pkgs,
   inputs',
+  config,
   ...
-}: {
+}: let
+  scriptDir = "${config.home.homeDirectory}/.config/eww/scripts";
+  in {
   wayland.windowManager.hyprland.extraConfig = ''
     $mod = SUPER
 
@@ -198,18 +201,18 @@
 
     # volume
     bindle = , XF86AudioRaiseVolume, exec, wpctl set-volume -l "1.0" @DEFAULT_AUDIO_SINK@ 6%+
-    binde = , XF86AudioRaiseVolume, exec, /home/space/.config/eww/scripts/volume osd
+    binde = , XF86AudioRaiseVolume, exec, ${scriptDir}/volume osd
     bindle = , XF86AudioLowerVolume, exec, wpctl set-volume -l "1.0" @DEFAULT_AUDIO_SINK@ 6%-
-    binde = , XF86AudioLowerVolume, exec, /home/space/.config/eww/scripts/volume osd
+    binde = , XF86AudioLowerVolume, exec, ${scriptDir}/volume osd
     bindl = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-    bind = , XF86AudioMute, exec, /home/space/.config/eww/scripts/volume osd
+    bind = , XF86AudioMute, exec, ${scriptDir}/volume osd
     bindl = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
     # backlight
     bindle = , XF86MonBrightnessUp, exec, brillo -q -u 300000 -A 5
-    binde = , XF86MonBrightnessUp, exec, /home/space/.config/eww/scripts/brightness osd
+    binde = , XF86MonBrightnessUp, exec, ${scriptDir}/brightness osd
     bindle = , XF86MonBrightnessDown, exec, brillo -q -u 300000 -U 5
-    binde = , XF86MonBrightnessDown, exec, /home/space/.config/eww/scripts/brightness osd
+    binde = , XF86MonBrightnessDown, exec, ${scriptDir}/brightness osd
 
 
     # screenshot
