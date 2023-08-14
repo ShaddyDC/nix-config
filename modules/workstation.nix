@@ -38,9 +38,13 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    libsForQt5.qt5.qtwayland
+    qt6.qtwayland
+  ];
+
   programs.hyprland = {
     enable = true;
-    xwayland.hidpi = true;
     package = inputs'.hyprland.packages.hyprland;
   };
 
