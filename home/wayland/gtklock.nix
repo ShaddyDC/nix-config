@@ -1,9 +1,10 @@
-{pkgs, ...}: {
+{pkgs, default, ...}: {
   home.packages = with pkgs; [gtklock];
 
+  # TODO: https://github.com/jovanlanik/gtklock/wiki/Per-output-background-example
   xdg.configFile."gtklock/style.css".text = ''
     window {
-      background: rgba(0,0,0,.5);
+      background-image: url("${default.wallpaper}");
       font-family: Product Sans;
     }
 
