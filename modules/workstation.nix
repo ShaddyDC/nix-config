@@ -6,6 +6,8 @@
   # use Wayland where possible (electron)
   environment.variables.NIXOS_OZONE_WL = "1";
 
+  services.resolved.fallbackDns = [ "1.1.1.1" ];
+
   security.pam.services = {
     gdm.enableKwallet = true;
     kdm.enableKwallet = true;
