@@ -21,7 +21,6 @@
   sharedWorkstationModules = [
     ../programs
     ../wayland
-    ../games.nix
     inputs.hyprland.homeManagerModules.default
     inputs.fufexan.homeManagerModules.eww-hyprland
     inputs.anyrun.homeManagerModules.default
@@ -38,6 +37,7 @@
       [
         ./spacelaptop
         ../mail
+        ../games.nix
         ../programs/rclone.nix
         ../../secrets/accounts.nix
       ]
@@ -47,6 +47,7 @@
       [
         ./spacedesktop
         ../mail
+        ../games.nix
         ../programs/rclone.nix
         ../../secrets/accounts.nix
       ]
