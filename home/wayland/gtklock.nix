@@ -1,4 +1,8 @@
-{pkgs, default, ...}: {
+{
+  pkgs,
+  default,
+  ...
+}: {
   home.packages = with pkgs; [gtklock];
 
   # TODO: https://github.com/jovanlanik/gtklock/wiki/Per-output-background-example
