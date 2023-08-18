@@ -182,7 +182,7 @@
 
     # special workspace
     bind = $mod SHIFT, dead_circumflex, movetoworkspace, special
-    bind = $mod, dead_circumflex, togglespecialworkspace, eDP-1
+    bind = $mod, dead_circumflex, togglespecialworkspace,
 
     # Scroll through existing workspaces with mod + scroll
     bind = $mod, mouse_down, workspace, e+1
