@@ -14,6 +14,7 @@
       modules =
         [
           ./worklaptop
+          ../modules/power-switcher.nix
           {home-manager.users.space.imports = homeImports."space@worklaptop";}
 
           inputs.hardware.nixosModules.common-pc-ssd
@@ -32,6 +33,7 @@
         [
           ./spacelaptop
           ../modules/mail.nix
+          ../modules/power-switcher.nix
           {home-manager.users.space.imports = homeImports."space@spacelaptop";}
         ]
         ++ sharedModules
