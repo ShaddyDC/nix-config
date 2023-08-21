@@ -29,6 +29,7 @@ in {
           nix-gaming.nixosModules.default
           ./workstation.nix
           ./xserver.nix
+          ./greetd.nix
         ];
       };
     }
