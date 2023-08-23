@@ -5,14 +5,9 @@
   ...
 }: let
   scriptDir = "${config.home.homeDirectory}/.config/eww/scripts";
-  in {
+in {
   wayland.windowManager.hyprland.extraConfig = ''
     $mod = SUPER
-
-    # See https://wiki.hyprland.org/Configuring/Monitors/
-    monitor=eDP-1, 1920x1080@60, 0x0, 1.25
-    monitor=,preferred,auto,auto
-
 
     # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
