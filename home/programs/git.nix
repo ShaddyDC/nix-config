@@ -1,6 +1,6 @@
 {
   pkgs,
-  default,
+  config,
   ...
 }: {
   home.packages = [pkgs.gh];
@@ -40,6 +40,12 @@
 
     userName = "ShaddyDC";
     userEmail = "shaddythefirst@gmail.com";
+    signing = {
+      key = "${config.home.homeDirectory}/.ssh/id_ed25519";
+      signByDefault = true;
+    };
+
+    extraConfig.gpg.format = "ssh";
   };
 
   programs.lazygit.enable = true;
