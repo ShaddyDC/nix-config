@@ -48,7 +48,12 @@
     extraConfig.gpg.format = "ssh";
   };
 
-  programs.lazygit.enable = true;
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      git.overrideGpg = true;
+    };
+  };
   home.shellAliases = {
     lg = "lazygit";
   };
