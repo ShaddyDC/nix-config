@@ -4,16 +4,16 @@
   programs.ssh.matchBlocks = {
     "github.com" = {
       user = "git";
-      identityFile = "~/.ssh/id_rsa.pub";
+      # identityFile = "~/.ssh/id_rsa.pub";
     };
     "git.rwth-aachen.de" = {
       user = "git";
-      identityFile = "~/.ssh/id_rsa.pub";
+      # identityFile = "~/.ssh/id_rsa.pub";
     };
     "devps" = {
       user = "root";
       hostname = "88.198.105.181";
-      identityFile = "~/.ssh/id_rsa.pub";
+      # identityFile = "~/.ssh/id_rsa.pub";
     };
     # "mediaVps" = {
     #   user = "root";
