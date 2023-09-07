@@ -58,7 +58,11 @@ in {
 
     btop.enable = true;
     htop.enable = true;
-    exa.enable = true;
+    exa = {
+      enable = true;
+      package = pkgs.eza;
+      # enableAliases = true; # Doesn't seem to work with eza
+    };
 
     skim = {
       enable = true;
