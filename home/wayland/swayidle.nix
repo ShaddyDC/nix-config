@@ -3,7 +3,8 @@
     ${pkgs.pipewire}/bin/pw-cli i all | ${pkgs.ripgrep}/bin/rg running
     # only suspend if audio isn't running
     if [ $? == 1 ]; then
-      ${pkgs.systemd}/bin/systemctl suspend
+      # ${pkgs.systemd}/bin/systemctl suspend
+      ${pkgs.systemd}/bin/loginctl lock-session
     fi
   '';
 in {
