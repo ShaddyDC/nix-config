@@ -1,4 +1,4 @@
-{pkgs, ...}: let
+{pkgs, lib, ...}: let
   store-path = pkgs.writeScriptBin "store-path" ''
     nix --extra-experimental-features flakes eval -f "<nixpkgs>" --raw "''${1}"
   '';
@@ -58,10 +58,9 @@ in {
 
     btop.enable = true;
     htop.enable = true;
-    exa = {
+    eza = {
       enable = true;
-      package = pkgs.eza;
-      # enableAliases = true; # Doesn't seem to work with eza
+      enableAliases = true;
     };
 
     skim = {
@@ -69,7 +68,7 @@ in {
       enableZshIntegration = true;
       defaultCommand = "rg --files --hidden";
       changeDirWidgetOptions = [
-        "--preview 'exa --icons --git --color always -T -L 3 {} | head -200'"
+        "--preview '${lib.getExe pkgs.eza} --icons --git --color always -T -L 3 {} | head -200'"
         "--exact"
       ];
     };
@@ -80,7 +79,7 @@ in {
   programs.bash.bashrcExtra = ''
     # run programs that are not in PATH with comma
     command_not_found_handler() {
-      ${pkgs.comma}/bin/comma "$@"
+      ${lib.getExe pkgs.comma} "$@"
     }
   '';
 
@@ -94,7 +93,7 @@ in {
   };
 
   home.shellAliases = {
-    cdsk = "cd $(SKIM_DEFAULT_COMMAND='${pkgs.fd}/bin/fd --type d' ${pkgs.skim}/bin/sk)";
-    p = "cd ~/repos && cd `${pkgs.skim}/bin/sk -p 'Open project?' -c ${pkgs.exa}/bin/exa`";
+    cdsk = "cd $(SKIM_DEFAULT_COMMAND='${lib.getExe pkgs.fd} --type d' ${lib.getExe pkgs.skim})";
+    p = "cd ~/repos && cd `${lib.getExe pkgs.skim} -p 'Open project?' -c ${lib.getExe pkgs.eza}`";
   };
 }
