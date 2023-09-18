@@ -29,6 +29,7 @@
       p = "push";
       pf = "push --force-with-lease";
       pl = "pull";
+      pr = "pull --rebase --autostash";
       l = "log";
       r = "rebase";
       s = "status --short";
