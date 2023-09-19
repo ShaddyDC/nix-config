@@ -23,6 +23,7 @@ in {
 
     exec-once =  /nix/store/$(ls -la /nix/store | grep 'kwallet-pam' | grep '4096' | awk '{print $9}' | sed -n '$p')/libexec/pam_kwallet_init && ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
     exec-once = eww open bar
+    exec-once = eww open osd
 
     # Source a file (multi-file configs)
     # source = ~/.config/hypr/myColors.conf
