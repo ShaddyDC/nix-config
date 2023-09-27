@@ -1,4 +1,8 @@
-{pkgs, lib, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   store-path = pkgs.writeScriptBin "store-path" ''
     nix --extra-experimental-features flakes eval -f "<nixpkgs>" --raw "''${1}"
   '';
@@ -43,6 +47,11 @@ in {
           hash = "sha256-qMQNJGZImmjrqzy7IiEkY5IhvPAMZpq0W6skLLsng/w=";
         });
       };
+    };
+
+    yazi = {
+      enable = true;
+      enableBashIntegration = true;
     };
 
     vim.enable = true;
