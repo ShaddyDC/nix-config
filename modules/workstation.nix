@@ -55,6 +55,12 @@
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
+  qt = {
+    enable = true;
+    platformTheme = "gtk2";
+    style = "gtk2";
+  };
+
   services.clight = {
     enable = true;
     settings = {

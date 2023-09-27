@@ -15,7 +15,6 @@
     ./kitty.nix
     ./media.nix
     ./packages.nix
-    ./qt.nix
     ./ssh.nix
     ./vdirsyncer.nix
     ./vscode.nix
