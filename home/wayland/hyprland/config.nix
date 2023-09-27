@@ -102,6 +102,7 @@ in {
 
     misc {
         disable_autoreload = true
+        disable_hypr_chan = true
     }
 
     # Example windowrule v1
