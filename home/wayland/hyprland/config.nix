@@ -102,7 +102,7 @@ in {
 
     misc {
         disable_autoreload = true
-        disable_hypr_chan = true
+        force_default_wallpaper = 0
     }
 
     # Example windowrule v1

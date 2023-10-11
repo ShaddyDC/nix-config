@@ -18,6 +18,8 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    fu.url = "github:numtide/flake-utils";
+
     nix-index-db = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -61,6 +63,7 @@
       inputs.hyprland.follows = "hyprland";
       inputs.hyprland-contrib.follows = "hyprland-contrib";
       inputs.gross.follows = "gross";
+      inputs.fu.follows = "fu";
     };
     eww = {
       url = "github:elkowar/eww";
@@ -82,9 +85,9 @@
 
     helix = {
       url = "github:SoraTenshi/helix/new-daily-driver";
-      inputs.parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
+      inputs.flake-utils.follows = "fu";
     };
 
     hyprland = {

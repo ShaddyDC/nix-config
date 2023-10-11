@@ -9,12 +9,6 @@
   # we need git for flakes
   environment.systemPackages = [pkgs.git];
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
-
   nix = {
     # auto garbage collect
     gc = {
