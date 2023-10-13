@@ -112,6 +112,7 @@
       url = "github:ShaddyDC/highlight-extract";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.parts.follows = "flake-parts";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     # Shameless plug: looking for a way to nixify your themes and make
