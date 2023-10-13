@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{...}:
 # manage files in ~
 {
   # home.file.".config" = {

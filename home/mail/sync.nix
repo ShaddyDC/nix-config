@@ -1,9 +1,4 @@
-{
-  inputs,
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   programs = {
     mbsync.enable = true;
     msmtp.enable = true;

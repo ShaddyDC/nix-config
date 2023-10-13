@@ -138,7 +138,6 @@
       perSystem = {
         config,
         pkgs,
-        system,
         ...
       }: {
         # set flake-wide pkgs to the one exported by ./lib
@@ -166,7 +165,7 @@
             };
           };
         };
-        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+        checks = builtins.mapAttrs (_system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       };
     };
   nixConfig = {

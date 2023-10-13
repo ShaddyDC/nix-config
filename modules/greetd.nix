@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  default,
   ...
 }:
 # greetd display manager

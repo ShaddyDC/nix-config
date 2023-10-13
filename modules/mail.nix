@@ -1,8 +1,4 @@
-{
-  inputs,
-  config,
-  ...
-}: {
+{config, ...}: {
   age.secrets.mail-shaddy-pw = {
     file = ../secrets/mail/shaddy-mail-pw.age;
     owner = config.users.users.space.name;
