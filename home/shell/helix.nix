@@ -50,10 +50,12 @@
           tab = "⇥";
         };
       };
-      keys.normal.space.u = {
-        C-F = ":format"; # format using LSP formatter
-        # C-w = ":set whitespace.render all";
-        # C-W = ":set whitespace.render none";
+      keys.normal = {
+        C-f = ":format";
+        space.u = {
+          w = ":set whitespace.render all";
+          W = ":set whitespace.render none";
+        };
       };
     };
     languages = {
