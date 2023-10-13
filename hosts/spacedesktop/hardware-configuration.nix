@@ -22,8 +22,8 @@
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages = with pkgs; [
-    rocm-opencl-icd
-    rocm-runtime
+    rocmPackages.clr.icd
+    rocmPackages.rocm-runtime
     amdvlk
   ];
   hardware.opengl.extraPackages32 = with pkgs; [
@@ -34,7 +34,7 @@
 
   # Software like Blender may support HIP for GPU acceleration. Most software has the HIP libraries hard-coded. You can work around it on NixOS by using
   systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
   fileSystems."/" = {
