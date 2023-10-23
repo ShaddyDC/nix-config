@@ -9,7 +9,7 @@ in {
   i18n = {
     # Select internationalisation properties.
     defaultLocale = "en_GB.UTF-8";
-    supportedLocales = ["en_GB.UTF-8/UTF-8" "ja_JP.UTF-8/UTF-8" "de_DE.UTF-8/UTF-8"];
+    # supportedLocales = ["en_US.UTF-8/UTF-8" "en_GB.UTF-8/UTF-8" "ja_JP.UTF-8/UTF-8" "de_DE.UTF-8/UTF-8"];
 
     extraLocaleSettings = {
       LC_ALL = "en_GB.UTF-8";
