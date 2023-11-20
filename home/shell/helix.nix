@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs',
+  lib,
   ...
 }: {
   programs.helix = {
@@ -21,8 +22,16 @@
             nodePackages.vscode-css-languageserver-bin
             nodePackages.vscode-langservers-extracted
             nodePackages.typescript-language-server
+            nodePackages.vue-language-server
+            (
+              pkgs.writeShellScriptBin "vue-language-server" ''
+                exec ${pkgs.nodePackages.vue-language-server}/bin/vls "$@"
+              ''
+            )
+            nodePackages.yaml-language-server
             shellcheck
             cmake-language-server
+            rust-analyzer-unwrapped
           ])
         ];
     });
@@ -51,6 +60,7 @@
         };
       };
       keys.normal = {
+        space.c = ":bc";
         C-f = ":format";
         space.u = {
           w = ":set whitespace.render all";
@@ -59,18 +69,40 @@
       };
     };
     languages = {
-      language = [
-        {
-          name = "python";
-          file-types = ["py"];
-          language-servers = [{name = "pyright";}];
-        }
-        {
-          name = "markdown";
-          file-types = ["md"];
-          language-servers = [{name = "marksman";} {name = "ltex";}];
-        }
-      ];
+      language =
+        [
+          {
+            name = "bash";
+            auto-format = true;
+            formatter = {
+              command = "${pkgs.shfmt}/bin/shfmt";
+              args = ["-i" "2" "-"];
+            };
+          }
+          {
+            name = "python";
+            file-types = ["py"];
+            language-servers = [{name = "pyright";}];
+          }
+          {
+            name = "markdown";
+            file-types = ["md"];
+            language-servers = [{name = "marksman";} {name = "ltex";}];
+          }
+        ]
+        ++ (
+          let
+            prettier = lang: {
+              command = "${pkgs.nodePackages.prettier}/bin/prettier";
+              args = ["--parser" lang];
+            };
+            prettierLangs = map (e: {
+              name = e;
+              formatter = prettier e;
+            });
+            langs = ["css" "scss" "json" "html"];
+          in (prettierLangs langs)
+        );
       language-server = {
         pyright = {
           command = "${pkgs.nodePackages.pyright}/bin/pyright-langserver";
@@ -81,6 +113,29 @@
           command = "${pkgs.ltex-ls}/bin/ltex-ls";
           args = [];
           configi = {};
+        };
+        bash-language-server = {
+          command = "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server";
+          args = ["start"];
+        };
+
+        clangd = {
+          command = "${pkgs.clang-tools}/bin/clangd";
+          clangd.fallbackFlags = ["-std=c++2b"];
+        };
+
+        nil = {
+          command = lib.getExe pkgs.nil;
+          config.nil.formatting.command = ["${lib.getExe pkgs.alejandra}" "-q"];
+        };
+
+        vscode-css-language-server = {
+          command = "${pkgs.nodePackages.vscode-css-languageserver-bin}/bin/css-languageserver";
+          args = ["--stdio"];
+          config = {
+            provideFormatter = true;
+            css.validate.enable = true;
+          };
         };
       };
     };
