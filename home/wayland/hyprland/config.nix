@@ -12,7 +12,7 @@ in {
     # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
     # Execute your favorite apps at launch
-    exec-once = obsidian & firefox & discord
+    exec-once = obsidian & firefox
 
     env = GDK_SCALE,1
     exec-once xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 1
