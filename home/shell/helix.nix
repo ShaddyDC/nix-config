@@ -82,7 +82,7 @@
           {
             name = "python";
             file-types = ["py"];
-            language-servers = [{name = "pyright";}];
+            language-servers = [{name = "pyright";} {name = "ruff";}];
           }
           {
             name = "markdown";
@@ -107,6 +107,10 @@
         pyright = {
           command = "${pkgs.nodePackages.pyright}/bin/pyright-langserver";
           args = ["--stdio"];
+          config = {};
+        };
+        ruff = {
+          command = "${pkgs.python311Packages.ruff-lsp}/bin/ruff-lsp";
           config = {};
         };
         ltex = {
