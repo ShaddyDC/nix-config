@@ -64,6 +64,7 @@
       inputs.hyprland-contrib.follows = "hyprland-contrib";
       inputs.gross.follows = "gross";
       inputs.fu.follows = "fu";
+      inputs.hyprpaper.follows = "hyprpaper";
     };
     eww = {
       url = "github:elkowar/eww";
@@ -95,6 +96,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       # inputs.hyprland-protocols.inputs.nixpkgs.follows = "nixpkgs";
       # inputs.xdph.inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
