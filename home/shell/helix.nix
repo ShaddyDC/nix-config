@@ -23,6 +23,7 @@
             nodePackages.vscode-langservers-extracted
             nodePackages.typescript-language-server
             nodePackages.vue-language-server
+            nodePackages.dockerfile-language-server-nodejs
             (
               pkgs.writeShellScriptBin "vue-language-server" ''
                 exec ${pkgs.nodePackages.vue-language-server}/bin/vls "$@"
@@ -82,12 +83,22 @@
           {
             name = "python";
             file-types = ["py"];
-            language-servers = [{name = "pyright";} {name = "ruff";}];
+            language-servers = ["pyright" "ruff"];
           }
           {
             name = "markdown";
             file-types = ["md"];
-            language-servers = [{name = "marksman";} {name = "ltex";}];
+            language-servers = ["marksman" "ltex"];
+          }
+          {
+            name = "javascript";
+            auto-format = true;
+            language-servers = ["eslint" "typescript-language-server"];
+          }
+          {
+            name = "typescript";
+            auto-format = true;
+            language-servers = ["eslint" "typescript-language-server"];
           }
         ]
         ++ (
@@ -121,6 +132,14 @@
         bash-language-server = {
           command = "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server";
           args = ["start"];
+        };
+        eslint = {
+          command = "${pkgs.nodePackages.eslint}/bin/eslint";
+          args = ["--stdin"];
+        };
+        typescript-language-server = {
+          command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+          args = ["--stdio"];
         };
 
         clangd = {
