@@ -17,6 +17,7 @@
 
     # allow wayland lockers to unlock the screen
     gtklock.text = "auth include login";
+    swaylock.text = "auth include login";
   };
 
   # enable location service

@@ -18,7 +18,7 @@ in {
       }
       {
         event = "lock";
-        command = "${pkgs.gtklock}/bin/gtklock";
+        command = "${pkgs.swaylock}/bin/swaylock";
       }
     ];
     timeouts = [
