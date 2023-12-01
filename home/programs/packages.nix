@@ -22,7 +22,7 @@
 
     # messaging & communication
     tdesktop
-    # discord
+    discord
     webcord
 
     # misc
