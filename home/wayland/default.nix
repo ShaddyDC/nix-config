@@ -17,7 +17,7 @@ in {
     ./hyprland
     ./anyrun.nix
     ./swayidle.nix
-    ./swaybg.nix
+    ./hyprpaper.nix
     ./gtklock.nix
   ];
 
@@ -25,9 +25,6 @@ in {
     # screenshot
     grim
     slurp
-
-    # idle/lock
-    swaybg
 
     # utils
     ocrScript
