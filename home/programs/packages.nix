@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs',
+  self',
   ...
 }: {
   home.packages = with pkgs; [
@@ -34,7 +35,7 @@
     inputs'.deploy-rs.packages.deploy-rs
 
     # productivity
-    obsidian
+    self'.packages.obsidian_oop
     zotero
     anki
 
