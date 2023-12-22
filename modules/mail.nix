@@ -35,4 +35,8 @@
     file = ../secrets/mail/private7-pw.age;
     owner = config.users.users.space.name;
   };
+  age.secrets.vdirsyncer = {
+    file = ../secrets/vdirsyncer.config.age;
+    owner = config.users.users.space.name;
+  };
 }
