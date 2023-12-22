@@ -16,7 +16,6 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    recommendedEnvironment = true;
   };
 
   programs = {
