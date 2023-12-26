@@ -56,10 +56,10 @@ in {
       # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
       gaps_in = 5;
-      gaps_out = 15;
-      border_size = 2;
-      col.active_border = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-      col.inactive_border = "rgba(595959aa)";
+      gaps_out = 5;
+      border_size = 1;
+      "col.active_border" = "rgba(88888888)";
+      "col.inactive_border" = "rgba(00000088)";
 
       layout = "dwindle";
     };
@@ -70,7 +70,7 @@ in {
       drop_shadow = false;
       shadow_range = 4;
       shadow_render_power = 3;
-      col.shadow = "rgba(1a1a1aee)";
+      "col.shadow" = "rgba(00000055)";
     };
 
     animations = {
@@ -105,11 +105,11 @@ in {
     };
 
     misc = {
-      disuble_autoreload = true;
+      disable_autoreload = true;
       force_default_wallpaper = 0;
     };
 
-    binds =
+    bind =
       [
         "$mod, T, exec, kitty"
         "$mod, Q, killactive,"
@@ -138,11 +138,6 @@ in {
         "$mod, up, movefocus, u"
         "$mod, down, movefocus, d"
 
-        # mouse movements
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
-        "$mod ALT, mouse:272, resizewindow"
-
         # window resize
         "$mod, S, submap, resize"
 
@@ -168,6 +163,13 @@ in {
       ]
       ++ workspaces;
 
+    bindm = [
+      # mouse movements
+      "$mod, mouse:272, movewindow"
+      "$mod, mouse:273, resizewindow"
+      "$mod ALT, mouse:272, resizewindow"
+    ];
+
     bindl = [
       # media controls
       ", XF86AudioPlay, exec, playerctl play-pause"
@@ -179,12 +181,8 @@ in {
     ];
 
     bindle = [
-      ", XF86AudioRaiseVolume, exec, wpctl set-volume -l "
-      1.0
-      " @DEFAULT_AUDIO_SINK@ 6%+"
-      ", XF86AudioLowerVolume, exec, wpctl set-volume -l "
-      1.0
-      " @DEFAULT_AUDIO_SINK@ 6%-"
+      ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 6%+"
+      ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 6%-"
 
       ", XF86MonBrightnessUp, exec, brillo -q -u 300000 -A 5"
       ", XF86MonBrightnessDown, exec, brillo -q -u 300000 -U 5"

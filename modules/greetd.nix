@@ -2,8 +2,7 @@
   pkgs,
   default,
   ...
-}:
-{
+}: {
   environment.systemPackages = with pkgs; [
     # theme packages
     (catppuccin-gtk.override {
@@ -30,7 +29,6 @@
       };
     };
   };
-
 
   # # unlock GPG keyring on login
   security.pam.services.greetd.enableGnomeKeyring = true;
