@@ -46,7 +46,9 @@
       enable = true;
       profiles.shaddy = {};
       package = pkgs.firefox.override {
-        cfg = {enableTridactylNative = true;};
+        nativeMessagingHosts = [
+          pkgs.tridactyl-native
+        ];
       };
     };
 
