@@ -21,6 +21,7 @@ in {
           inputs.agenix.nixosModules.default
           ./common.nix
           ./nix.nix
+          ./vpn.nix
           module_args
         ];
 
