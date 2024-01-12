@@ -47,12 +47,8 @@
           normal = "block";
           select = "underline";
         };
-        indent-guides = {
-          render = true;
-          rainbow-option = "dim";
-        };
+        indent-guides.render = true;
         lsp.display-inlay-hints = true;
-        rainbow-brackets = true;
         statusline.center = ["position-percentage"];
         true-color = true;
         whitespace.characters = {
@@ -60,6 +56,7 @@
           tab = "⇥";
         };
       };
+      # https://theari.dev/blog/enhanced-helix-config/ TODO
       keys.normal = {
         space.c = ":bc";
         C-f = ":format";
@@ -158,6 +155,7 @@
           config = {
             provideFormatter = true;
             css.validate.enable = true;
+            scss.validate.enable = true;
           };
         };
       };

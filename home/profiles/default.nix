@@ -21,8 +21,8 @@
   sharedWorkstationModules = [
     ../programs
     ../wayland
+    ../services/eww
     inputs.hyprland.homeManagerModules.default
-    inputs.fufexan.homeManagerModules.eww-hyprland
     inputs.anyrun.homeManagerModules.default
   ];
 

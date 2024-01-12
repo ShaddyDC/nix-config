@@ -28,6 +28,7 @@
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "fu";
     };
 
     agenix = {
@@ -53,10 +54,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nix-gaming.follows = "nix-gaming";
       inputs.nix-index-db.follows = "nix-index-db";
-      inputs.rust-overlay.follows = "rust-overlay";
       inputs.anyrun.follows = "anyrun";
       inputs.agenix.follows = "agenix";
-      inputs.eww.follows = "eww";
       inputs.flake-parts.follows = "flake-parts";
       inputs.helix.follows = "helix";
       inputs.hm.follows = "hm";
@@ -85,10 +84,8 @@
     };
 
     helix = {
-      url = "github:SoraTenshi/helix/new-daily-driver";
+      url = "github:helix-editor/helix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
-      inputs.flake-utils.follows = "fu";
     };
 
     hyprland = {
