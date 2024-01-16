@@ -28,9 +28,9 @@
 
   # hardware.keyboard.qmk.enable = true;
 
+  boot.consoleLogLevel = 3;
   boot.kernelParams = [
     "quiet"
-    "loglevel=3"
     "systemd.show_status=auto"
     "rd.udev.log_level=3"
   ];
