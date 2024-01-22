@@ -67,7 +67,12 @@
       };
     };
     languages = {
-      language =
+      language = let
+        prettier = lang: {
+          command = "${pkgs.nodePackages.prettier}/bin/prettier";
+          args = ["--parser" lang];
+        };
+      in
         [
           {
             name = "bash";
@@ -91,19 +96,17 @@
             name = "javascript";
             auto-format = true;
             language-servers = ["eslint" "typescript-language-server"];
+            formatter = prettier "javascript";
           }
           {
             name = "typescript";
             auto-format = true;
             language-servers = ["eslint" "typescript-language-server"];
+            formatter = prettier "typescript";
           }
         ]
         ++ (
           let
-            prettier = lang: {
-              command = "${pkgs.nodePackages.prettier}/bin/prettier";
-              args = ["--parser" lang];
-            };
             prettierLangs = map (e: {
               name = e;
               formatter = prettier e;
