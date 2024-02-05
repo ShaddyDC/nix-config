@@ -5,8 +5,8 @@
     desktopManager.plasma5.enable = true;
 
     # Configure keymap in X11
-    layout = "de";
-    xkbVariant = "";
+    xkb.layout = "de";
+    xkb.variant = "";
 
     libinput = {
       enable = true;
