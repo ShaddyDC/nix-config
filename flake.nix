@@ -109,17 +109,11 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
-    # My tools
-    highlight-extract = {
-      url = "github:ShaddyDC/highlight-extract";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.home-manager.follows = "hm";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.parts.follows = "flake-parts";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
-
-    # Shameless plug: looking for a way to nixify your themes and make
-    # everything match nicely? Try nix-colors!
-    # nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = inputs @ {

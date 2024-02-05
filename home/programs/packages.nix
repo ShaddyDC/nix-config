@@ -15,7 +15,6 @@
     #util
     libqalculate
     kalker
-    inputs'.highlight-extract.packages.highlight-extract
     inputs'.agenix.packages.default
     bottles
     streamlink
