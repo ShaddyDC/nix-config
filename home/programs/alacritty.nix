@@ -14,8 +14,6 @@
           "nu"
         ];
       };
-      font.normal.style = "JetBrains Mono";
-      font.size = 8;
     };
   };
 }

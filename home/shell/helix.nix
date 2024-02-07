@@ -37,7 +37,7 @@
         ];
     });
     settings = {
-      theme = "catppuccin_mocha";
+      theme = lib.mkForce "catppuccin_mocha";
 
       editor = {
         color-modes = true;

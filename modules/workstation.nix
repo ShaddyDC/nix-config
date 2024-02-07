@@ -48,11 +48,6 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    libsForQt5.qt5.qtwayland
-    qt6.qtwayland
-  ];
-
   programs.hyprland = {
     enable = true;
     package = inputs'.hyprland.packages.hyprland;
@@ -73,8 +68,6 @@
 
   qt = {
     enable = true;
-    platformTheme = "gtk2";
-    style = "gtk2";
   };
 
   services.clight = {
@@ -112,6 +105,8 @@
   };
 
   hardware.opengl.enable = true;
+  hardware.opengl.driSupport = true;
+  hardware.opengl.driSupport32Bit = true;
 
   # battery info & stuff
   services.upower.enable = true;

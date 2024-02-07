@@ -58,8 +58,6 @@ in {
       gaps_in = 5;
       gaps_out = 5;
       border_size = 1;
-      "col.active_border" = "rgba(88888888)";
-      "col.inactive_border" = "rgba(00000088)";
 
       layout = "dwindle";
     };
@@ -70,7 +68,6 @@ in {
       drop_shadow = false;
       shadow_range = 4;
       shadow_render_power = 3;
-      "col.shadow" = "rgba(00000055)";
     };
 
     animations = {

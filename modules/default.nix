@@ -19,9 +19,11 @@ in {
           {home-manager.useGlobalPkgs = true;}
           inputs.hm.nixosModule
           inputs.agenix.nixosModules.default
+          inputs.stylix.nixosModules.stylix
           ./common.nix
           ./nix.nix
           ./vpn.nix
+          ./stylix.nix
           module_args
         ];
 

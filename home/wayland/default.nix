@@ -17,7 +17,6 @@ in {
     ./hyprland
     ./anyrun.nix
     ./swayidle.nix
-    ./hyprpaper.nix
     ./gtklock.nix
   ];
 
