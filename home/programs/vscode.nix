@@ -6,5 +6,10 @@
     with vscode-extensions; [
       ms-vscode.cpptools
     ];
+    userSettings = {
+      editor.formatOnSave = true;
+      C_Cpp.codeAnalysis.clangTidy.enabled = true;
+      redhat.telemetry.enabled = false;
+    };
   };
 }
