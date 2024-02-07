@@ -33,6 +33,7 @@
             shellcheck
             cmake-language-server
             rust-analyzer-unwrapped
+            taplo
           ])
         ];
     });
