@@ -104,6 +104,7 @@ in {
     misc = {
       disable_autoreload = true;
       force_default_wallpaper = 0;
+      no_direct_scanout = false;
     };
 
     bind =
@@ -157,6 +158,10 @@ in {
         # Scroll through existing workspaces with mod + scroll
         "$mod, mouse_down, workspace, e+1"
         "$mod, mouse_up, workspace, e-1"
+
+        # send focused workspace to left/right monitors
+        "$mod SHIFT ALT, bracketleft, movecurrentworkspacetomonitor, l"
+        "$mod SHIFT ALT, bracketright, movecurrentworkspacetomonitor, r"
       ]
       ++ workspaces;
 
