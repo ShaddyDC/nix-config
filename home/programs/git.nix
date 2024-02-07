@@ -46,7 +46,14 @@
       signByDefault = true;
     };
 
-    extraConfig.gpg.format = "ssh";
+    extraConfig = {
+      gpg.format = "ssh";
+      credential = {
+        # Until SSH_ASKPASS is supported
+        # https://github.com/martinvonz/jj/issues/469
+        helper = "file";
+      };
+    };
   };
 
   programs.lazygit = {
@@ -57,5 +64,15 @@
   };
   home.shellAliases = {
     lg = "lazygit";
+  };
+
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user = {
+        name = "ShaddyDC";
+        email = "shaddythefirst@gmail.com";
+      };
+    };
   };
 }
