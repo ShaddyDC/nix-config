@@ -5,6 +5,8 @@
     alejandra
     deadnix
     statix
+    manix
+    nix-du
     # self.packages.${pkgs.hostPlatform.system}.repl
   ];
 
