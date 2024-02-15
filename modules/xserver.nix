@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   services.xserver = {
     enable = true;
     # displayManager.sddm.enable = true;
@@ -18,4 +18,5 @@
       touchpad.naturalScrolling = true;
     };
   };
+  programs.chromium.plasmaBrowserIntegrationPackage = pkgs.libsForQt5.plasma-browser-integration;
 }
