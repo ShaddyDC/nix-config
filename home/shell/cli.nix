@@ -24,6 +24,11 @@ in {
     python311
     socat
     jc
+    hexyl
+    viu
+    ouch
+    mdcat
+    httpie
 
     # file managers
     joshuto
@@ -58,6 +63,10 @@ in {
       enable = true;
       enableBashIntegration = true;
     };
+
+    zoxide.enable = true;
+
+    bottom.enable = true;
 
     vim.enable = true;
     neovim = {
