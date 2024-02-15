@@ -7,6 +7,7 @@
 
   programs.git = {
     enable = true;
+    package = pkgs.gitFull;
 
     delta = {
       enable = true;
@@ -51,7 +52,7 @@
       credential = {
         # Until SSH_ASKPASS is supported
         # https://github.com/martinvonz/jj/issues/469
-        helper = "file";
+        helper = "libsecret";
       };
     };
   };
