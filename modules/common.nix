@@ -69,7 +69,7 @@ in {
 
   users.users.space = {
     isNormalUser = true;
-    shell = pkgs.bash;
+    shell = pkgs.nushell;
     extraGroups = ["input" "libvirtd" "networkmanager" "video" "wheel"];
 
     openssh.authorizedKeys.keys = [defaultKey workLaptopKey];
