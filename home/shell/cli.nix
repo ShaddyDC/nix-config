@@ -33,6 +33,7 @@ in {
     # file managers
     joshuto
     ranger
+    kondo
 
     # nix
     comma
@@ -65,6 +66,7 @@ in {
     };
 
     zoxide.enable = true;
+    broot.enable = true;
 
     bottom.enable = true;
 
