@@ -19,6 +19,8 @@
         symbol = " ";
         heuristic = true;
       };
+
+      aws.disabled = true;
     };
 
     enableNushellIntegration = true;
