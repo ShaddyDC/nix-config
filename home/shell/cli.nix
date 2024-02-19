@@ -83,7 +83,7 @@ in {
     htop.enable = true;
     eza = {
       enable = true;
-      enableAliases = true;
+      # enableAliases = true;
     };
 
     skim = {
