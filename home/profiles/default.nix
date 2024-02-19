@@ -3,6 +3,7 @@
   withSystem,
   withSystemInputs,
   module_args,
+  self,
   ...
 }: let
   sharedModules = withSystem "x86_64-linux" ({
@@ -16,6 +17,12 @@
     inputs.nix-index-db.hmModules.nix-index
     module_args
     {_module.args = {inherit inputs' self';};}
+    {
+      nixpkgs = {
+        overlays = [self.overlays.default];
+        config.allowUnfree = true;
+      };
+    }
   ]);
 
   sharedWorkstationModules = [
@@ -78,6 +85,10 @@ in {
       };
       "space@spacedesktop" = homeManagerConfiguration {
         modules = homeImports."space@spacedesktop" ++ module_args ++ (withSystemInputs system);
+        inherit pkgs;
+      };
+      "space@worklaptop" = homeManagerConfiguration {
+        modules = homeImports."space@worklaptop" ++ module_args ++ (withSystemInputs system);
         inherit pkgs;
       };
       "space@mediaVps" = homeManagerConfiguration {

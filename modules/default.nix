@@ -16,7 +16,6 @@ in {
         inherit module_args;
 
         sharedModules = [
-          {home-manager.useGlobalPkgs = true;}
           inputs.hm.nixosModule
           inputs.agenix.nixosModules.default
           inputs.stylix.nixosModules.stylix

@@ -136,10 +136,11 @@
       perSystem = {
         config,
         pkgs,
+        system,
+        inputs',
         ...
       }: {
-        # set flake-wide pkgs to the one exported by ./lib
-        imports = [{_module.args.pkgs = config.legacyPackages;}];
+        _module.args.pkgs = inputs'.nixpkgs.legacyPackages.extend self.overlays.default;
 
         devShells.default = pkgs.mkShell {
           packages = [
