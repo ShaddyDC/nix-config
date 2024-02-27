@@ -33,7 +33,7 @@
     inputs'.deploy-rs.packages.deploy-rs
 
     # productivity
-    obsidian_oop
+    obsidian
     zotero
     anki
 
