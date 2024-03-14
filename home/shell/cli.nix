@@ -34,6 +34,7 @@ in {
     joshuto
     ranger
     kondo
+    broot
 
     # nix
     comma
