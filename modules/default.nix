@@ -29,7 +29,6 @@ in {
         workstationModules = with inputs; [
           hyprland.nixosModules.default
           nix-gaming.nixosModules.pipewireLowLatency
-          nix-gaming.nixosModules.steamCompat
           ./workstation.nix
           ./xserver.nix
           ./greetd.nix
