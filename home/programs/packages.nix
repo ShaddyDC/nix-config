@@ -23,6 +23,7 @@
     tdesktop
     discord
     webcord
+    vesktop
 
     # misc
     libnotify
@@ -36,6 +37,10 @@
     obsidian
     zotero
     anki
+
+    # security
+    protonvpn-gui
+    protonvpn-cli
 
     # nix
     nil
