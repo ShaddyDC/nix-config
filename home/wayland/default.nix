@@ -16,8 +16,9 @@ in {
   imports = [
     ./hyprland
     ./anyrun.nix
-    ./swayidle.nix
-    ./gtklock.nix
+    ./hypridle.nix
+    ./hyprlock.nix
+    ./hyprpaper.nix
   ];
 
   home.packages = with pkgs; [

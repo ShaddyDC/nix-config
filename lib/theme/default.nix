@@ -5,7 +5,7 @@
 
   wallpaper = builtins.fetchurl rec {
     name = "wallpaper-${sha256}.png";
-    url = "https://images.unsplash.com/photo-1529840882932-55f06ab2c681";
-    sha256 = "1xngx610skv1vqzx1c7j2zv5cg3gld3hkcxki8jd30rssjjx98p2";
+    url = "https://pngfreepic.com/wp-content/uploads/2021/02/background-png-freepic-24.png";
+    sha256 = "0972wjwcykznxkd6i4p9d61a7b5ddqqrynrlcl36kwvgcyn49g0r";
   };
 }

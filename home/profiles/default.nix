@@ -30,6 +30,8 @@
     ../wayland
     ../services/eww
     inputs.hyprland.homeManagerModules.default
+    inputs.hyprlock.homeManagerModules.default
+    inputs.hypridle.homeManagerModules.default
     inputs.anyrun.homeManagerModules.default
   ];
 
