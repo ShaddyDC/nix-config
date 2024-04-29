@@ -75,7 +75,7 @@
 
   programs.eww-hyprland = {
     enable = true;
-    package = inputs.eww.packages.${pkgs.hostPlatform.system}.eww-wayland;
+    package = inputs.eww.packages.${pkgs.hostPlatform.system}.eww;
   };
 
   programs.alacritty.enable = true;

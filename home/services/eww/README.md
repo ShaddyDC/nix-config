@@ -41,7 +41,7 @@ module:
     enable = true;
 
     # default package
-    package = pkgs.eww-wayland;
+    package = pkgs.eww;
 
     # if you want to change colors
     colors = builtins.readFile ./latte.scss;

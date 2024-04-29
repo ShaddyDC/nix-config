@@ -57,8 +57,8 @@ in {
 
     package = lib.mkOption {
       type = with lib.types; nullOr package;
-      default = pkgs.eww-wayland;
-      defaultText = lib.literalExpression "pkgs.eww-wayland";
+      default = pkgs.eww;
+      defaultText = lib.literalExpression "pkgs.eww";
       description = "Eww package to use.";
     };
 
