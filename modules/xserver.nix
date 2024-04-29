@@ -7,15 +7,14 @@
     # Configure keymap in X11
     xkb.layout = "de";
     xkb.variant = "";
-
-    libinput = {
-      enable = true;
-      # disable mouse acceleration
-      mouse.accelProfile = "flat";
-      mouse.accelSpeed = "0";
-      mouse.middleEmulation = false;
-      # touchpad settings
-      touchpad.naturalScrolling = true;
-    };
+  };
+  libinput = {
+    enable = true;
+    # disable mouse acceleration
+    mouse.accelProfile = "flat";
+    mouse.accelSpeed = "0";
+    mouse.middleEmulation = false;
+    # touchpad settings
+    touchpad.naturalScrolling = true;
   };
 }
