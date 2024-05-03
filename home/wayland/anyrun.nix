@@ -7,7 +7,7 @@
         "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libapplications.so"
         "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libdictionary.so"
         "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libkidex.so"
-        "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/librandr.so"
+        # "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/librandr.so"
         "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/librink.so"
         "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libshell.so"
         "${inputs'.anyrun.packages.anyrun-with-all-plugins}/lib/libstdin.so"

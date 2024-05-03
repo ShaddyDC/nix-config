@@ -8,7 +8,7 @@
     xkb.layout = "de";
     xkb.variant = "";
   };
-  libinput = {
+  services.libinput = {
     enable = true;
     # disable mouse acceleration
     mouse.accelProfile = "flat";
