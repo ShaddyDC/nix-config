@@ -61,8 +61,6 @@
       inputs.hm.follows = "hm";
       inputs.hyprland.follows = "hyprland";
       inputs.hyprland-contrib.follows = "hyprland-contrib";
-      inputs.gross.follows = "gross";
-      inputs.fu.follows = "fu";
       inputs.hyprpaper.follows = "hyprpaper";
       inputs.hypridle.follows = "hypridle";
       inputs.hyprlock.follows = "hyprlock";
@@ -91,7 +89,7 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
       # inputs.hyprland-protocols.inputs.nixpkgs.follows = "nixpkgs";
       # inputs.xdph.inputs.nixpkgs.follows = "nixpkgs";
