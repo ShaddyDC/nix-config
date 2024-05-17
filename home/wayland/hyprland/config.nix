@@ -2,6 +2,7 @@
   pkgs,
   inputs',
   lib,
+  config,
   ...
 }: let
   monocle = "dwindle:no_gaps_when_only";
@@ -114,7 +115,7 @@ in {
         "$mod SHIFT, E, exit"
         "ALT, F4, killactive"
         "$mod, Escape, exec, wlogout -p layer-shell"
-        "$mod, L, exec, loginctl lock-session"
+        "$mod, L, exec, ${lib.getExe config.programs.hyprlock.package}"
         "$mod, O, exec, wl-ocr"
         "$mod, F, fullscreen,"
         "$mod, E, exec, dolphin"
