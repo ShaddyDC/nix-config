@@ -22,7 +22,7 @@
             nodePackages.vscode-css-languageserver-bin
             nodePackages.vscode-langservers-extracted
             nodePackages.typescript-language-server
-            nodePackages.vue-language-server
+            nodePackages.volar
             nodePackages.dockerfile-language-server-nodejs
             (
               pkgs.writeShellScriptBin "vue-language-server" ''
