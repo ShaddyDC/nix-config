@@ -1,21 +1,17 @@
 {
   self,
   inputs,
-  lib,
   ...
 }: {
   systems = ["x86_64-linux"];
 
-  flake.overlays.default = (
-    inputs.nixpkgs.lib.composeManyExtensions [
-      (
-        _inputs: prev: {
-        }
-      )
-    ]
-  );
-
-  perSystem = {pkgs, ...}: {
-    packages = self.overlays.default inputs pkgs;
+  perSystem = {
+    pkgs,
+    inputs',
+    ...
+  }: {
+    packages = {
+      berkeley-mono = pkgs.callPackage ./berkeley-mono.nix {};
+    };
   };
 }

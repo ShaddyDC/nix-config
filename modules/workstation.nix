@@ -144,6 +144,7 @@
       noto-fonts-cjk
       noto-fonts-emoji
       roboto
+      self'.packages.berkeley-mono
 
       # nerdfonts
       (nerdfonts.override {fonts = ["3270" "FiraCode" "JetBrainsMono"];})
@@ -156,13 +157,13 @@
     # the reason there's Noto Color Emoji everywhere is to override DejaVu's
     # B&W emojis that would sometimes show instead of some Color emojis
     fontconfig.defaultFonts = let
-      addAll = builtins.mapAttrs (k: v: ["Symbols Nerd Font"] ++ v ++ ["Noto Color Emoji"]);
+      addAll = builtins.mapAttrs (k: v: ["Symbols Nerd Font"] ++ v  );
     in
       addAll {
         serif = ["Noto Serif"];
         sansSerif = ["Inter"];
-        monospace = ["JetBrains Mono"];
-        emoji = [];
+        monospace = ["Berkeley Mono"];
+        emoji = ["Noto Color Emoji"];
       };
   };
   environment.sessionVariables = {

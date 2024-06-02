@@ -148,8 +148,6 @@
         inputs',
         ...
       }: {
-        _module.args.pkgs = inputs'.nixpkgs.legacyPackages.extend self.overlays.default;
-
         devShells.default = pkgs.mkShell {
           packages = [
             pkgs.alejandra

@@ -3,7 +3,6 @@
   withSystem,
   withSystemInputs,
   module_args,
-  self,
   ...
 }: let
   sharedModules = withSystem "x86_64-linux" ({
@@ -19,7 +18,6 @@
     {_module.args = {inherit inputs' self';};}
     {
       nixpkgs = {
-        overlays = [self.overlays.default];
         config.allowUnfree = true;
       };
     }

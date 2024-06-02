@@ -1,15 +1,14 @@
 {
   default,
   pkgs,
+  self',
   ...
 }: {
   stylix.image = default.wallpaper;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
   stylix.cursor.package = pkgs.bibata-cursors;
   stylix.cursor.name = "Bibata-Modern-Classic";
-  stylix.fonts = let
-    nerdfonts = pkgs.nerdfonts.override {fonts = ["3270" "FiraCode" "JetBrainsMono"];};
-  in {
+  stylix.fonts = {
     serif = {
       package = pkgs.inter;
       name = "Inter Serif";
@@ -21,8 +20,8 @@
     };
 
     monospace = {
-      package = nerdfonts;
-      name = "3270 Sans Mono";
+      package = self'.packages.berkeley-mono;
+      name = "Berkeley Mono";
     };
 
     emoji = {
