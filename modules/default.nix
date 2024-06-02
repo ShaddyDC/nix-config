@@ -24,6 +24,7 @@ in {
           ./vpn.nix
           ./stylix.nix
           module_args
+          {home-manager.backupFileExtension = "backup";}
         ];
 
         workstationModules = with inputs; [
