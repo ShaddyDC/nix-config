@@ -63,6 +63,11 @@
         # ./mediaVps
       ]
       ++ sharedModules;
+    "space@nasps" =
+      [
+        # ./nasps
+      ]
+      ++ sharedModules;
   };
 
   inherit (inputs.hm.lib) homeManagerConfiguration;
@@ -91,6 +96,10 @@ in {
       };
       "space@mediaVps" = homeManagerConfiguration {
         modules = homeImports."space@mediaVps" ++ module_args ++ (withSystemInputs system);
+        inherit pkgs;
+      };
+      "space@nasps" = homeManagerConfiguration {
+        modules = homeImports."space@nasps" ++ module_args ++ (withSystemInputs system);
         inherit pkgs;
       };
     });

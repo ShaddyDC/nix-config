@@ -65,5 +65,16 @@
         ++ sharedModules
         ++ (withSystemInputs system);
     };
+    nasps = inputs.nixpkgs.lib.nixosSystem {
+      inherit system;
+
+      modules =
+        [
+          ./mediaVps/nasps.nix
+          {home-manager.users.space.imports = homeImports."space@nasps";}
+        ]
+        ++ sharedModules
+        ++ (withSystemInputs system);
+    };
   });
 }
