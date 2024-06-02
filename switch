@@ -2,7 +2,19 @@
 
 set -e
 
-sudo nixos-rebuild switch --flake '.?submodules=1'
+# Input handling and validation
+ACTION=${1:-build}
+FLAKE_OUTPUT='.?submodules=1'
+
+if ! [[ "$ACTION" =~ ^(build|test|switch)$ ]]; then
+  echo "Invalid action: $ACTION"
+  echo "Usage: $0 {build|test|switch}"
+  exit 1
+fi
+
+# Execution logic separated from input handling
+echo "${ACTION^}ing the current configuration..."
+sudo nixos-rebuild "$ACTION" --flake "$FLAKE_OUTPUT"
 sudo chown -R space ~/.local/cache/nix # fix permissions
 
 # echo "Building system..."
