@@ -1,6 +1,7 @@
 {
   inputs',
   pkgs,
+  self',
   ...
 }: {
   # use Wayland where possible (electron)
