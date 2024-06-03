@@ -24,11 +24,6 @@
             nodePackages.typescript-language-server
             nodePackages.volar
             nodePackages.dockerfile-language-server-nodejs
-            (
-              pkgs.writeShellScriptBin "vue-language-server" ''
-                exec ${pkgs.nodePackages.vue-language-server}/bin/vls "$@"
-              ''
-            )
             nodePackages.yaml-language-server
             shellcheck
             cmake-language-server
@@ -105,6 +100,12 @@
             language-servers = ["eslint" "typescript-language-server"];
             formatter = prettier "typescript";
           }
+          {
+            name = "vue";
+            auto-format = true;
+            language-servers = ["eslint" "vue-language-server"];
+            formatter = prettier "vue";
+          }
         ]
         ++ (
           let
@@ -140,6 +141,10 @@
         };
         typescript-language-server = {
           command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+          args = ["--stdio"];
+        };
+        vue-language-server = {
+          command = "${pkgs.nodePackages_latest.volar}/bin/vue-language-server";
           args = ["--stdio"];
         };
 
