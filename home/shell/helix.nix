@@ -18,7 +18,7 @@
             clang-tools
             marksman
             nil
-            nodePackages.bash-language-server
+            bash-language-server
             nodePackages.vscode-css-languageserver-bin
             nodePackages.vscode-langservers-extracted
             nodePackages.typescript-language-server
@@ -65,7 +65,7 @@
     languages = {
       language = let
         prettier = lang: {
-          command = "${pkgs.nodePackages.prettier}/bin/prettier";
+          command = lib.getExe pkgs.nodePackages.prettier;
           args = ["--parser" lang];
         };
       in
@@ -74,7 +74,7 @@
             name = "bash";
             auto-format = true;
             formatter = {
-              command = "${pkgs.shfmt}/bin/shfmt";
+              command = lib.getExe pkgs.shfmt;
               args = ["-i" "2" "-"];
             };
           }
@@ -118,33 +118,33 @@
         );
       language-server = {
         pyright = {
-          command = "${pkgs.nodePackages.pyright}/bin/pyright-langserver";
+          command = "${pkgs.pyright}/bin/pyright-langserver";
           args = ["--stdio"];
           config = {};
         };
         ruff = {
-          command = "${pkgs.python311Packages.ruff-lsp}/bin/ruff-lsp";
+          command = lib.getExe pkgs.python311Packages.ruff-lsp;
           config = {};
         };
         ltex = {
-          command = "${pkgs.ltex-ls}/bin/ltex-ls";
+          command = lib.getExe pkgs.ltex-ls;
           args = [];
           configi = {};
         };
         bash-language-server = {
-          command = "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server";
+          command = lib.getExe pkgs.bash-language-server;
           args = ["start"];
         };
         eslint = {
-          command = "${pkgs.nodePackages.eslint}/bin/eslint";
+          command = lib.getExe pkgs.nodePackages.eslint;
           args = ["--stdin"];
         };
         typescript-language-server = {
-          command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+          command = lib.getExe pkgs.nodePackages.typescript-language-server;
           args = ["--stdio"];
         };
         vue-language-server = {
-          command = "${pkgs.nodePackages_latest.volar}/bin/vue-language-server";
+          command = lib.getExe pkgs.nodePackages_latest.volar;
           args = ["--stdio"];
         };
 
@@ -159,7 +159,7 @@
         };
 
         vscode-css-language-server = {
-          command = "${pkgs.nodePackages.vscode-css-languageserver-bin}/bin/css-languageserver";
+          command = lib.getExe pkgs.nodePackages.vscode-css-languageserver-bin;
           args = ["--stdio"];
           config = {
             provideFormatter = true;
