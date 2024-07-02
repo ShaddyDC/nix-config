@@ -22,7 +22,7 @@
             nodePackages.vscode-css-languageserver-bin
             nodePackages.vscode-langservers-extracted
             nodePackages.typescript-language-server
-            nodePackages.volar
+            vue-language-server
             nodePackages.dockerfile-language-server-nodejs
             nodePackages.yaml-language-server
             shellcheck
@@ -144,7 +144,7 @@
           args = ["--stdio"];
         };
         vue-language-server = {
-          command = lib.getExe pkgs.nodePackages_latest.volar;
+          command = lib.getExe pkgs.nodePackages_latest.vue-language-server;
           args = ["--stdio"];
         };
 
