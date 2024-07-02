@@ -47,6 +47,8 @@ in {
   virtualisation.podman.enable = true;
 
   services = {
+    fail2ban.enable = true;
+
     openssh = {
       enable = true;
     };
@@ -66,7 +68,6 @@ in {
   #   targets.network-online.wantedBy = pkgs.lib.mkForce []; # Normally ["multi-user.target"]
   #   services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
   # };
-
 
   # don't ask for password for wheel group
   security.sudo.wheelNeedsPassword = false;
