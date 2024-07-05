@@ -1,9 +1,4 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -28,6 +23,11 @@
   networking.hostName = "worklaptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  hardware.ipu6 = {
+    # enable = true;
+    platform = "ipu6ep";
+  };
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -48,7 +48,7 @@
   hardware.pulseaudio.support32Bit = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
-  hardware.firmware = with pkgs; [pkgs.sof-firmware];
+  hardware.firmware = [pkgs.sof-firmware];
 
   boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_latest;
 
