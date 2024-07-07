@@ -3,6 +3,7 @@
   # homeserverKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMF3eBu9/qGpIYQCDaE9dv1YHsus+3dJlanQFjNNQwq0 userme@dockerhost";
   workLaptopKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEAV3cjJeQmfvad7Cyh9h8UoSGu98z2D6Cv5M9X65nc space@nixos";
   termiusKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGP3QhWoHYdByhRE/vDYP0Xv7KX4uGdvtnwS09ymnsVF";
+  frameworkKey = " ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIESUb8bTFKNUebogL10sjPmmpIa2vubrtnPfuiwvmh0s space@nixos";
 in {
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -77,7 +78,7 @@ in {
     shell = pkgs.nushell;
     extraGroups = ["input" "libvirtd" "networkmanager" "video" "wheel"];
 
-    openssh.authorizedKeys.keys = [defaultKey workLaptopKey termiusKey];
+    openssh.authorizedKeys.keys = [defaultKey workLaptopKey termiusKey frameworkKey];
   };
 
   users.users.root.openssh.authorizedKeys.keys = [defaultKey workLaptopKey];
