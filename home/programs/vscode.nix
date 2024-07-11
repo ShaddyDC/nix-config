@@ -10,6 +10,7 @@
       editor.formatOnSave = true;
       C_Cpp.codeAnalysis.clangTidy.enabled = true;
       redhat.telemetry.enabled = false;
+      "[typescript]".editor.defaultFormatter = "esbenp.prettier-vscode";
     };
   };
 }
