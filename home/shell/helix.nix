@@ -19,7 +19,7 @@
             marksman
             nil
             bash-language-server
-            nodePackages.vscode-css-languageserver-bin
+            vscode-langservers-extracted
             nodePackages.vscode-langservers-extracted
             nodePackages.typescript-language-server
             vue-language-server
@@ -123,7 +123,7 @@
           config = {};
         };
         ruff = {
-          command = lib.getExe pkgs.python311Packages.ruff-lsp;
+          command = lib.getExe pkgs.ruff-lsp;
           config = {};
         };
         ltex = {
@@ -159,7 +159,7 @@
         };
 
         vscode-css-language-server = {
-          command = lib.getExe pkgs.nodePackages.vscode-css-languageserver-bin;
+          command = lib.getExe pkgs.nodePackages.vscode-langservers-extracted ;
           args = ["--stdio"];
           config = {
             provideFormatter = true;
