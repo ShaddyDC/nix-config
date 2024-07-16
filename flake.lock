@@ -1586,7 +1586,8 @@
         "nixpkgs": "nixpkgs_6",
         "nixpkgs-stable": "nixpkgs-stable_3",
         "rust-overlay": "rust-overlay_4",
-        "stylix": "stylix"
+        "stylix": "stylix",
+        "zathura-style": "zathura-style"
       }
     },
     "rust-overlay": {
@@ -2037,6 +2038,22 @@
       "original": {
         "owner": "sxyazi",
         "repo": "yazi",
+        "type": "github"
+      }
+    },
+    "zathura-style": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712249512,
+        "narHash": "sha256-/vD/hOi6KcaGyAp6Az7jL5/tQSGRzIrf0oHjAJf4QbI=",
+        "owner": "catppuccin",
+        "repo": "zathura",
+        "rev": "0adc53028d81bf047461bc61c43a484d11b15220",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "zathura",
         "type": "github"
       }
     }

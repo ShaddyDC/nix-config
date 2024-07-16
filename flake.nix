@@ -122,6 +122,11 @@
       inputs.home-manager.follows = "hm";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    zathura-style = {
+      url = "github:catppuccin/zathura";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {
