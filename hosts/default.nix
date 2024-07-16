@@ -26,15 +26,15 @@
         ++ workstationModules
         ++ (withSystemInputs system);
     };
-    spacelaptop = inputs.nixpkgs.lib.nixosSystem {
+    framework = inputs.nixpkgs.lib.nixosSystem {
       inherit system;
 
       modules =
         [
-          ./spacelaptop
+          ./framework
           ../modules/mail.nix
           ../modules/power-switcher.nix
-          {home-manager.users.space.imports = homeImports."space@spacelaptop";}
+          {home-manager.users.space.imports = homeImports."space@framework";}
         ]
         ++ sharedModules
         ++ workstationModules

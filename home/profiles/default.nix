@@ -48,6 +48,16 @@
       ]
       ++ sharedWorkstationModules
       ++ sharedModules;
+    "space@framework" =
+      [
+        ./framework
+        ../mail
+        ../games.nix
+        ../programs/rclone.nix
+        ../../secrets/accounts.nix
+      ]
+      ++ sharedWorkstationModules
+      ++ sharedModules;
     "space@spacedesktop" =
       [
         ./spacedesktop
@@ -84,6 +94,10 @@ in {
     }: {
       "space@spacelaptop" = homeManagerConfiguration {
         modules = homeImports."space@spacelaptop" ++ module_args ++ (withSystemInputs system);
+        inherit pkgs;
+      };
+      "space@framework" = homeManagerConfiguration {
+        modules = homeImports."space@framework" ++ module_args ++ (withSystemInputs system);
         inherit pkgs;
       };
       "space@spacedesktop" = homeManagerConfiguration {
