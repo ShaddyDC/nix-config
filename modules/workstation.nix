@@ -114,6 +114,15 @@
   services.dbus.packages = [pkgs.gcr];
   services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
 
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
+    args = [
+      "--rt"
+      "--expose-wayland"
+    ];
+  };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
