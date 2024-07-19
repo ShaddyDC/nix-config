@@ -29,6 +29,10 @@ in {
     ouch
     mdcat
     httpie
+    trashy
+    procs
+    doggo
+    curlie
 
     # file managers
     joshuto
