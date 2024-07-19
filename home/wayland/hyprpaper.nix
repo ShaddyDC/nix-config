@@ -1,23 +1,15 @@
 {
-  pkgs,
-  lib,
+  inputs',
   default,
   ...
 }: {
-  xdg.configFile."hypr/hyprpaper.conf".text = ''
-    preload = ${default.wallpaper}
-    wallpaper = , ${default.wallpaper}
-  '';
+  services.hyprpaper = {
+    enable = true;
+    package = inputs'.hyprpaper.packages.default;
 
-  systemd.user.services.hyprpaper = {
-    Unit = {
-      Description = "Hyprland wallpaper daemon";
-      PartOf = ["graphical-session.target"];
+    settings = {
+      preload = ["${default.wallpaper}"];
+      wallpaper = [", ${default.wallpaper}"];
     };
-    Service = {
-      ExecStart = "${lib.getExe pkgs.hyprpaper}";
-      Restart = "on-failure";
-    };
-    Install.WantedBy = ["graphical-session.target"];
   };
 }
