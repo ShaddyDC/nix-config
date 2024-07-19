@@ -103,7 +103,7 @@
           {
             name = "vue";
             auto-format = true;
-            language-servers = ["eslint" "vue-language-server"];
+            language-servers = ["vue-language-server" "eslint"];
             formatter = prettier "vue";
           }
         ]
@@ -144,7 +144,7 @@
           args = ["--stdio"];
         };
         vue-language-server = {
-          command = lib.getExe pkgs.nodePackages_latest.vue-language-server;
+          command = lib.getExe pkgs.vue-language-server;
           args = ["--stdio"];
         };
 
@@ -159,7 +159,7 @@
         };
 
         vscode-css-language-server = {
-          command = lib.getExe pkgs.nodePackages.vscode-langservers-extracted ;
+          command = "${pkgs.nodePackages.vscode-langservers-extracted}/bin/vscode-css-languageserver";
           args = ["--stdio"];
           config = {
             provideFormatter = true;
