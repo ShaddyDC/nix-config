@@ -107,6 +107,10 @@ in {
       no_direct_scanout = false;
     };
 
+    monitor = [
+      "desc:Hisense Electric Co. Ltd. HISENSE 0x676C626C,preferred,auto,2.5"
+    ];
+
     bind =
       [
         "$mod, T, exec, kitty"
