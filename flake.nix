@@ -49,22 +49,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    fufexan = {
-      url = "github:fufexan/dotfiles";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nix-gaming.follows = "nix-gaming";
-      inputs.nix-index-db.follows = "nix-index-db";
-      inputs.anyrun.follows = "anyrun";
-      inputs.agenix.follows = "agenix";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.helix.follows = "helix";
-      inputs.hm.follows = "hm";
-      inputs.hyprland.follows = "hyprland";
-      inputs.hyprland-contrib.follows = "hyprland-contrib";
-      inputs.hyprpaper.follows = "hyprpaper";
-      inputs.hypridle.follows = "hypridle";
-      inputs.hyprlock.follows = "hyprlock";
-    };
     eww = {
       url = "github:elkowar/eww";
       inputs.nixpkgs.follows = "nixpkgs";
