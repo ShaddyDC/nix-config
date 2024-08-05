@@ -23,7 +23,7 @@
     yt-dlp
 
     # util
-    ffmpeg_5
+    ffmpeg
   ];
 
   programs = {
