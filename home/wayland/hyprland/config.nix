@@ -104,8 +104,8 @@ in {
     misc = {
       disable_autoreload = true;
       force_default_wallpaper = 0;
-      no_direct_scanout = false;
     };
+    render.direct_scanout = true;
 
     monitor = [
       "desc:Hisense Electric Co. Ltd. HISENSE 0x676C626C,preferred,auto,2.5"

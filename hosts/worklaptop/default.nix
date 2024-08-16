@@ -43,7 +43,7 @@
 
   services.hardware.bolt.enable = true;
   services.colord.enable = true;
-  services.fprintd.enable = true;
+  # services.fprintd.enable = true;
 
   hardware.pulseaudio.support32Bit = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
