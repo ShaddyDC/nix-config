@@ -164,8 +164,8 @@ in {
         "$mod, mouse_up, workspace, e-1"
 
         # send focused workspace to left/right monitors
-        "$mod SHIFT ALT, bracketleft, movecurrentworkspacetomonitor, l"
-        "$mod SHIFT ALT, bracketright, movecurrentworkspacetomonitor, r"
+        "$mod SHIFT ALT, left, movecurrentworkspacetomonitor, l"
+        "$mod SHIFT ALT, right, movecurrentworkspacetomonitor, r"
       ]
       ++ workspaces;
 
