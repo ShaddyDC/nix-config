@@ -21,12 +21,6 @@
         path = default.wallpaper;
         fit = "Cover";
       };
-      GTK = {
-        cursor_theme_name = "Bibata-Modern-Classic";
-        font_name = "Lexend 12";
-        icon_theme_name = "Papirus-Dark";
-        theme_name = "Catppuccin-Mocha-Compact-Mauve-dark";
-      };
     };
   };
 
