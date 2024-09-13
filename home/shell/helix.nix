@@ -85,8 +85,12 @@
           }
           {
             name = "markdown";
+            auto-format = true;
             file-types = ["md"];
             language-servers = ["marksman" "ltex"];
+            formatter = {
+              command = lib.getExe pkgs.mdformat;
+            };
           }
           {
             name = "javascript";
@@ -106,6 +110,17 @@
             language-servers = ["vue-language-server" "eslint"];
             formatter = prettier "vue";
           }
+          {
+            name = "yaml";
+            auto-format = true;
+            formatter = {
+              command = lib.getExe pkgs.yamlfmt;
+              args = [
+                "-in"
+                "-no_global_conf"
+              ];
+            };
+          }
         ]
         ++ (
           let
@@ -120,7 +135,12 @@
         pyright = {
           command = "${pkgs.pyright}/bin/pyright-langserver";
           args = ["--stdio"];
-          config = {};
+          config = {
+            reportMissingTypeStubs = false;
+            analysis = {
+              autoImportCompletions = true;
+            };
+          };
         };
         ruff = {
           command = lib.getExe pkgs.ruff-lsp;
