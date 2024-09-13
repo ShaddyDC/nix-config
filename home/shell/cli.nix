@@ -33,6 +33,7 @@ in {
     procs
     doggo
     curlie
+    lazyjj
 
     # file managers
     joshuto
