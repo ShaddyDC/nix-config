@@ -131,6 +131,11 @@
     ];
   };
 
+  programs.localsend = {
+    enable = true;
+    openFirewall = false;
+  };
+
   # age.secrets.vdirsyncer-config = {
   #   file = ../secrets/vdirsyncer.config.age;
   #   owner = config.users.users.space.name;
@@ -164,7 +169,7 @@
     # the reason there's Noto Color Emoji everywhere is to override DejaVu's
     # B&W emojis that would sometimes show instead of some Color emojis
     fontconfig.defaultFonts = let
-      addAll = builtins.mapAttrs (k: v: ["Symbols Nerd Font"] ++ v  );
+      addAll = builtins.mapAttrs (k: v: ["Symbols Nerd Font"] ++ v);
     in
       addAll {
         serif = ["Noto Serif"];
