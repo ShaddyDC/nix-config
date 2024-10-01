@@ -6,37 +6,30 @@
 }: {
   programs.helix = {
     enable = true;
-    package = inputs'.helix.packages.default.overrideAttrs (self: {
-      makeWrapperArgs = with pkgs;
-        self.makeWrapperArgs
-        or []
-        ++ [
-          "--suffix"
-          "PATH"
-          ":"
-          (lib.makeBinPath [
-            clang-tools
-            marksman
-            nil
-            bash-language-server
-            vscode-langservers-extracted
-            nodePackages.vscode-langservers-extracted
-            nodePackages.typescript-language-server
-            vue-language-server
-            nodePackages.dockerfile-language-server-nodejs
-            nodePackages.yaml-language-server
-            shellcheck
-            cmake-language-server
-            rust-analyzer-unwrapped
-            taplo
-          ])
-        ];
-    });
+    package = inputs'.helix.packages.default;
+    extraPackages = with pkgs; [
+      clang-tools
+      marksman
+      nil
+      bash-language-server
+      vscode-langservers-extracted
+      nodePackages.vscode-langservers-extracted
+      nodePackages.typescript-language-server
+      vue-language-server
+      nodePackages.dockerfile-language-server-nodejs
+      nodePackages.yaml-language-server
+      shellcheck
+      cmake-language-server
+      rust-analyzer-unwrapped
+      taplo
+    ];
     settings = {
       theme = lib.mkForce "catppuccin_mocha";
 
       editor = {
         color-modes = true;
+        completion-trigger-len = 1;
+        completion-replace = true;
         cursorline = true;
         cursor-shape = {
           insert = "bar";
@@ -81,16 +74,13 @@
           {
             name = "python";
             file-types = ["py"];
-            language-servers = ["pyright" "ruff"];
+            language-servers = ["basedpyright" "ruff"];
           }
           {
             name = "markdown";
             auto-format = true;
             file-types = ["md"];
-            language-servers = ["marksman" "ltex"];
-            formatter = {
-              command = lib.getExe pkgs.mdformat;
-            };
+            language-servers = ["dprint" "marksman" "ltex"];
           }
           {
             name = "javascript";
@@ -132,16 +122,7 @@
           in (prettierLangs langs)
         );
       language-server = {
-        pyright = {
-          command = "${pkgs.pyright}/bin/pyright-langserver";
-          args = ["--stdio"];
-          config = {
-            reportMissingTypeStubs = false;
-            analysis = {
-              autoImportCompletions = true;
-            };
-          };
-        };
+        basedpyright.command = "${pkgs.basedpyright}/bin/basedpyright-langserver";
         ruff = {
           command = lib.getExe pkgs.ruff-lsp;
           config = {};
@@ -162,6 +143,15 @@
         typescript-language-server = {
           command = lib.getExe pkgs.nodePackages.typescript-language-server;
           args = ["--stdio"];
+          config = {
+            typescript-language-server.source = {
+              addMissingImports.ts = true;
+              fixAll.ts = true;
+              organizeImports.ts = true;
+              removeUnusedImports.ts = true;
+              sortImports.ts = true;
+            };
+          };
         };
         vue-language-server = {
           command = lib.getExe pkgs.vue-language-server;
@@ -190,4 +180,23 @@
       };
     };
   };
+
+  home.file.".dprint.json".source = builtins.toFile "dprint.json" (builtins.toJSON {
+    lineWidth = 100;
+    # This applies to both JavaScript & TypeScript
+    typescript = {
+      quoteStyle = "preferSingle";
+      binaryExpression.operatorPosition = "sameLine";
+    };
+    json.indentWidth = 2;
+    excludes = [
+      "**/*-lock.json"
+    ];
+    plugins = [
+      "https://plugins.dprint.dev/typescript-0.93.0.wasm"
+      "https://plugins.dprint.dev/json-0.19.3.wasm"
+      "https://plugins.dprint.dev/markdown-0.17.8.wasm"
+      "https://plugins.dprint.dev/toml-0.6.3.wasm"
+    ];
+  });
 }
