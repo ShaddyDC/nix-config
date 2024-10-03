@@ -29,7 +29,7 @@
     libnotify
     wineWowPackages.wayland
     xdg-utils
-    gnome.gnome-control-center
+    gnome-control-center
     keepassxc
     inputs'.deploy-rs.packages.deploy-rs
 

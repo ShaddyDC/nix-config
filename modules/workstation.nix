@@ -112,7 +112,7 @@
 
   # needed for GNOME services outside of GNOME Desktop
   services.dbus.packages = [pkgs.gcr];
-  services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
+  services.udev.packages = with pkgs; [gnome-settings-daemon];
 
   programs.gamescope = {
     enable = true;

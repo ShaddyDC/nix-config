@@ -19,7 +19,7 @@
     dbus
     findutils
     gawk
-    gnome.gnome-control-center
+    gnome-control-center
     gnused
     imagemagick
     jaq
