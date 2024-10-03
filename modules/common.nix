@@ -74,6 +74,7 @@ in {
   security.sudo.wheelNeedsPassword = false;
 
   users.users.space = {
+    uid = 1000;
     isNormalUser = true;
     shell = pkgs.nushell;
     extraGroups = ["input" "libvirtd" "networkmanager" "video" "wheel"];
