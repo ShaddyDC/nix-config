@@ -152,7 +152,7 @@
           args = ["start"];
         };
         eslint = {
-          command = lib.getExe pkgs.nodePackages.eslint;
+          command = lib.getExe pkgs.eslint;
           args = ["--stdin"];
         };
         typescript-language-server = {
