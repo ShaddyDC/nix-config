@@ -74,7 +74,13 @@
           {
             name = "python";
             file-types = ["py"];
-            language-servers = ["basedpyright" "ruff"];
+            language-servers = ["ruff" "basedpyright"];
+            formatter = {
+              command = lib.getExe pkgs.ruff;
+              args = ["format" "-"];
+            };
+
+            auto-format = true;
           }
           {
             name = "markdown";
@@ -124,7 +130,8 @@
       language-server = {
         basedpyright.command = "${pkgs.basedpyright}/bin/basedpyright-langserver";
         ruff = {
-          command = lib.getExe pkgs.ruff-lsp;
+          command = lib.getExe pkgs.ruff;
+          args = ["server"];
           config = {};
         };
         ltex = {
