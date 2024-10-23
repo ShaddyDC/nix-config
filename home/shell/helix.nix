@@ -22,6 +22,7 @@
       cmake-language-server
       rust-analyzer-unwrapped
       taplo
+      superhtml
     ];
     settings = {
       theme = lib.mkForce "catppuccin_mocha";
