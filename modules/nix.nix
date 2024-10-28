@@ -43,7 +43,7 @@
       trusted-users = ["root" "@wheel"];
     };
 
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
   };
 
   # pick up pkgs from flake export
