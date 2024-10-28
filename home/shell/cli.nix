@@ -7,7 +7,17 @@
     nix --extra-experimental-features flakes eval -f "<nixpkgs>" --raw "''${1}"
   '';
 in {
-  home.packages = with pkgs; [
+  home.packages = with pkgs; let
+    llmClaude3 = python3Packages.callPackage ./llm-claude-3.nix {};
+    pyWithPackages = python3.withPackages (py: [
+      py.llm
+      llmClaude3
+    ]);
+    llm = runCommand "llm" {} ''
+      mkdir -p $out/bin
+      ln -s ${pyWithPackages}/bin/llm $out/bin/llm
+    '';
+  in [
     # archives
     zip
     unzip
@@ -34,6 +44,7 @@ in {
     doggo
     curlie
     lazyjj
+    llm
 
     # file managers
     joshuto
