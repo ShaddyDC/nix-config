@@ -45,6 +45,7 @@ in {
     curlie
     lazyjj
     llm
+    cntr
 
     # file managers
     joshuto
