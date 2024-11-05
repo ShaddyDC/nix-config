@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  home.packages = [pkgs.gh];
+  home.packages = [pkgs.gh pkgs.watchman];
 
   programs.git = {
     enable = true;
