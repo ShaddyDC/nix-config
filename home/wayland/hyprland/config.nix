@@ -5,7 +5,6 @@
   config,
   ...
 }: let
-  monocle = "dwindle:no_gaps_when_only";
   screenshotarea = "hyprctl keyword animation 'fadeOut,0,0,default'; grimblast --notify copysave area; hyprctl keyword animation 'fadeOut,1,4,default'";
 
   # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
@@ -65,10 +64,6 @@ in {
 
     decoration = {
       rounding = 3;
-
-      drop_shadow = false;
-      shadow_range = 4;
-      shadow_render_power = 3;
     };
 
     animations = {
@@ -94,6 +89,7 @@ in {
 
     master = {
       # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
+      # new_is_master = true;
     };
 
     gestures = {
@@ -130,9 +126,6 @@ in {
         "$mod SHIFT, N, changegroupactive, f"
         "$mod SHIFT, P, changegroupactive, b"
         "$mod ALT, ,resizeactive,"
-
-        # toggle "monocle" (no_gaps_when_only)
-        "$mod, M, exec, hyprctl keyword ${monocle} $(($(hyprctl getoption ${monocle} -j | ${lib.getExe pkgs.jaq} -r '.int') ^ 1))"
 
         # Move focus with mod + arrow keys
         "$mod, left, movefocus, l"
