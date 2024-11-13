@@ -37,6 +37,7 @@ in {
       "/nix/store/$(ls -la /nix/store | grep 'kwallet-pam' | grep '4096' | awk '{print $9}' | sed -n '$p')/libexec/pam_kwallet_init && ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator"
       "eww open bar"
       "eww open osd"
+      "${pkgs.avizo}/bin/avizo-service"
     ];
     input = {
       kb_layout = "de";
@@ -175,16 +176,16 @@ in {
       ", XF86AudioPrev, exec, playerctl previous"
       ", XF86AudioNext, exec, playerctl next"
 
-      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+      ", XF86AudioMute, exec, ${pkgs.avizo}/bin/volumectl toggle-mute"
+      ", XF86AudioMicMute, exec, ${pkgs.avizo}/bin/volumectl -m toggle-mute"
     ];
 
     bindle = [
-      ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 6%+"
-      ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 6%-"
+      ", XF86AudioRaiseVolume, exec, ${pkgs.avizo}/bin/volumectl -u up"
+      ", XF86AudioLowerVolume, exec, ${pkgs.avizo}/bin/volumectl -u down"
 
-      ", XF86MonBrightnessUp, exec, brillo -q -u 300000 -A 5"
-      ", XF86MonBrightnessDown, exec, brillo -q -u 300000 -U 5"
+      ", XF86MonBrightnessUp, exec, ${pkgs.avizo}/bin/lightctl up"
+      ", XF86MonBrightnessDown, exec, ${pkgs.avizo}/bin/lightctl down"
     ];
 
     windowrule = [
