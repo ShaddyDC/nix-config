@@ -70,6 +70,8 @@
   programs.jujutsu = {
     enable = true;
     settings = {
+      core.fsmonitor = "watchman";
+      core.watchman.register_snapshot_trigger = true;
       user = {
         name = "ShaddyDC";
         email = "shaddythefirst@gmail.com";
