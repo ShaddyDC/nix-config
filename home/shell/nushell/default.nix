@@ -29,7 +29,23 @@
           (map (name: completion name) names);
     in ''
       $env.config = ${conf};
-      ${completions ["cargo" "git" "nix" "npm" "poetry" "curl" "less" "make" "man" "tar" "bat" "gh" "just" "rg" "eza"]}
+      ${completions [
+        # "cargo"
+        "git"
+        "nix"
+        "npm"
+        "poetry"
+        "curl"
+        "less"
+        "make"
+        "man"
+        "tar"
+        "bat"
+        "gh"
+        "just"
+        "rg"
+        "eza"
+      ]}
 
       use ${pkgs.nu_scripts}/share/nu_scripts/modules/after/after.nu
       use ${pkgs.nu_scripts}/share/nu_scripts/modules/lg *
