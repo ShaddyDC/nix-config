@@ -7,7 +7,7 @@
 
   networking.hostName = "framework";
 
-
+  hardware.opentabletdriver.enable = true;
 
   boot = {
     # Bootloader.
