@@ -105,7 +105,7 @@
     lowLatency.enable = true;
   };
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   # battery info & stuff
   services.upower.enable = true;
