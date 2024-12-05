@@ -159,7 +159,9 @@
       self'.packages.berkeley-mono
 
       # nerdfonts
-      (nerdfonts.override {fonts = ["3270" "FiraCode" "JetBrainsMono"];})
+      nerd-fonts.jetbrains-mono
+      nerd-fonts._3270
+      nerd-fonts.fira-code
     ];
 
     # use fonts specified by user rather than default ones
