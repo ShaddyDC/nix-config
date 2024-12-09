@@ -45,6 +45,7 @@ in {
     curlie
     lazyjj
     llm
+    aider-chat
     cntr
 
     # file managers
