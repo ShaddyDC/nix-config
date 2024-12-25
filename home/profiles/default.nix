@@ -68,16 +68,21 @@
       ]
       ++ sharedWorkstationModules
       ++ sharedModules;
+    "space@pi" =
+      [
+        # ./pi
+      ]
+      ++ sharedModules;
     "space@mediaVps" =
       [
         # ./mediaVps
       ]
       ++ sharedModules;
-    "space@nasps" =
-      [
-        # ./nasps
-      ]
-      ++ sharedModules;
+    # "space@nasps" =
+    #   [
+    #     # ./nasps
+    #   ]
+    #   ++ sharedModules;
   };
 
   inherit (inputs.hm.lib) homeManagerConfiguration;
@@ -87,35 +92,46 @@ in {
   ];
 
   flake = {
-    homeConfigurations = withSystem "x86_64-linux" ({
-      pkgs,
-      system,
-      ...
-    }: {
-      "space@spacelaptop" = homeManagerConfiguration {
-        modules = homeImports."space@spacelaptop" ++ module_args ++ (withSystemInputs system);
-        inherit pkgs;
-      };
-      "space@framework" = homeManagerConfiguration {
-        modules = homeImports."space@framework" ++ module_args ++ (withSystemInputs system);
-        inherit pkgs;
-      };
-      "space@spacedesktop" = homeManagerConfiguration {
-        modules = homeImports."space@spacedesktop" ++ module_args ++ (withSystemInputs system);
-        inherit pkgs;
-      };
-      "space@worklaptop" = homeManagerConfiguration {
-        modules = homeImports."space@worklaptop" ++ module_args ++ (withSystemInputs system);
-        inherit pkgs;
-      };
-      "space@mediaVps" = homeManagerConfiguration {
-        modules = homeImports."space@mediaVps" ++ module_args ++ (withSystemInputs system);
-        inherit pkgs;
-      };
-      "space@nasps" = homeManagerConfiguration {
-        modules = homeImports."space@nasps" ++ module_args ++ (withSystemInputs system);
-        inherit pkgs;
-      };
-    });
+    homeConfigurations =
+      withSystem "aarch64-linux" ({
+        pkgs,
+        system,
+        ...
+      }: {
+        "space@pi" = homeManagerConfiguration {
+          modules = homeImports."space@pi" ++ module_args ++ (withSystemInputs system);
+          inherit pkgs;
+        };
+      })
+      // withSystem "x86_64-linux" ({
+        pkgs,
+        system,
+        ...
+      }: {
+        "space@spacelaptop" = homeManagerConfiguration {
+          modules = homeImports."space@spacelaptop" ++ module_args ++ (withSystemInputs system);
+          inherit pkgs;
+        };
+        "space@framework" = homeManagerConfiguration {
+          modules = homeImports."space@framework" ++ module_args ++ (withSystemInputs system);
+          inherit pkgs;
+        };
+        "space@spacedesktop" = homeManagerConfiguration {
+          modules = homeImports."space@spacedesktop" ++ module_args ++ (withSystemInputs system);
+          inherit pkgs;
+        };
+        "space@worklaptop" = homeManagerConfiguration {
+          modules = homeImports."space@worklaptop" ++ module_args ++ (withSystemInputs system);
+          inherit pkgs;
+        };
+        "space@mediaVps" = homeManagerConfiguration {
+          modules = homeImports."space@mediaVps" ++ module_args ++ (withSystemInputs system);
+          inherit pkgs;
+        };
+        # "space@nasps" = homeManagerConfiguration {
+        #   modules = homeImports."space@nasps" ++ module_args ++ (withSystemInputs system);
+        #   inherit pkgs;
+        # };
+      });
   };
 }
