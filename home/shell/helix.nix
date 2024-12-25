@@ -10,7 +10,7 @@
     extraPackages = with pkgs; [
       clang-tools
       marksman
-      nil
+      # nil
       bash-language-server
       vscode-langservers-extracted
       nodePackages.vscode-langservers-extracted
@@ -23,6 +23,7 @@
       rust-analyzer-unwrapped
       taplo
       superhtml
+      nixd
     ];
     settings = {
       theme = lib.mkForce "catppuccin_mocha";
