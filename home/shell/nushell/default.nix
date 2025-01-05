@@ -34,7 +34,7 @@
         "git"
         "nix"
         "npm"
-        "poetry"
+        # "poetry"
         "curl"
         "less"
         "make"
@@ -52,7 +52,7 @@
       use ${pkgs.nu_scripts}/share/nu_scripts/modules/system *
       use ${pkgs.nu_scripts}/share/nu_scripts/modules/docker *
       use ${pkgs.nu_scripts}/share/nu_scripts/modules/jc *
-      use ${pkgs.nu_scripts}/share/nu_scripts/modules/background_task/task.nu
+      # use ${pkgs.nu_scripts}/share/nu_scripts/modules/background_task/task.nu
 
       use ${pkgs.nu_scripts}/share/nu_scripts/custom-completions/auto-generate/completions/7z.nu
       use ${pkgs.nu_scripts}/share/nu_scripts/custom-completions/auto-generate/completions/aws.nu
