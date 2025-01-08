@@ -75,6 +75,9 @@
       user = {
         name = "ShaddyDC";
         email = "shaddythefirst@gmail.com";
+
+      aliases = {
+        tug = ["bookmark" "move" "--from" "heads(::@- & bookmarks())" "--to" "@-"];
       };
     };
   };
