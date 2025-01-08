@@ -7,6 +7,36 @@
 }: let
   screenshotarea = "hyprctl keyword animation 'fadeOut,0,0,default'; grimblast --notify copysave area; hyprctl keyword animation 'fadeOut,1,4,default'";
 
+  recordScript = pkgs.writeShellScriptBin "screen-record" ''
+    # Default output directory
+    OUTPUT_DIR="$HOME/Videos/Recordings"
+    mkdir -p "$OUTPUT_DIR"
+
+    # Generate output filename with timestamp
+    TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+    OUTPUT_FILE="$OUTPUT_DIR/recording_$TIMESTAMP.mp4"
+
+    # Get the screen area coordinates using slurp
+    GEOMETRY=$(${pkgs.slurp}/bin/slurp -d)
+    if [ -z "$GEOMETRY" ]; then
+        ${pkgs.libnotify}/bin/notify-send "Recording" "Selection cancelled"
+        exit 1
+    fi
+
+    # Set up trap to handle notifications and clipboard
+    trap '${pkgs.libnotify}/bin/notify-send "Recording" "Saved to $OUTPUT_FILE"; ${pkgs.wl-clipboard}/bin/wl-copy < "$OUTPUT_FILE"; exit 0' INT TERM
+
+    # Notify recording start
+    ${pkgs.libnotify}/bin/notify-send "Recording" "Started recording selected area (press Ctrl+C to stop)"
+
+    # Start recording with wf-recorder
+    ${pkgs.wf-recorder}/bin/wf-recorder -g "$GEOMETRY" -f "$OUTPUT_FILE"
+
+    # These will run after Ctrl+C stops wf-recorder
+    ${pkgs.libnotify}/bin/notify-send "Recording" "Saved to $OUTPUT_FILE"
+    ${pkgs.wl-clipboard}/bin/wl-copy < "$OUTPUT_FILE"
+  '';
+
   # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
   workspaces = builtins.concatLists (builtins.genList (
       x: let
@@ -141,7 +171,8 @@ in {
         # stop animations while screenshotting; makes black border go away
         # $screenshotarea = hyprctl keyword animation "fadeOut,0,0,default"; grimblast --notify copysave area; hyprctl keyword animation "fadeOut,1,4,default"
         ", Print, exec, ${screenshotarea}"
-        "$mod SHIFT, R, exec, ${screenshotarea}"
+        "$mod SHIFT, Print, exec, ${lib.getExe recordScript}"
+        "$mod SHIFT, BACKSPACE, exec, pkill -SIGINT wf-recorder"
 
         "CTRL, Print, exec, grimblast --notify --cursor copysave output"
         "$mod SHIFT CTRL, R, exec, grimblast --notify --cursor copysave output"
