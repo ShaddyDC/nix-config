@@ -22,6 +22,15 @@
     hyprlock.text = "auth include login";
   };
 
+  services.kanidm = {
+    enableClient = true;
+    clientSettings = {
+      uri = "https://idm.shaddy.dev";
+      verify_ca = true;
+      verify_hostnames = true;
+    };
+  };
+
   # enable location service
   services.geoclue2.enable = true;
   location.provider = "geoclue2";
