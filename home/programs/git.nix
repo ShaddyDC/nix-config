@@ -79,7 +79,7 @@
       # Some inspiration by https://gist.github.com/thoughtpolice/8f2fd36ae17cd11b8e7bd93a70e31ad6
 
       git = {
-        auto-local-branch = false;
+        auto-local-bookmark = false;
         private-commits = "blacklist()";
         colocate = true;
       };

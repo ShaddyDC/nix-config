@@ -16,7 +16,7 @@ in {
         inherit module_args;
 
         sharedModules = [
-          inputs.hm.nixosModule
+          inputs.hm.nixosModules.home-manager
           inputs.agenix.nixosModules.default
           inputs.stylix.nixosModules.stylix
           ./common.nix
