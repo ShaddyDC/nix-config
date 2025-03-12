@@ -92,6 +92,7 @@ in {
     htop.enable = true;
     eza = {
       enable = true;
+      enableNushellIntegration = false;
       # enableAliases = true;
     };
 
