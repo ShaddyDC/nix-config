@@ -82,6 +82,7 @@
         auto-local-bookmark = false;
         private-commits = "blacklist()";
         colocate = true;
+        sign-on-push = true;
       };
 
       aliases = {
