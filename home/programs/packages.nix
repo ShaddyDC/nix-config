@@ -6,7 +6,7 @@
   home.packages = with pkgs; [
     # office
     libreoffice
-    okular
+    kdePackages.okular
     pandoc
     calibre
     gnucash
