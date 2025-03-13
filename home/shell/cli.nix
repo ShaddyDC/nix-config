@@ -8,10 +8,9 @@
   '';
 in {
   home.packages = with pkgs; let
-    llmClaude3 = python3Packages.callPackage ./llm-claude-3.nix {};
     pyWithPackages = python3.withPackages (py: [
       py.llm
-      llmClaude3
+      py.llm-anthropic
     ]);
     llm = runCommand "llm" {} ''
       mkdir -p $out/bin
