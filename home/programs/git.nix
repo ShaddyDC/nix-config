@@ -13,11 +13,6 @@
       enable = true;
     };
 
-    extraConfig = {
-      diff.colorMoved = "default";
-      merge.conflictstyle = "diff3";
-    };
-
     aliases = {
       a = "add";
       b = "branch";
@@ -48,6 +43,9 @@
     };
 
     extraConfig = {
+      diff.colorMoved = "default";
+      merge.conflictstyle = "diff3";
+
       gpg.format = "ssh";
       credential = {
         # Until SSH_ASKPASS is supported
