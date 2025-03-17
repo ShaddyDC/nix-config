@@ -1,5 +1,10 @@
-{...}: {
+{pkgs, ...}: {
   services.desktopManager.plasma6.enable = true;
+  # required for plasma
+  environment.systemPackages = with pkgs; [
+    kdePackages.kirigami-addons
+  ];
+
   services.xserver = {
     enable = true;
     # displayManager.sddm.enable = true;
