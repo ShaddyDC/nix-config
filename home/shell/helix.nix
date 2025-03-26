@@ -54,6 +54,8 @@
       # https://theari.dev/blog/enhanced-helix-config/ TODO
       keys.normal = {
         space.c = ":bc";
+        space.B = ":sh git log -n 5 --format='format:%%h (%%an: %%ar) %%s' --no-patch -L%{cursor_line},+1:%{buffer_name}";
+
         C-f = ":format";
         space.u = {
           w = ":set whitespace.render all";
