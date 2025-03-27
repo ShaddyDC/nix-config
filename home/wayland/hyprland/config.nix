@@ -226,12 +226,10 @@ in {
       "nofocus, title:^(Firefox — Sharing Indicator)$"
 
       "float, title:^(KeePassXC - Browser Access Request)$"
-      "workspace 1,^(firefox)$"
-      "workspace 2,^(obsidian)$"
-      "workspace 5,^(discord)$"
-    ];
+      "workspace 1,class:firefox"
+      "workspace 2,class:obsidian"
+      "workspace 5,class:discord"
 
-    windowrulev2 = [
       "workspace special silent, title:^(.*is sharing (your screen|a window)\.)$"
 
       # make Firefox PiP window floating and sticky
