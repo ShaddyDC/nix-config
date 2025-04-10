@@ -117,7 +117,7 @@
           {
             name = "vue";
             auto-format = true;
-            language-servers = ["vue-language-server" "eslint"];
+            language-servers = ["vuels" "typescript-language-server" "eslint"];
             formatter = prettier "vue";
           }
           {
@@ -171,6 +171,24 @@
               organizeImports.ts = true;
               removeUnusedImports.ts = true;
               sortImports.ts = true;
+            };
+            plugins = [
+              {
+                name = "@vue/typescript-plugin";
+                location = "${
+                  pkgs.vscode-extensions.vue.vscode-typescript-vue-plugin
+                }/bin/vue-language-server";
+                languages = ["vue"];
+              }
+            ];
+            vue.inlayHints = {
+              includeInlayEnumMemberValueHints = true;
+              includeInlayFunctionLikeReturnTypeHints = true;
+              includeInlayFunctionParameterTypeHints = true;
+              includeInlayParameterNameHints = "all";
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true;
+              includeInlayPropertyDeclarationTypeHints = true;
+              includeInlayVariableTypeHints = true;
             };
           };
         };
