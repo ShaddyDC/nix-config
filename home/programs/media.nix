@@ -12,6 +12,9 @@
     pulsemixer
     pulseaudio
 
+    # music
+    youtube-music
+
     # images
     imv
     feh
