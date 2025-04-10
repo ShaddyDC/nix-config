@@ -128,8 +128,8 @@ in {
     PAGER = "less -FR";
   };
 
-  home.shellAliases = {
-    cdsk = "cd $(SKIM_DEFAULT_COMMAND='${lib.getExe pkgs.fd} --type d' ${lib.getExe pkgs.skim})";
-    p = "cd ~/repos && cd `${lib.getExe pkgs.skim} -p 'Open project?' --cmd '${lib.getExe pkgs.eza} --oneline --color=never'`";
-  };
+  # home.shellAliases = {
+  #   cdsk = "cd $(SKIM_DEFAULT_COMMAND='${lib.getExe pkgs.fd} --type d' ${lib.getExe pkgs.skim})";
+  #   p = "cd ~/repos; cd `${lib.getExe pkgs.skim} -p 'Open project?' --cmd '${lib.getExe pkgs.eza} --oneline --color=never'`";
+  # };
 }

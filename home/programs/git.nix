@@ -69,7 +69,7 @@
     enable = true;
     settings = {
       core.fsmonitor = "watchman";
-      core.watchman.register_snapshot_trigger = true;
+      core.watchman.register-snapshot-trigger = true;
       user = {
         name = "ShaddyDC";
         email = "shaddythefirst@gmail.com";
