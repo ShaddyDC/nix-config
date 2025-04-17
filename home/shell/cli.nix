@@ -46,6 +46,7 @@ in {
     llm
     aider-chat
     cntr
+    claude-code
 
     # file managers
     joshuto
@@ -56,6 +57,9 @@ in {
     # nix
     comma
     store-path
+
+    zed-editor
+    code-cursor
   ];
 
   programs = {
