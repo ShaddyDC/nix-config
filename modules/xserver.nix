@@ -3,6 +3,7 @@
   # required for plasma
   environment.systemPackages = with pkgs; [
     kdePackages.kirigami-addons
+    kdePackages.kquickcharts
   ];
 
   services.xserver = {
