@@ -11,13 +11,13 @@
     };
   };
 
-  services = {
-    mbsync = {
-      enable = true;
-      frequency = "*-*-* *:*0:00";
-      postExec = "${pkgs.notmuch}/bin/notmuch new";
-    };
-  };
+  # services = {
+  #   mbsync = {
+  #     enable = true;
+  #     frequency = "*-*-* *:*0:00";
+  #     postExec = "${pkgs.notmuch}/bin/notmuch new";
+  #   };
+  # };
 
   # TODO set up imapnotify
 

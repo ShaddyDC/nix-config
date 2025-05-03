@@ -38,6 +38,7 @@
     userName = "ShaddyDC";
     userEmail = "shaddythefirst@gmail.com";
     signing = {
+      format = "ssh";
       key = "${config.home.homeDirectory}/.ssh/id_ed25519";
       signByDefault = true;
     };
@@ -73,6 +74,7 @@
       user = {
         name = "ShaddyDC";
         email = "shaddythefirst@gmail.com";
+      };
 
       # Some inspiration by https://gist.github.com/thoughtpolice/8f2fd36ae17cd11b8e7bd93a70e31ad6
 

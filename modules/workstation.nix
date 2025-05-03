@@ -140,6 +140,10 @@
     ];
   };
 
+  environment.systemPackages = with pkgs; [
+    xwayland
+  ];
+
   programs.localsend = {
     enable = true;
     openFirewall = false;

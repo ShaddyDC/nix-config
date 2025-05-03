@@ -21,6 +21,12 @@
       };
 
       aws.disabled = true;
+
+      custom.jj = {
+        detect_folders = [".jj"];
+        command = "jj log --no-graph -r @ -n1 -T 'change_id.shortest() ++ \"|\" ++ if(empty, \"(empty) \") ++ description'";
+        style = "cyan";
+      };
     };
 
     enableNushellIntegration = true;

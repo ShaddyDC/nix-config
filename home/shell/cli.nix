@@ -42,7 +42,7 @@ in {
     procs
     doggo
     curlie
-    lazyjj
+    # lazyjj
     llm
     aider-chat
     cntr
