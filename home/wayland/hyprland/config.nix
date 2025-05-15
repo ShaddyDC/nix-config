@@ -97,6 +97,15 @@ in {
       rounding = 3;
     };
 
+    permission = [
+      # Allow xdph and grim
+      "${config.wayland.windowManager.hyprland.portalPackage}/libexec/.xdg-desktop-portal-hyprland-wrapped, screencopy, allow"
+      "${lib.getExe pkgs.grim}, screencopy, allow"
+
+      # Optionally allow non-pipewire capturing
+      "${lib.getExe pkgs.wl-screenrec}, screencopy, allow"
+    ];
+
     animations = {
       enabled = true;
 
