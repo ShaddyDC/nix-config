@@ -103,6 +103,7 @@
       url = "github:danth/stylix";
       inputs.home-manager.follows = "hm";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     zathura-style = {
