@@ -131,6 +131,12 @@
               ];
             };
           }
+          {
+            name = "sql";
+            file-types = ["sql" "pgsql"];
+            language-servers = ["postgres_lsp"];
+            formatter.command = lib.getExe pkgs.pgformatter;
+          }
         ]
         ++ (
           let
@@ -215,6 +221,11 @@
             css.validate.enable = true;
             scss.validate.enable = true;
           };
+        };
+
+        postgres_lsp = {
+          command = lib.getExe pkgs.postgres-lsp;
+          args = ["lsp-proxy"];
         };
       };
     };
