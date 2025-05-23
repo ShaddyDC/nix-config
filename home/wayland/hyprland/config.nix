@@ -68,6 +68,7 @@ in {
       "eww open bar"
       "eww open osd"
       "${pkgs.avizo}/bin/avizo-service"
+      "${lib.getExe pkgs.ianny}"
     ];
     input = {
       kb_layout = "de";
