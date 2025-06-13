@@ -1,6 +1,0 @@
-[submodule "hosts/mediaVps"]
-	path = hosts/mediaVps
-	url = git@github.com:ShaddyDC/nix-mediavps.git
-[submodule "secrets"]
-	path = secrets
-	url = git@github.com:ShaddyDC/nix-secrets.git
