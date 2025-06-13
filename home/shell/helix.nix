@@ -144,7 +144,7 @@
               name = e;
               formatter = prettier e;
             });
-            langs = ["css" "scss" "json" "html"];
+            langs = ["css" "scss" "json" "json5" "html"];
           in (prettierLangs langs)
         );
       language-server = {
