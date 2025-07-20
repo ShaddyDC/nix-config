@@ -78,6 +78,4 @@
   };
 
   programs.alacritty.enable = true;
-
-  stylix.targets.kde.enable = false;
 }

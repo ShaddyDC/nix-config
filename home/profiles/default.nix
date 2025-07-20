@@ -13,7 +13,7 @@
     ../.
     ../common.nix
     ../shell
-    inputs.nix-index-db.hmModules.nix-index
+    inputs.nix-index-db.homeModules.nix-index
     module_args
     {_module.args = {inherit inputs' self';};}
     {
