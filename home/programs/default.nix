@@ -15,7 +15,7 @@
     ./media.nix
     ./packages.nix
     ./ssh.nix
-    ./vdirsyncer.nix
+    # ./vdirsyncer.nix
     ./vscode.nix
     ./xdg.nix
     ./zathura.nix

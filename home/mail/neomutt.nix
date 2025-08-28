@@ -7,6 +7,38 @@ in {
     elinks
   ];
 
+  # Shell function that wraps neomutt with lock file
+  programs.bash.initExtra = ''
+    neomutt() {
+      touch /tmp/neomutt.lock
+      trap 'rm -f /tmp/neomutt.lock' EXIT INT TERM
+      command neomutt "$@"
+      rm -f /tmp/neomutt.lock
+    }
+  '';
+
+  programs.zsh.initExtra = ''
+    neomutt() {
+      touch /tmp/neomutt.lock
+      trap 'rm -f /tmp/neomutt.lock' EXIT INT TERM
+      command neomutt "$@"
+      rm -f /tmp/neomutt.lock
+    }
+  '';
+
+  programs.nushell.extraConfig = ''
+    def neomutt [...args] {
+      touch /tmp/neomutt.lock
+      try {
+        ^neomutt ...$args
+      } catch { |err|
+        rm -f /tmp/neomutt.lock
+        error make $err
+      }
+      rm -f /tmp/neomutt.lock
+    }
+  '';
+
   programs.neomutt = {
     enable = true;
     vimKeys = true;
@@ -19,7 +51,7 @@ in {
 
     macros = [
       {
-        action = "!mbsync -a";
+        action = "!mbsync -a && notmuch new";
         key = "O";
         map = ["index" "pager"];
       }
@@ -34,13 +66,24 @@ in {
         map = ["pager"];
       }
       {
-        action = "<save-message>+Archive<Enter><Enter>";
+        action = "<modify-labels>+archive -inbox<Enter>";
         key = "n2";
         map = ["index"];
       }
       {
-        action = "<save-message>+INBOX<Enter><Enter>";
+        action = "<modify-labels>-archive +inbox<Enter>";
         key = "n3";
+        map = ["index"];
+      }
+      {
+        action = "<modify-labels>+spam -inbox<Enter>";
+        key = "n4";
+        map = ["index"];
+      }
+
+      {
+        action = "<modify-labels>+deleted -inbox -unread<Enter>";
+        key = "dd";
         map = ["index"];
       }
     ];
@@ -67,6 +110,14 @@ in {
         key = "n1";
         map = ["index"];
       }
+
+
+      # Search notmuch with custom query
+      {
+        action = "vfolder-from-query";
+        key = "V";
+        map = ["index"];
+      }
     ];
 
     settings = {
@@ -80,6 +131,32 @@ in {
       set quit
       set thorough_search
       set mail_check_stats
+
+      # Notmuch settings
+      set nm_default_url = "notmuch://$HOME/Mail"
+      set virtual_spoolfile = yes
+
+      # Don't move deleted messages to trash folder (use notmuch tags instead)
+      unset trash
+
+      # When deleting in virtual mailboxes, add 'deleted' tag
+      # The physical deletion happens in the notmuch postNew hook
+      set nm_record_tags = "-inbox,-unread"
+      set nm_unread_tag = unread
+
+      # Virtual mailboxes using notmuch queries
+      # Access these instead of raw maildir folders to use tag operations
+      virtual-mailboxes "All Inbox" "notmuch://?query=tag:inbox"
+      virtual-mailboxes "All Unread" "notmuch://?query=tag:unread"
+      virtual-mailboxes "All Archive" "notmuch://?query=tag:archive"
+      virtual-mailboxes "All Spam" "notmuch://?query=tag:spam"
+      virtual-mailboxes "All Trash" "notmuch://?query=tag:deleted"
+
+      # # Tag modification shortcuts
+      # # Usage: press 'nn' in index, then enter tags like "+spam -inbox"
+      # # 'nN' will modify tags and hide the message
+      # bind index,pager nn modify-labels
+      # bind index,pager nN modify-labels-then-hide
       color index blue default "~N"
       color index blue default "~O"
 
