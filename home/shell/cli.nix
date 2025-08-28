@@ -24,7 +24,7 @@ in {
 
     # utils
     file
-    du-dust
+    dust
     duf
     fd
     ripgrep
@@ -58,8 +58,8 @@ in {
     comma
     store-path
 
-    zed-editor
-    code-cursor
+    # zed-editor
+    # code-cursor
   ];
 
   programs = {

@@ -20,7 +20,7 @@
     ripdrag
 
     # messaging & communication
-    tdesktop
+    telegram-desktop
     discord
     webcord
     vesktop
@@ -40,7 +40,6 @@
 
     # security
     protonvpn-gui
-    protonvpn-cli
 
     # nix
     nil

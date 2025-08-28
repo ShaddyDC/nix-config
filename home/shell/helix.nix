@@ -16,10 +16,10 @@
       nodePackages.vscode-langservers-extracted
       nodePackages.typescript-language-server
       vue-language-server
-      nodePackages.dockerfile-language-server-nodejs
+      dockerfile-language-server
       nodePackages.yaml-language-server
       shellcheck
-      cmake-language-server
+      # cmake-language-server
       rust-analyzer-unwrapped
       taplo
       superhtml
