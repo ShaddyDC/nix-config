@@ -49,7 +49,7 @@
     };
 
     eww = {
-      url = "github:elkowar/eww";
+      url = "github:shaddydc/eww";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
