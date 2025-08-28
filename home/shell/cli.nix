@@ -36,7 +36,7 @@ in {
     hexyl
     viu
     ouch
-    mdcat
+    glow
     httpie
     trashy
     procs
