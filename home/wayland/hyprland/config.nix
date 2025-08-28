@@ -159,7 +159,7 @@ in {
         "$mod, F, fullscreen,"
         "$mod, E, exec, dolphin"
         "$mod, V, togglefloating,"
-        "$mod, SPACE, exec, pkill anyrun || ${inputs'.anyrun.packages.anyrun}/bin/anyrun"
+        "$mod, SPACE, exec, pkill walker || ${lib.getExe pkgs.walker}"
         "$mod, P, pseudo, # dwindle"
         "$mod, J, togglesplit, # dwindle"
         "$mod, G, togglegroup,"
