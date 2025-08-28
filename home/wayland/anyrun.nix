@@ -1,6 +1,6 @@
 {inputs', ...}: {
   programs.anyrun = {
-    enable = true;
+    # enable = true;
     config = {
       plugins = [
         inputs'.anyrun.packages.applications
