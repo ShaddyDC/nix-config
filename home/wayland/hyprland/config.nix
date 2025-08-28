@@ -159,7 +159,7 @@ in {
         "$mod, F, fullscreen,"
         "$mod, E, exec, dolphin"
         "$mod, V, togglefloating,"
-        "$mod, SPACE, exec, pkill walker || ${lib.getExe pkgs.walker}"
+        "$mod, SPACE, exec, ${lib.getExe pkgs.walker}"
         "$mod, P, pseudo, # dwindle"
         "$mod, J, togglesplit, # dwindle"
         "$mod, G, togglegroup,"
@@ -230,20 +230,20 @@ in {
 
     windowrule = [
       # throw sharing indicators away
-      "float, title:^(Firefox — Sharing Indicator)$"
-      "move 0 0, title:^(Firefox — Sharing Indicator)$"
-      "nofocus, title:^(Firefox — Sharing Indicator)$"
+      "match:title ^(Firefox — Sharing Indicator)$, float on"
+      "match:title ^(Firefox — Sharing Indicator)$, move 0 0"
+      "match:title ^(Firefox — Sharing Indicator)$, no_focus on"
 
-      "float, title:^(KeePassXC - Browser Access Request)$"
-      "workspace 1,class:firefox"
-      "workspace 2,class:obsidian"
-      "workspace 5,class:discord"
+      "match:title ^(KeePassXC - Browser Access Request)$, float on"
+      "match:class firefox, workspace 1"
+      "match:class obsidian, workspace 2"
+      "match:class discord, workspace 5"
 
-      "workspace special silent, title:^(.*is sharing (your screen|a window)\.)$"
+      "match:title ^(.*is sharing (your screen|a window)\.)$, workspace special silent"
 
       # make Firefox PiP window floating and sticky
-      "float, title:^(Picture-in-Picture)$"
-      "pin, title:^(Picture-in-Picture)$"
+      "match:title ^(Picture-in-Picture)$, float on"
+      "match:title ^(Picture-in-Picture)$, pin on"
     ];
   };
   # # volume
