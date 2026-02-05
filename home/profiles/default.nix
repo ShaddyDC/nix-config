@@ -16,11 +16,12 @@
     inputs.nix-index-db.homeModules.nix-index
     module_args
     {_module.args = {inherit inputs' self';};}
-    {
+    ({self, ...}: {
       nixpkgs = {
         config.allowUnfree = true;
+        overlays = [self.overlays.default];
       };
-    }
+    })
   ]);
 
   sharedWorkstationModules = [

@@ -29,7 +29,7 @@ in {
     legacyPackages = import inputs.nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      config.overlays = [
+      overlays = [
         self.overlays.default
       ];
       config.permittedInsecurePackages = [

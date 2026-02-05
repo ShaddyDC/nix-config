@@ -110,6 +110,11 @@
       url = "github:catppuccin/zathura";
       flake = false;
     };
+
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -119,6 +124,10 @@
   }:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-linux"];
+
+      flake.overlays.default = final: prev: {
+        claude-code = inputs.claude-code.packages.${prev.system}.default;
+      };
 
       imports = [
         ./home/profiles
