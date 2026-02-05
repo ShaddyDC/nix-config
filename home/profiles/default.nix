@@ -28,8 +28,6 @@
     ../programs
     ../wayland
     ../services/eww
-    inputs.hyprland.homeManagerModules.default
-    # inputs.anyrun.homeManagerModules.default
   ];
 
   homeImports = {

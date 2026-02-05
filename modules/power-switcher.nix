@@ -1,12 +1,11 @@
 {
   pkgs,
   lib,
-  inputs,
   ...
 }:
 # run certain commands depending whether the system is on AC or on battery
 let
-  programs = lib.makeBinPath [inputs.hyprland.packages.${pkgs.system}.default];
+  programs = lib.makeBinPath [pkgs.hyprland];
 
   unplugged = pkgs.writeShellScript "unplugged" ''
     export PATH=$PATH:${programs}

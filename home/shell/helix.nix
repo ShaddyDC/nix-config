@@ -1,12 +1,10 @@
 {
   pkgs,
-  inputs',
   lib,
   ...
 }: {
   programs.helix = {
     enable = true;
-    package = inputs'.helix.packages.default;
     extraPackages = with pkgs; [
       clang-tools
       marksman
