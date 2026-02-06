@@ -30,7 +30,7 @@ in {
     ripgrep
     wget
     curl
-    python311
+    python3
     socat
     jc
     hexyl
