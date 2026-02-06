@@ -80,9 +80,12 @@
     enable = true;
     settings = {
       verbose = true;
-      dpms.timeouts = [900 300];
+      # dpms.timeouts = [900 300];
+      dpms.disabled = true;
       dimmer.timeouts = [870 270];
       screen.disabled = true;
+      backlight.no_smooth_transition = true;
+      backlight.no_ddcutil = true; # Disable DDC/CI - causes errors probing non-existent monitors
     };
   };
 
