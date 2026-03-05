@@ -5,45 +5,49 @@
 }: {
   home.packages = with pkgs; [gh glab watchman];
 
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+  };
+
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
 
-    delta = {
-      enable = true;
-    };
-
-    aliases = {
-      a = "add";
-      b = "branch";
-      c = "commit";
-      ca = "commit --amend";
-      cm = "commit -m";
-      co = "checkout";
-      d = "diff";
-      ds = "diff --staged";
-      p = "push";
-      pf = "push --force-with-lease";
-      pl = "pull";
-      pr = "pull --rebase --autostash";
-      l = "log";
-      r = "rebase";
-      s = "status --short";
-      ss = "status";
-      forgor = "commit --amend --no-edit";
-      graph = "log --all --decorate --graph --oneline";
-      oops = "checkout --";
-    };
-
-    userName = "ShaddyDC";
-    userEmail = "shaddythefirst@gmail.com";
     signing = {
       format = "ssh";
       key = "${config.home.homeDirectory}/.ssh/id_ed25519";
       signByDefault = true;
     };
 
-    extraConfig = {
+    settings = {
+      alias = {
+        a = "add";
+        b = "branch";
+        c = "commit";
+        ca = "commit --amend";
+        cm = "commit -m";
+        co = "checkout";
+        d = "diff";
+        ds = "diff --staged";
+        p = "push";
+        pf = "push --force-with-lease";
+        pl = "pull";
+        pr = "pull --rebase --autostash";
+        l = "log";
+        r = "rebase";
+        s = "status --short";
+        ss = "status";
+        forgor = "commit --amend --no-edit";
+        graph = "log --all --decorate --graph --oneline";
+        oops = "checkout --";
+      };
+
+      user = {
+        name = "ShaddyDC";
+        email = "shaddythefirst@gmail.com";
+      };
+
       diff.colorMoved = "default";
       merge.conflictstyle = "diff3";
 

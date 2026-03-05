@@ -9,7 +9,7 @@
 
   home.packages = with pkgs; [
     jaq
-    xorg.xprop
+    xprop
     grimblast
   ];
 

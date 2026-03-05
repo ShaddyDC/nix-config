@@ -13,7 +13,7 @@
     pulseaudio
 
     # music
-    youtube-music
+    pear-desktop
 
     # images
     imv

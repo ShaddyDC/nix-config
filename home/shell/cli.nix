@@ -73,6 +73,7 @@ in {
     yazi = {
       enable = true;
       enableBashIntegration = true;
+      shellWrapperName = "y";
     };
 
     zoxide.enable = true;

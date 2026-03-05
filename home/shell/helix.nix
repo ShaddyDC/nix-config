@@ -162,7 +162,7 @@
           args = ["start"];
         };
         eslint = {
-          command = lib.getExe pkgs.eslint;
+          command = lib.getExe' pkgs.eslint "eslint";
           args = ["--stdin"];
         };
         typescript-language-server = {
@@ -222,7 +222,7 @@
         };
 
         postgres_lsp = {
-          command = lib.getExe pkgs.postgres-lsp;
+          command = lib.getExe pkgs.postgres-language-server;
           args = ["lsp-proxy"];
         };
       };

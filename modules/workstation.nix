@@ -6,7 +6,7 @@
   # use Wayland where possible (electron)
   environment.variables.NIXOS_OZONE_WL = "1";
 
-  services.resolved.fallbackDns = ["1.1.1.1"];
+  services.resolved.settings.Resolve.FallbackDNS = ["1.1.1.1"];
 
   security.pam.services = {
     gdm.enableKwallet = true;
@@ -22,12 +22,14 @@
   };
 
   services.kanidm = {
-    package = pkgs.kanidm_1_8;
-    enableClient = true;
-    clientSettings = {
-      uri = "https://idm.shaddy.dev";
-      verify_ca = true;
-      verify_hostnames = true;
+    package = pkgs.kanidm_1_9;
+    client = {
+      enable = true;
+      settings = {
+        uri = "https://idm.shaddy.dev";
+        verify_ca = true;
+        verify_hostnames = true;
+      };
     };
   };
 
@@ -105,7 +107,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

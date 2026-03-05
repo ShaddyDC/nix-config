@@ -67,7 +67,6 @@
 
     stylix = {
       url = "github:danth/stylix";
-      inputs.home-manager.follows = "hm";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
@@ -92,7 +91,7 @@
       systems = ["x86_64-linux" "aarch64-linux"];
 
       flake.overlays.default = final: prev: {
-        claude-code = inputs.claude-code.packages.${prev.system}.default;
+        claude-code = inputs.claude-code.packages.${prev.stdenv.hostPlatform.system}.default;
       };
 
       imports = [

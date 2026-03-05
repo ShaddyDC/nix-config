@@ -8,7 +8,7 @@
   dependencies = with pkgs; [
     cfg.package
 
-    inputs.gross.packages.${pkgs.system}.gross
+    inputs.gross.packages.${pkgs.stdenv.hostPlatform.system}.gross
     config.wayland.windowManager.hyprland.package
 
     bash

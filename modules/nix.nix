@@ -47,5 +47,5 @@
   };
 
   # pick up pkgs from flake export
-  nixpkgs.pkgs = self.legacyPackages.${config.nixpkgs.system};
+  nixpkgs.pkgs = self.legacyPackages.${config.nixpkgs.hostPlatform.system};
 }
