@@ -27,7 +27,6 @@
   sharedWorkstationModules = [
     ../programs
     ../wayland
-    ../services/eww
   ];
 
   homeImports = {

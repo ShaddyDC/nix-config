@@ -48,22 +48,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    eww = {
-      url = "github:shaddydc/eww";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
-    };
-    gross = {
-      url = "github:fufexan/gross";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
-
-    # https://github.com/elkowar/eww/issues/817
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     stylix = {
       url = "github:danth/stylix";

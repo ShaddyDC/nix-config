@@ -1,10 +1,6 @@
 {...}: {
   programs.kitty = {
     enable = true;
-    #     font = {
-    #       inherit (default.terminal) size;
-    #       name = default.terminal.font;
-    #     };
     settings = {
       scrollback_lines = 10000;
       placement_strategy = "center";
@@ -12,12 +8,23 @@
       allow_remote_control = "yes";
       enable_audio_bell = "no";
       visual_bell_duration = "0.1";
-      # visual_bell_color = xcolors.rosewater;
 
       copy_on_select = "clipboard";
+      strip_trailing_spaces = "smart";
+      shell_integration = "enabled";
+
+      # DMS window integration
+      hide_window_decorations = "yes";
+      window_padding_width = 12;
+      background_opacity = "1.0";
+      background_blur = 32;
+
+      cursor_shape = "block";
+      cursor_blink_interval = 1;
 
       "map ctrl+n" = "new_os_window_with_cwd";
 
+      # Fallback colors (overridden by DMS dynamic theming via includes)
       # The basic colors
       foreground = "#CDD6F4";
       background = "#1E1E2E";
@@ -36,7 +43,7 @@
       inactive_border_color = "#6C7086";
       bell_border_color = "#F9E2AF";
 
-      # OS Window titlebar ="colors";
+      # OS Window titlebar
       wayland_titlebar_color = "system";
       macos_titlebar_color = "system";
 
@@ -89,5 +96,10 @@
       color7 = "#BAC2DE";
       color15 = "#A6ADC8";
     };
+    extraConfig = ''
+      # DMS dynamic theming (written at runtime by DMS)
+      include dank-tabs.conf
+      include dank-theme.conf
+    '';
   };
 }

@@ -72,10 +72,5 @@
     batsignal.enable = true;
   };
 
-  programs.eww-hyprland = {
-    enable = true;
-    package = inputs.eww.packages.${pkgs.stdenv.hostPlatform.system}.eww;
-  };
-
   programs.alacritty.enable = true;
 }
