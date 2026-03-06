@@ -84,10 +84,6 @@ in {
 
   users.users.root.openssh.authorizedKeys.keys = [defaultKey workLaptopKey frameworkKey];
 
-  # Use the system nixpkgs instance in home-manager (single eval, overlays/config flow through)
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

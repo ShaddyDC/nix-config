@@ -74,10 +74,6 @@
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-linux"];
 
-      flake.overlays.default = final: prev: {
-        claude-code = inputs.claude-code.packages.${prev.stdenv.hostPlatform.system}.default;
-      };
-
       imports = [
         ./hosts
         ./lib

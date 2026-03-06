@@ -46,6 +46,10 @@
     package = pkgs.nixVersions.stable;
   };
 
-  # pick up pkgs from flake export
+  # Use the custom legacyPackages instance (overlay + allowUnfree + permittedInsecure)
   nixpkgs.pkgs = self.legacyPackages.${config.nixpkgs.hostPlatform.system};
+
+  # Use the system nixpkgs instance in home-manager: single eval, overlays/config flow through
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
 }
