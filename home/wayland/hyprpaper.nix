@@ -1,13 +1,13 @@
 {
-  default,
+  theme,
   ...
 }: {
   services.hyprpaper = {
     enable = true;
 
     settings = {
-      preload = ["${default.wallpaper}"];
-      wallpaper = [", ${default.wallpaper}"];
+      preload = ["${theme.wallpaper}"];
+      wallpaper = [", ${theme.wallpaper}"];
     };
   };
 }

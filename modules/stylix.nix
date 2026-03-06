@@ -1,10 +1,10 @@
 {
-  default,
+  theme,
   pkgs,
   self',
   ...
 }: {
-  stylix.image = default.wallpaper;
+  stylix.image = theme.wallpaper;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
   # stylix.cursor = {
   #   package = pkgs.bibata-cursors;

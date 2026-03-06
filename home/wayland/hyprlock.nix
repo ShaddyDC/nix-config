@@ -1,4 +1,4 @@
-{default, ...}: let
+{theme, ...}: let
   font_family = "Inter";
 in {
   programs.hyprlock = {
@@ -20,7 +20,7 @@ in {
 
       images = [
         {
-          path = "${default.wallpaper}";
+          path = "${theme.wallpaper}";
         }
       ];
 

@@ -1,6 +1,6 @@
 {
   pkgs,
-  default,
+  theme,
   ...
 }: {
   environment.systemPackages = with pkgs; [
@@ -18,7 +18,7 @@
     enable = true;
     settings = {
       background = {
-        path = default.wallpaper;
+        path = theme.wallpaper;
         fit = "Cover";
       };
     };

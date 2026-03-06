@@ -8,12 +8,12 @@
 let
   inherit (inputs.nixpkgs) lib;
 
-  default = import ./theme {inherit lib;};
+  theme = import ./theme {inherit lib;};
 in {
   imports = [
     {
       _module.args = {
-        inherit default;
+        inherit theme;
 
         withSystemInputs = system:
           withSystem system ({
