@@ -37,7 +37,4 @@ in {
     }
   ];
 
-  flake.nixosModules = {
-    configuration = import ./configuration.nix;
-  };
 }
