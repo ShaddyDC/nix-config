@@ -79,12 +79,10 @@
       };
 
       imports = [
-        ./home/profiles
         ./hosts
         ./lib
-        ./modules
         ./pkgs
-        ./hosts/mediaVps/flake-config.nix
+        # ./hosts/mediaVps/flake-config.nix
       ];
 
       perSystem = {
