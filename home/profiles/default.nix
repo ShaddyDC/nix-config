@@ -16,12 +16,6 @@
     inputs.nix-index-db.homeModules.nix-index
     module_args
     {_module.args = {inherit inputs' self';};}
-    ({self, ...}: {
-      nixpkgs = {
-        config.allowUnfree = true;
-        overlays = [self.overlays.default];
-      };
-    })
   ]);
 
   sharedWorkstationModules = [
@@ -92,44 +86,40 @@ in {
   flake = {
     homeConfigurations =
       withSystem "aarch64-linux" ({
-        pkgs,
+        legacyPackages,
         system,
         ...
       }: {
         "space@pi" = homeManagerConfiguration {
           modules = homeImports."space@pi" ++ module_args ++ (withSystemInputs system);
-          inherit pkgs;
+          pkgs = legacyPackages;
         };
       })
       // withSystem "x86_64-linux" ({
-        pkgs,
+        legacyPackages,
         system,
         ...
       }: {
         "space@spacelaptop" = homeManagerConfiguration {
           modules = homeImports."space@spacelaptop" ++ module_args ++ (withSystemInputs system);
-          inherit pkgs;
+          pkgs = legacyPackages;
         };
         "space@framework" = homeManagerConfiguration {
           modules = homeImports."space@framework" ++ module_args ++ (withSystemInputs system);
-          inherit pkgs;
+          pkgs = legacyPackages;
         };
         "space@spacedesktop" = homeManagerConfiguration {
           modules = homeImports."space@spacedesktop" ++ module_args ++ (withSystemInputs system);
-          inherit pkgs;
+          pkgs = legacyPackages;
         };
         "space@worklaptop" = homeManagerConfiguration {
           modules = homeImports."space@worklaptop" ++ module_args ++ (withSystemInputs system);
-          inherit pkgs;
+          pkgs = legacyPackages;
         };
         "space@mediaVps" = homeManagerConfiguration {
           modules = homeImports."space@mediaVps" ++ module_args ++ (withSystemInputs system);
-          inherit pkgs;
+          pkgs = legacyPackages;
         };
-        # "space@nasps" = homeManagerConfiguration {
-        #   modules = homeImports."space@nasps" ++ module_args ++ (withSystemInputs system);
-        #   inherit pkgs;
-        # };
       });
   };
 }
