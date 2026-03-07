@@ -18,6 +18,7 @@ in {
     ./hypridle.nix
     ./hyprlock.nix
     ./hyprpaper.nix
+    ./niri
   ];
 
   home.packages = with pkgs; [

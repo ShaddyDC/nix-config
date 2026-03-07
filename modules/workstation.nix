@@ -60,6 +60,7 @@
   };
 
   programs.hyprland.enable = true;
+  programs.niri.enable = true;
 
   programs.dms-shell = {
     enable = true;
@@ -77,6 +78,7 @@
     config = {
       common.default = ["gtk"];
       hyprland.default = ["gtk" "hyprland"];
+      niri.default = ["gtk"];
     };
 
     extraPortals = [
