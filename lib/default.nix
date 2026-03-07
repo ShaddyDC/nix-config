@@ -17,12 +17,6 @@ in {
       inherit system;
       config.allowUnfree = true;
       overlays = [overlay];
-      config.permittedInsecurePackages = [
-        "aspnetcore-runtime-6.0.36"
-        "aspnetcore-runtime-wrapped-6.0.36"
-        "dotnet-sdk-6.0.428"
-        "dotnet-sdk-wrapped-6.0.428"
-      ];
     };
   };
 }
