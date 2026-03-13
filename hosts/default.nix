@@ -40,6 +40,7 @@
 
   # Additional HM modules for workstation users
   hmWorkstation = [
+    inputs.niri-flake.homeModules.niri
     ../home/programs
     ../home/wayland
   ];

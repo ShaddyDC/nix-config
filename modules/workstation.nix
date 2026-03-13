@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   self',
   ...
 }: {
@@ -78,7 +79,7 @@
     config = {
       common.default = ["gtk"];
       hyprland.default = ["gtk" "hyprland"];
-      niri.default = ["gtk"];
+      niri.default = lib.mkForce ["gtk"];
     };
 
     extraPortals = [

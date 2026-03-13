@@ -40,8 +40,8 @@ in {
         focus-ring = {
           enable = true;
           width = 2;
-          active-color = "#cba6f7"; # Catppuccin Mauve
-          inactive-color = "#45475a"; # Catppuccin Surface1
+          active.color = "#cba6f7"; # Catppuccin Mauve
+          inactive.color = "#45475a"; # Catppuccin Surface1
         };
         border.enable = false;
       };
@@ -103,7 +103,7 @@ in {
               }
               {
                 name = "Mod+Shift+${key}";
-                value.action = move-window-to-workspace n;
+                value.action = move-column-to-index n;
               }
             ]
           )
@@ -185,51 +185,51 @@ in {
           # === Media Controls (allow-when-inhibited for lock screen) ===
           "XF86AudioPlay" = {
             action = sh-action "dms ipc call mpris playPause";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
           "XF86AudioPause" = {
             action = sh-action "dms ipc call mpris playPause";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
           "XF86AudioPrev" = {
             action = sh-action "dms ipc call mpris previous";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
           "XF86AudioNext" = {
             action = sh-action "dms ipc call mpris next";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
           "XF86AudioMute" = {
             action = sh-action "dms ipc call audio mute";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
           "XF86AudioMicMute" = {
             action = sh-action "dms ipc call audio micmute";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
           "XF86AudioRaiseVolume" = {
             action = sh-action "dms ipc call audio increment 3";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
           "XF86AudioLowerVolume" = {
             action = sh-action "dms ipc call audio decrement 3";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
           "Ctrl+XF86AudioRaiseVolume" = {
             action = sh-action "dms ipc call mpris increment 3";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
           "Ctrl+XF86AudioLowerVolume" = {
             action = sh-action "dms ipc call mpris decrement 3";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
           "XF86MonBrightnessUp" = {
             action = sh-action "dms ipc call brightness increment 5 \"\"";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
           "XF86MonBrightnessDown" = {
             action = sh-action "dms ipc call brightness decrement 5 \"\"";
-            allow-when-inhibited = true;
+            allow-when-locked = true;
           };
         };
     };
