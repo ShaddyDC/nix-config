@@ -128,7 +128,11 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
-    lowLatency.enable = true;
+    lowLatency = {
+      enable = true;
+      quantum = 256;
+      rate = 48000;
+    };
   };
 
   hardware.graphics.enable = true;
