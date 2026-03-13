@@ -133,6 +133,7 @@
       quantum = 256;
       rate = 48000;
     };
+    extraLadspaPackages = [pkgs.rnnoise-plugin.ladspa];
   };
 
   hardware.graphics.enable = true;
