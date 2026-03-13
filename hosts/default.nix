@@ -28,6 +28,7 @@
     ../modules/workstation.nix
     ../modules/xserver.nix
     ../modules/greetd.nix
+    ../modules/app-netns.nix
   ];
 
   # Shared HM modules that every user gets
