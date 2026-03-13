@@ -6,9 +6,9 @@ set -e
 ACTION=${1:-build}
 FLAKE_OUTPUT='.?submodules=1'
 
-if ! [[ "$ACTION" =~ ^(build|test|switch)$ ]]; then
+if ! [[ "$ACTION" =~ ^(build|test|switch|boot)$ ]]; then
   echo "Invalid action: $ACTION"
-  echo "Usage: $0 {build|test|switch}"
+  echo "Usage: $0 {build|test|switch|boot}"
   exit 1
 fi
 
