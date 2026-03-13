@@ -39,7 +39,7 @@
     anki
 
     # security
-    protonvpn-gui
+    proton-vpn
 
     # nix
     nil
