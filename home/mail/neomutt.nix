@@ -65,24 +65,27 @@ in {
         key = "S";
         map = ["pager"];
       }
+      # Each of these sets exactly one state tag and clears the others. Leaving
+      # a competing tag behind makes the message match two MailMover rules and
+      # ping-pong between folders - see the precedence comment in afew.nix.
       {
-        action = "<modify-labels>+archive -inbox<Enter>";
+        action = "<modify-labels>+archive -inbox -spam -deleted<Enter>";
         key = "n2";
         map = ["index"];
       }
       {
-        action = "<modify-labels>-archive +inbox<Enter>";
+        action = "<modify-labels>+inbox -archive -spam -deleted<Enter>";
         key = "n3";
         map = ["index"];
       }
       {
-        action = "<modify-labels>+spam -inbox<Enter>";
+        action = "<modify-labels>+spam -inbox -archive -deleted<Enter>";
         key = "n4";
         map = ["index"];
       }
 
       {
-        action = "<modify-labels>+deleted -inbox -unread<Enter>";
+        action = "<modify-labels>+deleted -inbox -archive -spam -unread<Enter>";
         key = "dd";
         map = ["index"];
       }
@@ -111,7 +114,6 @@ in {
         map = ["index"];
       }
 
-
       # Search notmuch with custom query
       {
         action = "vfolder-from-query";
@@ -125,6 +127,8 @@ in {
     };
 
     extraConfig = ''
+      alternates "blog@shaddy.dev"
+      alternates "pebble@piorr.xyz"
       set wait_key = no
       set mbox_type = Maildir
       set delete
@@ -151,6 +155,11 @@ in {
       virtual-mailboxes "All Archive" "notmuch://?query=tag:archive"
       virtual-mailboxes "All Spam" "notmuch://?query=tag:spam"
       virtual-mailboxes "All Trash" "notmuch://?query=tag:deleted"
+
+      # Replaces the per-account "[Gmail]/All Mail" folders, which are virtual
+      # views server-side and cannot be expunged - see accounts.nix. This covers
+      # every account, not just Gmail.
+      virtual-mailboxes "All Mail" "notmuch://?query=NOT tag:deleted AND NOT tag:spam"
 
       # # Tag modification shortcuts
       # # Usage: press 'nn' in index, then enter tags like "+spam -inbox"
