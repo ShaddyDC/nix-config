@@ -4,7 +4,7 @@ in {
   home.packages = with pkgs; [
     urlscan
     ripmime
-    elinks
+    # elinks
   ];
 
   # Shell function that wraps neomutt with lock file
@@ -236,8 +236,8 @@ in {
     '';
   };
 
+  # text/html; ${pkgs.elinks}/bin/elinks -dump %s; copiousoutput;
   home.file.".config/neomutt/mailcap".text = ''
-    text/html; ${pkgs.elinks}/bin/elinks -dump %s; copiousoutput;
 
     # PDF documents
     application/pdf; ${pkgs.zathura}/bin/zathura %s

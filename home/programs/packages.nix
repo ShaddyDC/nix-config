@@ -16,7 +16,7 @@
     libqalculate
     kalker
     inputs'.agenix.packages.default
-    bottles
+    # bottles
     streamlink
     ripdrag
 
