@@ -129,7 +129,6 @@ in {
     };
 
     dwindle = {
-      pseudotile = true;
       preserve_split = true;
     };
 
@@ -191,7 +190,7 @@ in {
         "$mod SHIFT, T, togglefloating"
         "$mod, G, togglegroup,"
         "$mod, P, pseudo, # dwindle"
-        "$mod, J, togglesplit, # dwindle"
+        "$mod, J, layoutmsg, togglesplit"
 
         # === Focus Navigation ===
         "$mod, left, movefocus, l"
