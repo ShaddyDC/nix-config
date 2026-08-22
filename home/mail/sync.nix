@@ -66,6 +66,45 @@
     };
   };
 
+  # A dozen rules in mail-filters.nix are age-based ("archive/delete once older
+  # than 14 days"). Those can never match when the message first arrives, so
+  # they only fire on a re-scan of already-known mail. Sweep the database daily.
+  #
+  # Safe to run over everything: the catchall filter is scoped to tag:new, so a
+  # full pass cannot re-add "inbox" to mail that was already classified.
+  # AFEW_POST_NEW short-circuits the notmuch postNew hook, which afew would
+  # otherwise re-enter through its own `notmuch new` call.
+  systemd.user.services.afew-retag = {
+    Unit.Description = "Re-apply afew filters to older mail (age-based rules)";
+    Service = {
+      Type = "oneshot";
+      Environment = [
+        "AFEW_POST_NEW=1"
+        # afew falls back to ~/.notmuch-config when this is unset, which does
+        # not exist - home-manager writes the XDG path. notmuch sets this
+        # itself when it runs hooks, but a standalone unit has to pass it.
+        "NOTMUCH_CONFIG=%h/.config/notmuch/default/config"
+      ];
+      ExecStart = [
+        "${pkgs.afew}/bin/afew --tag --all"
+        "${pkgs.afew}/bin/afew --move-mails"
+      ];
+      Nice = 19;
+      IOSchedulingClass = "idle";
+      TimeoutStartSec = 1800;
+    };
+  };
+
+  systemd.user.timers.afew-retag = {
+    Unit.Description = "Daily afew re-tag so age-based filter rules can fire";
+    Timer = {
+      OnCalendar = "daily";
+      Persistent = true;
+      RandomizedDelaySec = "30m";
+    };
+    Install.WantedBy = ["timers.target"];
+  };
+
   # TODO set up imapnotify
 
   # # mbsync
