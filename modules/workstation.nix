@@ -90,11 +90,23 @@
       common.default = ["gtk"];
       hyprland.default = ["gtk" "hyprland"];
       niri.default = lib.mkForce ["gtk"];
+
+      # The frontend only loads .portal backends from the user profile
+      # (gnome + hyprland), so `gtk` never resolves for the Settings interface
+      # and no Settings portal is exposed — apps in "system" theme mode then
+      # can't see the (dark) color-scheme. Route Settings to the gnome backend,
+      # which is loaded (via gnome-control-center) and reports color-scheme
+      # correctly. See reference_settings_portal_broken memory.
+      common."org.freedesktop.impl.portal.Settings" = ["gnome"];
+      hyprland."org.freedesktop.impl.portal.Settings" = ["gnome"];
+      niri."org.freedesktop.impl.portal.Settings" = ["gnome"];
     };
 
     extraPortals = [
       # pkgs.xdg-desktop-portal-hyprland
       pkgs.xdg-desktop-portal-gtk
+      # Provides the Settings impl used above; also registers its D-Bus service.
+      pkgs.xdg-desktop-portal-gnome
     ];
   };
 
