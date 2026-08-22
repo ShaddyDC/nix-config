@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs',
+  self',
   ...
 }: {
   home.packages = with pkgs; [
@@ -24,6 +25,9 @@
     discord
     webcord
     vesktop
+
+    # ai — official Linux build, vendored in pkgs/claude-desktop.nix
+    self'.packages.claude-desktop
 
     # misc
     libnotify

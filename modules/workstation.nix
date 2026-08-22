@@ -63,6 +63,16 @@
   programs.hyprland.enable = true;
   programs.niri.enable = true;
 
+  # Claude Desktop self-downloads a generic-linux Claude Code binary under
+  # ~/.config/Claude/claude-code/ and execs it by absolute path. The FHS wrap in
+  # pkgs/claude-desktop.nix already provides a glibc loader for it, but nix-ld
+  # keeps such generic dynamically-linked ELFs runnable outside the FHS sandbox
+  # too (belt-and-suspenders).
+  programs.nix-ld.enable = true;
+
+  # Cowork runs its agent in a local QEMU VM; the sandbox needs vsock.
+  boot.kernelModules = ["vhost_vsock"];
+
   programs.dms-shell = {
     enable = true;
     enableSystemMonitoring = true;

@@ -1,7 +1,4 @@
-{
-  inputs,
-  ...
-}: let
+{inputs, ...}: let
   # Single overlay definition — exported as flake.overlays.default and applied to legacyPackages.
   overlay = final: prev: {
     claude-code = inputs.claude-code.packages.${prev.stdenv.hostPlatform.system}.default;
@@ -16,6 +13,8 @@ in {
     legacyPackages = import inputs.nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      # pnpm is currently flagged insecure but is pulled transitively.
+      config.permittedInsecurePackages = ["pnpm-10.34.0"];
       overlays = [overlay];
     };
   };
