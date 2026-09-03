@@ -85,6 +85,12 @@ in {
     neovim = {
       enable = true;
       # defaultEditor = true;
+
+      # These defaulted to true and now default to false; nothing here needs
+      # the Ruby or Python remote-plugin providers, so follow the new default
+      # explicitly and drop them from the closure.
+      withRuby = false;
+      withPython3 = false;
     };
 
     zellij = {

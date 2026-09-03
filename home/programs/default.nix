@@ -44,6 +44,12 @@
     firefox = {
       enable = true;
       profiles.shaddy = {};
+
+      # The default flipped to "$XDG_CONFIG_HOME/mozilla/firefox" for
+      # stateVersion >= 26.05. Moving to it means relocating the existing 4 GB
+      # profile by hand (and native messaging hosts do not follow), so stay on
+      # the classic path explicitly.
+      configPath = ".mozilla/firefox";
       package = pkgs.firefox.override {
         nativeMessagingHosts = [
           pkgs.tridactyl-native

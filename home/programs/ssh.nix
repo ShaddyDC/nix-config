@@ -2,24 +2,26 @@
   programs.ssh.enable = true;
   programs.ssh.enableDefaultConfig = false;
 
-  programs.ssh.matchBlocks = {
+  # `matchBlocks` is a deprecated alias for `settings`; the latter takes
+  # ssh_config(5) directive names verbatim rather than camelCase aliases.
+  programs.ssh.settings = {
     "github.com" = {
-      user = "git";
-      # identityFile = "~/.ssh/id_rsa.pub";
+      User = "git";
+      # IdentityFile = "~/.ssh/id_rsa.pub";
     };
     "git.rwth-aachen.de" = {
-      user = "git";
-      # identityFile = "~/.ssh/id_rsa.pub";
+      User = "git";
+      # IdentityFile = "~/.ssh/id_rsa.pub";
     };
     "devps" = {
-      user = "root";
-      hostname = "88.198.105.181";
-      # identityFile = "~/.ssh/id_rsa.pub";
+      User = "root";
+      HostName = "88.198.105.181";
+      # IdentityFile = "~/.ssh/id_rsa.pub";
     };
     # "mediaVps" = {
-    #   user = "root";
-    #   hostname = "138.201.206.23";
-    #   identityFile = "~/.ssh/id_rsa.pub";
+    #   User = "root";
+    #   HostName = "138.201.206.23";
+    #   IdentityFile = "~/.ssh/id_rsa.pub";
     # };
   };
 

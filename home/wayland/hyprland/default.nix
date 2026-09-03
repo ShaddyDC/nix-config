@@ -15,6 +15,13 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+
+    # The default flipped to "lua" for stateVersion >= 26.05. Everything in
+    # ./config.nix is written as hyprlang strings ("$mod, S, submap, resize",
+    # "env = KEY,VALUE", the windowrule list), which the lua backend does not
+    # accept as-is, so pin the old backend rather than let the state version
+    # decide.
+    configType = "hyprlang";
   };
 
   # Create DMS runtime config directory with empty placeholders
