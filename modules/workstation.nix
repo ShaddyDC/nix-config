@@ -23,7 +23,10 @@
   };
 
   services.kanidm = {
-    package = pkgs.kanidm_1_9;
+    # Only the client is enabled here; keep it on the same version as the
+    # server at idm.shaddy.dev, which reports 1.11.1 via x-kanidm-version.
+    # nixpkgs removed the unversioned `kanidm` alias, so this has to be pinned.
+    package = pkgs.kanidm_1_11;
     client = {
       enable = true;
       settings = {
