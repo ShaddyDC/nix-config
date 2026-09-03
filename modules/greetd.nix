@@ -14,7 +14,7 @@
     papirus-icon-theme
   ];
 
-  programs.regreet = {
+  services.displayManager.regreet = {
     enable = true;
     settings = {
       background = {
