@@ -41,11 +41,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    niri-flake = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hardware = {
       url = "github:nixos/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
