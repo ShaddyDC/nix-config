@@ -63,6 +63,10 @@
   programs.hyprland.enable = true;
   programs.niri.enable = true;
 
+  # Both the niri and plasma6 modules set defaultSession with mkDefault, which
+  # collides. Pick explicitly; regreet still remembers the last session used.
+  services.displayManager.defaultSession = "hyprland";
+
   # Claude Desktop self-downloads a generic-linux Claude Code binary under
   # ~/.config/Claude/claude-code/ and execs it by absolute path. The FHS wrap in
   # pkgs/claude-desktop.nix already provides a glibc loader for it, but nix-ld

@@ -8,6 +8,10 @@
 in {
   programs.niri = {
     enable = true;
+    # niri-flake's own niri builds against libdisplay-info_0_2, which nixpkgs
+    # removed. The system side (programs.niri in workstation.nix) already runs
+    # the nixpkgs package, so use it here too and keep both halves in sync.
+    package = pkgs.niri;
     settings = {
       input = {
         keyboard = {
