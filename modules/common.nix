@@ -41,6 +41,14 @@ in {
     };
   };
 
+  # The default ExecStart waits for *every* device to finish activating and
+  # only gives up at the 30s timeout, which stalls boot whenever a profile
+  # can't come up. `nm-online -q` returns as soon as one connection is up.
+  systemd.services.NetworkManager-wait-online.serviceConfig.ExecStart = [
+    ""
+    "${pkgs.networkmanager}/bin/nm-online -q"
+  ];
+
   programs = {
     less.enable = true;
   };
