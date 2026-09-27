@@ -20,12 +20,10 @@
   fetchurl,
   stdenvNoCC,
   buildFHSEnv,
-
   ### Tools
   dpkg,
   autoPatchelfHook,
   makeWrapper,
-
   ### Electron/Chromium
   nss,
   nspr,
@@ -50,22 +48,17 @@
   expat,
   glib,
   systemd,
-
   ### For virtiofsd
   libseccomp,
   libcap_ng,
-
   ### For keyring support
   libsecret,
-
   ### For Cowork QEMU
   qemu,
   OVMF,
-
   ### For extensions
   python3,
   nodejs,
-
   ### Force a specific password store backend (e.g. "gnome-libsecret" for
   ### non-GNOME/KDE DEs, otherwise Electron falls back to a plaintext store and
   ### sign-in is not persisted).

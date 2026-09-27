@@ -3,7 +3,6 @@
   # TODO Fix all follows
 
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home manager
@@ -66,6 +65,16 @@
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -80,6 +89,7 @@
         ./hosts
         ./lib
         ./pkgs
+        ./fmt-hooks.nix
         # ./hosts/mediaVps/flake-config.nix
       ];
 
@@ -96,9 +106,8 @@
             pkgs.git
           ];
           name = "dots";
+          shellHook = config.pre-commit.installationScript;
         };
-
-        formatter = pkgs.alejandra;
       };
     };
   nixConfig = {

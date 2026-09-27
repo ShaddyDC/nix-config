@@ -61,7 +61,11 @@
       modules =
         extraModules
         ++ nixosBase
-        ++ withSystem system ({self', inputs', ...}: [
+        ++ withSystem system ({
+          self',
+          inputs',
+          ...
+        }: [
           {_module.args = {inherit self' inputs';};}
           # Propagate system-specific args into the embedded HM module system
           {home-manager.sharedModules = [moduleArgs {_module.args = {inherit self' inputs';};}];}
@@ -70,7 +74,12 @@
 
   # Build a standalone HM configuration using our custom pkgs (with overlay + allowUnfree)
   mkHome = system: extraModules:
-    withSystem system ({legacyPackages, self', inputs', ...}:
+    withSystem system ({
+      legacyPackages,
+      self',
+      inputs',
+      ...
+    }:
       inputs.hm.lib.homeManagerConfiguration {
         pkgs = legacyPackages;
         modules = extraModules ++ hmBase ++ [moduleArgs {_module.args = {inherit self' inputs';};}];

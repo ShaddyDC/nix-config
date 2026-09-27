@@ -1,7 +1,4 @@
-{
-  theme,
-  ...
-}: {
+{theme, ...}: {
   services.hyprpaper = {
     enable = true;
 
