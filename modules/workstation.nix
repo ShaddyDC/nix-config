@@ -210,6 +210,9 @@
 
   programs.gamescope = {
     enable = true;
+    # Vulkan WSI layer, needed for HDR/tearing control and gamescope's own
+    # present path to work properly inside the nested compositor
+    enableWsi = true;
     capSysNice = true;
     args = [
       "--rt"
@@ -227,7 +230,12 @@
 
   environment.systemPackages = with pkgs; [
     xwayland
+    gpu-screen-recorder-gtk
   ];
+
+  # Shadowplay-style recording with a replay buffer; the setuid helper the
+  # module installs is what lets it capture without a portal prompt.
+  programs.gpu-screen-recorder.enable = true;
 
   programs.localsend = {
     enable = true;
