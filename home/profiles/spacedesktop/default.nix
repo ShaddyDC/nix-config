@@ -3,6 +3,11 @@
   ];
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "DP-1,highrr,auto,1"
+    {
+      output = "DP-1";
+      mode = "highrr";
+      position = "auto";
+      scale = 1;
+    }
   ];
 }
