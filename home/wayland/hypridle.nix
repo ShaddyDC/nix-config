@@ -35,12 +35,15 @@ in {
       general = {
         before_sleep_cmd = lock;
         after_sleep_cmd = wakeDisplays.outPath;
-        # NB: deliberately NOT guarded with `pgrep hyprlock ||`. A hyprlock
-        # process has been observed outliving its own successful unlock by
-        # tens of minutes, and such a guard would then suppress the real
-        # locker, leaving the session locked with nothing drawn and no way
-        # back in.
-        lock_cmd = lib.getExe config.programs.hyprlock.package;
+        # Lock with DMS, the same locker SUPER+L uses. Having the idle timer
+        # reach for hyprlock instead is what let hyprlock's config rot
+        # unnoticed until it locked the session with nothing drawn.
+        #
+        # NB: deliberately NOT guarded with `pgrep <locker> ||`. A hyprlock
+        # process was observed outliving its own successful unlock by tens of
+        # minutes, and such a guard would then suppress the real locker,
+        # leaving the session locked and unreachable short of a TTY.
+        lock_cmd = "${lib.getExe' pkgs.dms-shell "dms"} ipc call lock lock";
       };
 
       listener = [
