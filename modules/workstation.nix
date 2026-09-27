@@ -158,7 +158,45 @@
       quantum = 256;
       rate = 48000;
     };
-    extraLadspaPackages = [pkgs.rnnoise-plugin.ladspa];
+    # DeepFilterNet denoising, replacing the old rnnoise filter-chain that
+    # used to live in home/programs/rnnoise.nix. Keeping it system-side means
+    # it no longer depends on home-manager activation ordering, and the
+    # module wires LADSPA_PATH up for us.
+    extraLadspaPackages = [pkgs.deepfilternet];
+    extraConfig.pipewire."99-input-denoising"."context.modules" = [
+      {
+        name = "libpipewire-module-filter-chain";
+        args = {
+          "node.description" = "DeepFilter Noise Canceling source";
+          "media.name" = "DeepFilter Noise Canceling source";
+
+          "filter.graph".nodes = [
+            {
+              type = "ladspa";
+              name = "DeepFilter Mono";
+              plugin = "libdeep_filter_ladspa";
+              label = "deep_filter_mono";
+              control."Attenuation Limit (dB)" = 100;
+            }
+          ];
+
+          "audio.rate" = 48000;
+          "audio.position" = "[MONO]";
+
+          # Explicit node names: without them pipewire autogenerates
+          # `filter-chain-<pid>-<n>`, which changes on every restart, so
+          # anything that pins this source by name loses it on reboot.
+          "capture.props" = {
+            "node.name" = "effect_input.deepfilter";
+            "node.passive" = true;
+          };
+          "playback.props" = {
+            "node.name" = "effect_output.deepfilter";
+            "media.class" = "Audio/Source";
+          };
+        };
+      }
+    ];
   };
 
   hardware.graphics.enable = true;

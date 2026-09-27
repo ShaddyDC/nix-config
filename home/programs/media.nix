@@ -1,10 +1,7 @@
 {pkgs, ...}:
 # media - control and enjoy audio/video
+# input denoising lives in modules/workstation.nix (pipewire + deepfilternet)
 {
-  imports = [
-    ./rnnoise.nix
-  ];
-
   home.packages = with pkgs; [
     # audio control
     pavucontrol
