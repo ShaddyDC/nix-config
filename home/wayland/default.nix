@@ -34,10 +34,11 @@ in {
     wlr-randr
   ];
 
-  # make stuff work on wayland
+  # make stuff work on wayland, but fall back to X11 rather than failing to
+  # start for the apps that have no wayland backend
   home.sessionVariables = {
-    QT_QPA_PLATFORM = "wayland";
-    SDL_VIDEODRIVER = "wayland";
+    QT_QPA_PLATFORM = "wayland;x11";
+    SDL_VIDEODRIVER = "wayland;x11";
     XDG_SESSION_TYPE = "wayland";
   };
 

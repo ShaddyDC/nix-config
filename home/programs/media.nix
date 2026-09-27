@@ -31,6 +31,7 @@
       enable = true;
       defaultProfiles = ["gpu-hq"];
       scripts = [pkgs.mpvScripts.mpris];
+      config.save-position-on-quit = true;
     };
 
     feh.enable = true;

@@ -74,6 +74,14 @@ in {
       enable = true;
       enableBashIntegration = true;
       shellWrapperName = "y";
+
+      # C-n drags the selection out to GUI apps that accept a file drop
+      keymap.mgr.prepend_keymap = [
+        {
+          on = ["<C-n>"];
+          run = ''shell '${lib.getExe pkgs.ripdrag} "$@" -x 2>/dev/null &' --confirm'';
+        }
+      ];
     };
 
     zoxide.enable = true;

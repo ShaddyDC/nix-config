@@ -14,6 +14,15 @@
     enable = true;
     package = pkgs.gitFull;
 
+    # global excludes, so build/tooling droppings don't need to be repeated in
+    # every repo's .gitignore
+    ignores = [
+      "result"
+      "result-*"
+      ".direnv"
+      ".worktree"
+    ];
+
     signing = {
       format = "ssh";
       key = "${config.home.homeDirectory}/.ssh/id_ed25519";
