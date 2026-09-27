@@ -24,7 +24,6 @@ in {
   home.packages = with pkgs; [
     jaq
     xprop
-    grimblast
   ];
 
   wayland.windowManager.hyprland = {

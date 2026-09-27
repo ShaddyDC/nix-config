@@ -280,6 +280,7 @@ in {
           (bind "Print" (dms "screenshot"))
           (bind "CTRL + Print" (dms "screenshot full"))
           (bind "ALT + Print" (dms "screenshot window"))
+          (bind "${mod} + Print" (dms "screenshot last"))
           (bind "${mod} + SHIFT + Print" (execCmd (lib.getExe recordScript)))
           (bind "${mod} + SHIFT + BACKSPACE" (execCmd "pkill -SIGINT wf-recorder"))
 
