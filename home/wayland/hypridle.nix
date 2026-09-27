@@ -35,8 +35,12 @@ in {
       general = {
         before_sleep_cmd = lock;
         after_sleep_cmd = wakeDisplays.outPath;
-        # don't stack a second locker on top of a running one
-        lock_cmd = "${lib.getExe' pkgs.procps "pgrep"} -x hyprlock || ${lib.getExe config.programs.hyprlock.package}";
+        # NB: deliberately NOT guarded with `pgrep hyprlock ||`. A hyprlock
+        # process has been observed outliving its own successful unlock by
+        # tens of minutes, and such a guard would then suppress the real
+        # locker, leaving the session locked with nothing drawn and no way
+        # back in.
+        lock_cmd = lib.getExe config.programs.hyprlock.package;
       };
 
       listener = [
