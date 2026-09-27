@@ -19,13 +19,12 @@
     supportedFilesystems = ["ntfs"];
   };
 
-  hardware.opengl.extraPackages = with pkgs; [
+  # `hardware.opengl` was renamed to `hardware.graphics`, and `amdvlk` was
+  # removed from nixpkgs -- AMD deprecated it in favour of RADV, which mesa
+  # enables by default, so dropping it needs no replacement.
+  hardware.graphics.extraPackages = with pkgs; [
     rocmPackages.clr.icd
     rocmPackages.rocm-runtime
-    amdvlk
-  ];
-  hardware.opengl.extraPackages32 = with pkgs; [
-    # driversi686Linux.amdvlk
   ];
 
   services.xserver.videoDrivers = ["amdgpu"];
@@ -47,14 +46,27 @@
     fsType = "vfat";
   };
 
+  # These three data drives never carried an fsType. That used to be fine
+  # because `fileSystems.<name>.fsType` defaulted to "auto"; nixpkgs has since
+  # made the option mandatory (type = nonEmptyStr, no default), which is what
+  # broke evaluation of this host. "auto" restores exactly the previous
+  # behaviour -- mount(8) probes the type via blkid at mount time.
+  #
+  # The machine has been offline too long to read the real types off the
+  # disks, so nothing is guessed here. Worth pinning them to concrete types
+  # (the last one looks like NTFS, hence supportedFilesystems above) next time
+  # it boots, so fsck ordering and the mount helpers are chosen properly.
   fileSystems."/run/media/space/ext4" = {
     device = "/dev/disk/by-uuid/c21e248c-11b2-47de-946a-892852f3c43b";
+    fsType = "auto";
   };
   fileSystems."/run/media/space/New_Volume" = {
     device = "/dev/disk/by-uuid/3b6642d6-da03-4782-bcc1-a934b8294896";
+    fsType = "auto";
   };
   fileSystems."/run/media/space/media" = {
     device = "/dev/disk/by-uuid/36B2588FB2585589";
+    fsType = "auto";
   };
 
   swapDevices = [];
