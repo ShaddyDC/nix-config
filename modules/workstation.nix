@@ -80,15 +80,11 @@
   # Cowork runs its agent in a local QEMU VM; the sandbox needs vsock.
   boot.kernelModules = ["vhost_vsock"];
 
-  programs.dms-shell = {
-    enable = true;
-    enableSystemMonitoring = true;
-    enableVPN = true;
-    enableDynamicTheming = true;
-    enableAudioWavelength = true;
-    enableCalendarEvents = true;
-    enableClipboardPaste = true;
-  };
+  # The enable* toggles were dropped upstream: monitoring, VPN and clipboard
+  # paste are built in now, matugen and cava ship in the default environment,
+  # and calendar events just need a backend on PATH (home-manager's
+  # programs.khal provides it).
+  programs.dms-shell.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -171,7 +167,7 @@
   services.upower.enable = true;
 
   # needed for GNOME services outside of GNOME Desktop
-  services.dbus.packages = [pkgs.gcr];
+  services.dbus.packages = [pkgs.gcr_3];
   services.udev.packages = with pkgs; [gnome-settings-daemon];
 
   programs.gamescope = {
