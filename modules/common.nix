@@ -73,6 +73,11 @@ in {
   # don't ask for password for wheel group
   security.sudo.wheelNeedsPassword = false;
 
+  # accountsservice only reports users whose login shell is listed in
+  # /etc/shells; without this, regreet can't find "space" and both the user
+  # and session fields come up blank instead of restoring the last session.
+  environment.shells = [pkgs.nushell];
+
   users.users.space = {
     uid = 1000;
     isNormalUser = true;
