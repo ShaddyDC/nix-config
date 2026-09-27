@@ -4,26 +4,45 @@
   config,
   ...
 }: let
-  suspendScript = pkgs.writeShellScript "suspend-script" ''
-    ${pkgs.pipewire}/bin/pw-cli i all | ${pkgs.ripgrep}/bin/rg running
-    # only suspend if audio isn't running
-    if [ $? == 1 ]; then
-      # ${pkgs.systemd}/bin/systemctl suspend
-      ${pkgs.systemd}/bin/loginctl lock-session
+  lock = "${lib.getExe' pkgs.systemd "loginctl"} lock-session";
+
+  # only lock if nothing is playing audio
+  idleLock = pkgs.writeShellScript "idle-lock" ''
+    if ! ${lib.getExe' pkgs.pipewire "pw-cli"} i all | ${lib.getExe pkgs.ripgrep} -q running; then
+      ${lock}
+    fi
+  '';
+
+  # hypridle is shared between Hyprland and niri, and only Hyprland has
+  # hyprctl. Since 0.56 the dispatcher is Lua, so the old `dpms on` spelling
+  # is a syntax error rather than a no-op.
+  wakeDisplays = pkgs.writeShellScript "wake-displays" ''
+    if [ -n "''${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
+      ${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} \
+        dispatch 'hl.dsp.dpms({action = "on"})'
     fi
   '';
 in {
   # screen idle
+  #
+  # NOTE: `settings` is freeform hyprlang -- home-manager passes the attribute
+  # names through verbatim. They must match hypridle.conf exactly (`general`
+  # block, `listener` singular, snake_case/kebab-case keys), otherwise the
+  # config parses into nothing and no listener ever fires.
   services.hypridle = {
     enable = true;
     settings = {
-      beforeSleepCmd = "${pkgs.systemd}/bin/loginctl lock-session";
-      lockCmd = lib.getExe config.programs.hyprlock.package;
+      general = {
+        before_sleep_cmd = lock;
+        after_sleep_cmd = wakeDisplays.outPath;
+        # don't stack a second locker on top of a running one
+        lock_cmd = "${lib.getExe' pkgs.procps "pgrep"} -x hyprlock || ${lib.getExe config.programs.hyprlock.package}";
+      };
 
-      listeners = [
+      listener = [
         {
           timeout = 330;
-          onTimeout = suspendScript.outPath;
+          on-timeout = idleLock.outPath;
         }
       ];
     };
