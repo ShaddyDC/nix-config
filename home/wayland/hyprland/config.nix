@@ -132,6 +132,13 @@ in {
         dwindle.preserve_split = true;
 
         misc = {
+          # If a lock screen crashes, Hyprland keeps the session locked and
+          # refuses a replacement locker unless this is set -- which turns a
+          # locker crash into "boot to a TTY" rather than "run the locker
+          # again". Weakens the lock slightly for someone with physical
+          # access to a machine whose locker just died; worth it on a laptop.
+          allow_session_lock_restore = true;
+
           disable_autoreload = true;
           force_default_wallpaper = 0;
           disable_hyprland_logo = true;
