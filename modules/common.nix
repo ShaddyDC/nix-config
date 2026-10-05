@@ -54,6 +54,10 @@ in {
 
   virtualisation.podman.enable = true;
 
+  # There is no swap device; compressed RAM swap keeps memory pressure from
+  # turning into a hard freeze or an OOM kill.
+  zramSwap.enable = true;
+
   services = {
     fail2ban.enable = true;
 
