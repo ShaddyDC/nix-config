@@ -10,12 +10,6 @@
   services.resolved.settings.Resolve.FallbackDNS = ["1.1.1.1"];
 
   security.pam.services = {
-    gdm.enableKwallet = true;
-    kdm.enableKwallet = true;
-    lightdm.enableKwallet = true;
-    sddm.enableKwallet = true;
-    slim.enableKwallet = true;
-
     # allow wayland lockers to unlock the screen
     gtklock.text = "auth include login";
     swaylock.text = "auth include login";
