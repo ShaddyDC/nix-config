@@ -248,6 +248,7 @@
       material-symbols
 
       # normal fonts
+      inter
       jost
       lexend
       noto-fonts
