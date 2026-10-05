@@ -24,7 +24,10 @@
 
       custom.jj = {
         detect_folders = [".jj"];
-        command = "jj log --no-graph -r @ -n1 -T 'change_id.shortest() ++ \"|\" ++ if(empty, \"(empty) \") ++ description'";
+        # --ignore-working-copy: otherwise every prompt snapshots the working
+        # copy, which in this colocated repo also resets git's index under
+        # whatever git operation is in flight.
+        command = "jj log --ignore-working-copy --no-graph -r @ -n1 -T 'change_id.shortest() ++ \"|\" ++ if(empty, \"(empty) \") ++ description'";
         style = "cyan";
       };
     };
