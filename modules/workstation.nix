@@ -35,8 +35,6 @@
   services.geoclue2.enable = true;
   location.provider = "geoclue2";
 
-  hardware.brillo.enable = true;
-
   # hardware.keyboard.qmk.enable = true;
 
   boot.consoleLogLevel = 3;
