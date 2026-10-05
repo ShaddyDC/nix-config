@@ -55,7 +55,6 @@ in {
     broot
 
     # nix
-    comma
     store-path
 
     # zed-editor
@@ -127,10 +126,13 @@ in {
     bash.enable = true;
   };
 
+  # comma wrapped with the prebuilt nix-index database
+  programs.nix-index-database.comma.enable = true;
+
   programs.bash.bashrcExtra = ''
     # run programs that are not in PATH with comma
     command_not_found_handler() {
-      ${lib.getExe pkgs.comma} "$@"
+      , "$@"
     }
   '';
 
