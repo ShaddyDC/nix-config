@@ -45,11 +45,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -77,11 +72,7 @@
     };
   };
 
-  outputs = inputs @ {
-    deploy-rs,
-    self,
-    ...
-  }:
+  outputs = inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-linux"];
 
@@ -90,7 +81,6 @@
         ./lib
         ./pkgs
         ./fmt-hooks.nix
-        # ./hosts/mediaVps/flake-config.nix
       ];
 
       perSystem = {

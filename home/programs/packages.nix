@@ -35,7 +35,6 @@
     xdg-utils
     gnome-control-center
     keepassxc
-    inputs'.deploy-rs.packages.deploy-rs
 
     # productivity
     obsidian

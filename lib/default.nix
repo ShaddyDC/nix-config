@@ -6,9 +6,8 @@
 in {
   flake.overlays.default = overlay;
 
-  # Custom nixpkgs instance used by:
-  #   - NixOS hosts via `nixpkgs.pkgs = self.legacyPackages.${system}` (modules/nix.nix)
-  #   - Standalone home-manager configs via mkHome in hosts/default.nix
+  # Custom nixpkgs instance, used by NixOS hosts via
+  # `nixpkgs.pkgs = self.legacyPackages.${system}` (modules/nix.nix)
   perSystem = {system, ...}: {
     legacyPackages = import inputs.nixpkgs {
       inherit system;

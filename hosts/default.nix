@@ -16,7 +16,6 @@
     inputs.stylix.nixosModules.stylix
     ../modules/common.nix
     ../modules/nix.nix
-    ../modules/vpn.nix
     ../modules/stylix.nix
     moduleArgs
     {home-manager.backupFileExtension = "backup";}
@@ -71,43 +70,8 @@
           {home-manager.sharedModules = [moduleArgs {_module.args = {inherit self' inputs';};}];}
         ]);
     };
-
-  # Build a standalone HM configuration using our custom pkgs (with overlay + allowUnfree)
-  mkHome = system: extraModules:
-    withSystem system ({
-      legacyPackages,
-      self',
-      inputs',
-      ...
-    }:
-      inputs.hm.lib.homeManagerConfiguration {
-        pkgs = legacyPackages;
-        modules = extraModules ++ hmBase ++ [moduleArgs {_module.args = {inherit self' inputs';};}];
-      });
 in {
   flake.nixosConfigurations = {
-    pi = mkSystem "aarch64-linux" [
-      ./pi
-      {home-manager.users.space.imports = hmBase;}
-    ];
-
-    worklaptop = mkSystem "x86_64-linux" (
-      [
-        ./worklaptop
-        ../modules/power-switcher.nix
-        {
-          home-manager.users.space.imports =
-            hmBase
-            ++ [../home/profiles/worklaptop]
-            ++ hmWorkstation;
-        }
-        inputs.hardware.nixosModules.common-pc-ssd
-        inputs.hardware.nixosModules.common-pc-laptop
-        inputs.hardware.nixosModules.common-cpu-intel
-      ]
-      ++ nixosWorkstation
-    );
-
     framework = mkSystem "x86_64-linux" (
       [
         ./framework
@@ -139,39 +103,5 @@ in {
       ]
       ++ nixosWorkstation
     );
-
-    # mediaVps = mkSystem "x86_64-linux" [
-    #   ./mediaVps
-    #   {home-manager.users.space.imports = hmBase;}
-    # ];
-  };
-
-  flake.homeConfigurations = {
-    "space@pi" = mkHome "aarch64-linux" [];
-
-    "space@spacelaptop" = mkHome "x86_64-linux" (
-      [../home/profiles/spacelaptop]
-      ++ hmWorkstation
-      ++ hmPersonal
-    );
-
-    "space@framework" = mkHome "x86_64-linux" (
-      [../home/profiles/framework]
-      ++ hmWorkstation
-      ++ hmPersonal
-    );
-
-    "space@spacedesktop" = mkHome "x86_64-linux" (
-      [../home/profiles/spacedesktop]
-      ++ hmWorkstation
-      ++ hmPersonal
-    );
-
-    "space@worklaptop" = mkHome "x86_64-linux" (
-      [../home/profiles/worklaptop]
-      ++ hmWorkstation
-    );
-
-    # "space@mediaVps" = mkHome "x86_64-linux" [];
   };
 }

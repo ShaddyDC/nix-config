@@ -1,7 +1,6 @@
 {pkgs, ...}: let
   defaultKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDBrktlT4vqiq+3tzsxEpeeW2+osiDixImgYbbRVm0c+D3Qo8EYwmqqEWnfpGfg41YBzN8x4lALlW69pxBgu2URI8owDIIgI0xQL0NL69RKs32iZLj6qtx5nH5opRkAFTVLDn3WJ/04ytkIl2Ee/C137dOvQpvVfzKOcpBvTJ25owaRtN7tr3F2YHoiEalYiV7xudqiDlyX3n3hIpZQOKIGKS4ZqKZhQwbiY+zdGt+7DSLphyvE5CPdgKb0qSqsWh6y/QOPJjVI4fBJ0CZAdYMA1YjowsNmOnTejmr6n0ZLo1wHUHFddd8cKLT+GyMBR1u9hRCu/122ubYCDwO30/mZ667WbfOOELAjM6HCre4AH0eIiz20HGgBoNS62rzWsJc9+WzSbNXhNNnRqHgGfQwq5Ykr2Le9RI+M2dTm/5r259Jt2pVKUdbahq53Q61qaMP9MZ9Wy02SvW2IkuRZuaDSsFUJFx6x/K2dcbDmS4xH0H+Vdr5ismdpZoP6eiyYB9wa9+ixxye+g6ZwizP0B7VgrsZJCY/JYt/TARPBBv2kgTrhtckNj4Tlxd3XFpgPNEa+z08EKSWSUwZax/Na/+05WfBpcDtk9qDq0Nkx6DUf8xHsPVFV30NTqhxPKGFsh0cq2CuFH4QTMzhFD1eMchoqPCFQFP4wu2+whSRyjB3G5w== id_rsa";
   # homeserverKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMF3eBu9/qGpIYQCDaE9dv1YHsus+3dJlanQFjNNQwq0 userme@dockerhost";
-  workLaptopKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEAV3cjJeQmfvad7Cyh9h8UoSGu98z2D6Cv5M9X65nc space@nixos";
   termiusKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGP3QhWoHYdByhRE/vDYP0Xv7KX4uGdvtnwS09ymnsVF";
   frameworkKey = " ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIESUb8bTFKNUebogL10sjPmmpIa2vubrtnPfuiwvmh0s space@nixos";
 in {
@@ -92,10 +91,10 @@ in {
     shell = pkgs.nushell;
     extraGroups = ["input" "libvirtd" "networkmanager" "video" "wheel"];
 
-    openssh.authorizedKeys.keys = [defaultKey workLaptopKey termiusKey frameworkKey];
+    openssh.authorizedKeys.keys = [defaultKey termiusKey frameworkKey];
   };
 
-  users.users.root.openssh.authorizedKeys.keys = [defaultKey workLaptopKey frameworkKey];
+  users.users.root.openssh.authorizedKeys.keys = [defaultKey frameworkKey];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
