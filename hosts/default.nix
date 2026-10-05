@@ -49,7 +49,7 @@
     ../home/mail
     ../home/games.nix
     ../home/programs/rclone.nix
-    ../secrets/accounts.nix
+    "${inputs.secrets}/accounts.nix"
   ];
 
   # Build a NixOS system, injecting system-specific self'/inputs' into both

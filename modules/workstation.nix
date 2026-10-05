@@ -237,7 +237,7 @@
   };
 
   # age.secrets.vdirsyncer-config = {
-  #   file = ../secrets/vdirsyncer.config.age;
+  #   file = inputs.secrets + "/vdirsyncer.config.age";
   #   owner = config.users.users.space.name;
   # };
 

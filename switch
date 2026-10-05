@@ -1,27 +1,15 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
+# Thin wrapper kept for muscle memory; `nh os <action>` works directly too
+# (NH_FLAKE points at this repo, see modules/nix.nix).
+set -euo pipefail
 
-set -e
-
-# Input handling and validation
 ACTION=${1:-build}
-FLAKE_OUTPUT='.?submodules=1'
-
 if ! [[ "$ACTION" =~ ^(build|test|switch|boot)$ ]]; then
-  echo "Invalid action: $ACTION"
-  echo "Usage: $0 {build|test|switch|boot}"
+  echo "Usage: $0 {build|test|switch|boot} [extra nh args...]" >&2
   exit 1
 fi
+shift || true
 
-# Execution logic separated from input handling
-echo "${ACTION^}ing the current configuration..."
-sudo nixos-rebuild "$ACTION" --flake "$FLAKE_OUTPUT"
-sudo chown -R space ~/.local/cache/nix # fix permissions
-
-# echo "Building system..."
-
-# # sudo env LOCALE_ARCHIVE=$LOCALE_ARCHIVE nixos-rebuild switch --flake '.#spacedesktop'
-# sudo nixos-rebuild switch --flake '.?submodules=1#spacelaptop'
-
-# echo "Building home..."
-
-# home-manager switch --flake ".?submodules=1#space@spacelaptop" --option extra-builtins-file extra-builtins.nix
+# nh evaluates as this user (so the private git+ssh inputs use your SSH key)
+# and only escalates for activation.
+exec nh os "$ACTION" "$(dirname "$0")" "$@"

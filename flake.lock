@@ -399,9 +399,26 @@
         "nix-gaming": "nix-gaming",
         "nix-index-db": "nix-index-db",
         "nixpkgs": "nixpkgs",
+        "secrets": "secrets",
         "stylix": "stylix",
         "treefmt-nix": "treefmt-nix",
         "zathura-style": "zathura-style"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791230623,
+        "narHash": "sha256-TOFZGurcIdTg4bBa/++Ym/tHZf6fF0gsOBf3pG2UzIQ=",
+        "ref": "refs/heads/main",
+        "rev": "8e68e2d90551096c4e5bfb815047b715fcce84f4",
+        "revCount": 20,
+        "type": "git",
+        "url": "ssh://git@github.com/ShaddyDC/nix-secrets"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/ShaddyDC/nix-secrets"
       }
     },
     "stylix": {

@@ -1,10 +1,11 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }: let
   # Import filter rules from secrets folder
-  mailFilters = import ../../secrets/mail-filters.nix;
+  mailFilters = import "${inputs.secrets}/mail-filters.nix";
 
   # Get all email account names
   accounts = builtins.attrNames config.accounts.email.accounts;

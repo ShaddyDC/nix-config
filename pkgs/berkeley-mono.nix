@@ -2,12 +2,13 @@
   stdenv,
   unzip,
   lib,
+  secrets,
 }:
 stdenv.mkDerivation {
   pname = "berkeley-mono";
   version = "1.009";
 
-  src = ../secrets/berkeley-mono-typeface.zip;
+  src = "${secrets}/berkeley-mono-typeface.zip";
 
   buildInputs = [unzip];
   phases = [

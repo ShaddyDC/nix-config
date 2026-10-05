@@ -9,11 +9,12 @@
   # we need git for flakes
   environment.systemPackages = [pkgs.git];
 
-  # nh wraps nixos-rebuild/gc with better output and a build diff. Only the
-  # cleanup side is wired up here; `nh os switch` would need the flakeref to
-  # carry `?submodules=1` (see ./switch), so NH_FLAKE is deliberately unset.
+  # nh wraps nixos-rebuild/gc with better output and a build diff, and
+  # evaluates as the calling user, which the private git+ssh secrets input
+  # needs (root has no GitHub key).
   programs.nh = {
     enable = true;
+    flake = "/home/space/Documents/nix-config";
     clean = {
       enable = true;
       dates = "weekly";
@@ -22,6 +23,10 @@
       extraArgs = "--keep 3 --keep-since 7d";
     };
   };
+  # The module exports NH_FLAKE via environment.variables, i.e. only
+  # /etc/set-environment, which bash/zsh source but nushell never does.
+  # sessionVariables go through pam_env, so every login session gets it.
+  environment.sessionVariables.NH_FLAKE = config.programs.nh.flake;
 
   nix = let
     # Inputs declared with `flake = false` are plain store paths, not flakes.

@@ -63,6 +63,15 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Private repo. This repo is public, so secrets live there instead. Its
+    # working clone sits (gitignored) at ./secrets; after pushing a change
+    # there, run `nix flake update secrets` to pick it up here. To try an
+    # unpushed change, add `--override-input secrets ./secrets`.
+    secrets = {
+      url = "git+ssh://git@github.com/ShaddyDC/nix-secrets";
+      flake = false;
+    };
   };
 
   outputs = inputs:
