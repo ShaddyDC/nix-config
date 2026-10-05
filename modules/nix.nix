@@ -28,6 +28,13 @@
   # sessionVariables go through pam_env, so every login session gets it.
   environment.sessionVariables.NH_FLAKE = config.programs.nh.flake;
 
+  # The timer is persistent, so a missed run fires while the laptop is in use.
+  # Deprioritise it the same way nixpkgs already does for nix-optimise.
+  systemd.services.nh-clean.serviceConfig = {
+    Nice = 19;
+    IOSchedulingClass = "idle";
+  };
+
   nix = let
     # Inputs declared with `flake = false` are plain store paths, not flakes.
     # Mapping them into the registry produces a broken registry.json entry and
