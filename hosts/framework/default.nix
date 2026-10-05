@@ -3,11 +3,6 @@
     ./hardware-configuration.nix
   ];
 
-  # Speaker tuning: adds a "Framework Speakers" output (bass enhancement,
-  # loudness compensation, EQ) and hides the raw device. The raw device must
-  # stay at 100%, as the two volumes compound.
-  hardware.framework.laptop13.audioEnhancement.enable = true;
-
   # The module turns fprintd on by default, which puts fingerprint prompts in
   # front of sudo, login and the lock screen. Opt in deliberately instead.
   services.fprintd.enable = false;
