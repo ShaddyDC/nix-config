@@ -244,8 +244,6 @@
   services.flatpak.enable = true;
   programs.kdeconnect.enable = true;
 
-  boot.binfmt.emulatedSystems = ["aarch64-linux"];
-
   fonts = {
     packages = with pkgs; [
       # icon fonts
