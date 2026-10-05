@@ -34,6 +34,16 @@
     # a bogus `<name>=flake:<name>` NIX_PATH component.
     flakeInputs = lib.filterAttrs (_: v: lib.isType "flake" v) inputs;
   in {
+    # Deduplicate the store on a schedule rather than with auto-optimise-store,
+    # which hard-links every path as it is built. That slows every build and,
+    # with ext4's directory-index limit on the huge .links dir, causes the
+    # "No space left on device" spam on builds.
+    optimise = {
+      automatic = true;
+      dates = ["weekly"];
+      persistent = true;
+    };
+
     # pin the registry to avoid downloading and evaling a new nixpkgs version every time
     registry = lib.mapAttrs (_: v: {flake = v;}) flakeInputs;
 
@@ -41,7 +51,6 @@
     nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
     settings = {
-      auto-optimise-store = true;
       builders-use-substitutes = true;
       experimental-features = ["nix-command" "flakes"];
       flake-registry = "/etc/nix/registry.json";
