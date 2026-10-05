@@ -1,0 +1,35 @@
+name: check
+
+# Security: these workflows load a deploy key for the private nix-secrets
+# repo. `pull_request` runs from forks never receive repository secrets, so
+# outside PRs can't reach it. Never switch this to `pull_request_target`
+# (which runs with secrets) while checking out PR code. Third-party actions
+# are pinned to commit SHAs so a moved tag can't swap in code that reads the
+# key.
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  flake-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # The `secrets` flake input is the private nix-secrets repo, fetched
+      # over SSH with a read-only deploy key.
+      - uses: webfactory/ssh-agent@e83874834305fe9a4a2997156cb26c5de65a8555 # v0.10.0
+        with:
+          ssh-private-key: ${{ secrets.NIX_SECRETS_DEPLOY_KEY }}
+
+      - uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31.11.1
+
+      # Evaluates both NixOS configurations and runs the treefmt and
+      # pre-commit checks. A full system build would need ~33 GiB, more
+      # than a hosted runner has.
+      - run: nix flake check
