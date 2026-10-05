@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./alacritty.nix
     ./files
     ./git.nix
     ./gtk.nix
@@ -67,14 +66,10 @@
     };
 
     java.enable = true;
-
-    rofi.enable = true;
   };
 
   services = {
     caffeine.enable = true;
     batsignal.enable = true;
   };
-
-  programs.alacritty.enable = true;
 }
