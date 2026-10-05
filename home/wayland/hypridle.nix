@@ -6,10 +6,27 @@
 }: let
   lock = "${lib.getExe' pkgs.systemd "loginctl"} lock-session";
 
-  # only lock if nothing is playing audio
+  # Exit status 0 while any MPRIS player (browser, music player, mpv...) is
+  # playing. This used to check for any running pipewire node, but apps like
+  # vesktop keep an uncorked stream open for as long as they run, which kept
+  # the sink running and suppressed the idle lock indefinitely.
+  audioPlaying = "${lib.getExe pkgs.playerctl} -a status 2>/dev/null | ${lib.getExe pkgs.ripgrep} -qx Playing";
+
+  # only lock if nothing is playing media
   idleLock = pkgs.writeShellScript "idle-lock" ''
-    if ! ${lib.getExe' pkgs.pipewire "pw-cli"} i all | ${lib.getExe pkgs.ripgrep} -q running; then
+    if ! ${audioPlaying}; then
       ${lock}
+    fi
+  '';
+
+  # Suspend only on battery, and not while audio plays. On AC the machine
+  # just locks and blanks.
+  idleSuspend = pkgs.writeShellScript "idle-suspend" ''
+    for bat in /sys/class/power_supply/BAT*/status; do
+      [ "$(cat "$bat")" = Discharging ] || exit 0
+    done
+    if ! ${audioPlaying}; then
+      ${lib.getExe' pkgs.systemd "systemctl"} suspend
     fi
   '';
 
@@ -20,6 +37,17 @@
     if [ -n "''${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
       ${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} \
         dispatch 'hl.dsp.dpms({action = "on"})'
+    fi
+  '';
+
+  # niri has no hyprctl but its own action; it powers monitors back on by
+  # itself at the next input, so it needs no counterpart in wakeDisplays.
+  sleepDisplays = pkgs.writeShellScript "sleep-displays" ''
+    if [ -n "''${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
+      ${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} \
+        dispatch 'hl.dsp.dpms({action = "off"})'
+    elif [ -n "''${NIRI_SOCKET:-}" ]; then
+      ${lib.getExe config.wayland.windowManager.niri.package} msg action power-off-monitors
     fi
   '';
 in {
@@ -50,6 +78,17 @@ in {
         {
           timeout = 330;
           on-timeout = idleLock.outPath;
+        }
+        # Blank the screen shortly after locking. Apps playing video hold an
+        # idle inhibitor, so this doesn't fire under a playing video.
+        {
+          timeout = 360;
+          on-timeout = sleepDisplays.outPath;
+          on-resume = wakeDisplays.outPath;
+        }
+        {
+          timeout = 900;
+          on-timeout = idleSuspend.outPath;
         }
       ];
     };
