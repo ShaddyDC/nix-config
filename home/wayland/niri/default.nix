@@ -50,11 +50,8 @@ in {
           {proportion = 0.667;}
         ];
         default-column-width.proportion = 0.5;
-        focus-ring = {
-          width = 2;
-          active-color = "#cba6f7"; # Catppuccin Mauve
-          inactive-color = "#45475a"; # Catppuccin Surface1
-        };
+        # Colours come from the DMS include below.
+        focus-ring.width = 2;
         border.off = {};
       };
 
@@ -78,6 +75,15 @@ in {
           [(lib.getExe pkgs.ianny)]
         ]
         ++ [
+          # DMS writes its theme colours here at runtime. Optional, because
+          # the file does not exist before DMS first runs, nor in the
+          # sandbox where checkConfig validates this config.
+          {
+            include = {
+              _props.optional = true;
+              _args = ["dms/colors.kdl"];
+            };
+          }
           (floatingRule [
             {app-id = "^(gnome-calculator|org\\.gnome\\.Calculator)$";}
             {app-id = "^blueman-manager$";}
