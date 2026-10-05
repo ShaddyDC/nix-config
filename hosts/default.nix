@@ -74,7 +74,6 @@ in {
       [
         ./framework
         ../modules/mail.nix
-        ../modules/power-switcher.nix
         {
           home-manager.users.space.imports =
             hmBase
