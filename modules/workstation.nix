@@ -288,10 +288,13 @@
         emoji = ["Noto Color Emoji"];
       };
   };
+  # `$HOME` becomes pam_env's per-user @{HOME}. Hardcoding /home/space here
+  # leaked into root's environment through sudo, so root's nix wrote its
+  # cache into ~/.local/cache/nix.
   environment.sessionVariables = {
-    XDG_CACHE_HOME = "/home/space/.local/cache";
-    XDG_CONFIG_HOME = "/home/space/.config";
-    XDG_DATA_HOME = "/home/space/.local/share";
-    XDG_STATE_HOME = "/home/space/.local/state";
+    XDG_CACHE_HOME = "$HOME/.local/cache";
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_STATE_HOME = "$HOME/.local/state";
   };
 }
