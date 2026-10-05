@@ -7,7 +7,6 @@
   imports = [
     ./alacritty.nix
     ./files
-    ./dunst.nix
     ./git.nix
     ./gtk.nix
     ./kitty.nix
