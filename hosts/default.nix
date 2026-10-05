@@ -4,10 +4,8 @@
   self,
   ...
 }: let
-  theme = import ../lib/theme {inherit (inputs.nixpkgs) lib;};
-
   # Injected into both NixOS and HM module systems
-  moduleArgs = {_module.args = {inherit theme inputs self;};};
+  moduleArgs = {_module.args = {inherit inputs self;};};
 
   # Shared NixOS modules that every host gets
   nixosBase = [

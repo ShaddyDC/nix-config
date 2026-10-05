@@ -17,7 +17,6 @@ in {
     ./hyprland
     ./hypridle.nix
     ./hyprlock.nix
-    ./hyprpaper.nix
     ./niri
   ];
 

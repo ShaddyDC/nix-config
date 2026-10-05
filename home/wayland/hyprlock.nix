@@ -1,4 +1,4 @@
-{theme, ...}: let
+{...}: let
   font_family = "Inter";
 in {
   programs.hyprlock = {
@@ -21,12 +21,6 @@ in {
           path = "screenshot";
           blur_passes = 3;
           color = "rgba(25, 20, 20, 1.0)";
-        }
-      ];
-
-      image = [
-        {
-          path = "${theme.wallpaper}";
         }
       ];
 
