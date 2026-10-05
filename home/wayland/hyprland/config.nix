@@ -305,7 +305,24 @@ in {
           (bind "${mod} + SHIFT + ALT + right" ''hl.dsp.workspace.move({ monitor = "r" })'')
 
           # === Sizing ===
-          (bind "${mod} + R" ''hl.dsp.layout("togglesplit")'')
+          # Cycle the focused split through 1/3, 1/2, 2/3, like niri's Mod+R.
+          # dwindle's splitratio only takes a delta and clamps the result to
+          # [0.1, 1.9] (1.0 is an even split), so dropping by 2 pins it at 0.1
+          # and the second step lands exactly on the preset.
+          (bind "${mod} + R" ''
+            (function()
+              local presets = { 0.667, 1.0, 1.333 }
+              local current = {}
+              return function()
+                local win = hl.get_active_window()
+                if not win then return end
+                local i = (current[win.address] or 2) % #presets + 1
+                current[win.address] = i
+                hl.dispatch(hl.dsp.layout("splitratio -2"))
+                hl.dispatch(hl.dsp.layout(string.format("splitratio %.3f", presets[i] - 0.1)))
+              end
+            end)()
+          '')
 
           # === Mouse ===
           (bindm "${mod} + mouse:272" "hl.dsp.window.drag()")
