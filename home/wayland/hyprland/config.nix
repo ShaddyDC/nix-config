@@ -81,8 +81,9 @@ in {
     settings = {
       env = [
         {_args = ["QT_WAYLAND_DISABLE_WINDOWDECORATION" "1"];}
-        {_args = ["QT_QPA_PLATFORM" "wayland"];}
-        {_args = ["SDL_VIDEODRIVER" "wayland"];}
+        # Same fallback as home/wayland: X11 for apps with no wayland backend.
+        {_args = ["QT_QPA_PLATFORM" "wayland;x11"];}
+        {_args = ["SDL_VIDEODRIVER" "wayland;x11"];}
         {_args = ["XDG_SESSION_TYPE" "wayland"];}
         {_args = ["XCURSOR_SIZE" "24"];}
         {_args = ["ELECTRON_OZONE_PLATFORM_HINT" "auto"];}
