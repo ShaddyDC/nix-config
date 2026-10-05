@@ -63,6 +63,11 @@ in {
         TERMINAL = "kitty";
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
         ELECTRON_OZONE_PLATFORM_HINT = "auto";
+        # Same as the Hyprland env block: home.sessionVariables only reaches
+        # shells that source hm-session-vars.sh, and the session isn't one.
+        QT_QPA_PLATFORM = "wayland;x11";
+        SDL_VIDEODRIVER = "wayland;x11";
+        XCURSOR_SIZE = "24";
       };
 
       # spawn-at-startup and window-rule both repeat as top-level nodes, which
@@ -71,6 +76,9 @@ in {
         map (command: {spawn-at-startup._args = command;}) [
           ["obsidian"]
           ["firefox"]
+          # Hands the login password that pam_kwallet captured at the greeter
+          # to ksecretd, which unlocks the wallet (the session's Secret Service).
+          ["${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"]
           [(lib.getExe pkgs.networkmanagerapplet) "--indicator"]
           [(lib.getExe pkgs.ianny)]
         ]
@@ -92,13 +100,29 @@ in {
             {app-id = "^xdg-desktop-portal$";}
             {app-id = "^zoom$";}
           ])
-          (floatingRule [{title = "^Picture-in-Picture$";}])
+          # Rounded corners, matching Hyprland's rounding.
+          {
+            window-rule = {
+              geometry-corner-radius = 12;
+              clip-to-geometry = true;
+            };
+          }
           (floatingRule [
-            {
-              app-id = "^steam$";
-              title = "^notificationtoasts";
-            }
+            {title = "^Picture-in-Picture$";}
+            {title = "^Firefox — Sharing Indicator$";}
           ])
+          {
+            window-rule._children = [
+              {
+                match._props = {
+                  app-id = "^steam$";
+                  title = "^notificationtoasts";
+                };
+              }
+              {open-floating = true;}
+              {open-focused = false;}
+            ];
+          }
           # KeePassXC browser access request
           (floatingRule [{title = "^KeePassXC - Browser Access Request$";}])
         ];
@@ -107,7 +131,11 @@ in {
         ws-binds = builtins.listToAttrs (builtins.concatLists (builtins.genList (
             i: let
               n = i + 1;
-              key = toString n;
+              key = toString (
+                if n == 10
+                then 0
+                else n
+              );
             in [
               {
                 name = "Mod+${key}";
@@ -115,11 +143,11 @@ in {
               }
               {
                 name = "Mod+Shift+${key}";
-                value.move-column-to-index = n;
+                value.move-column-to-workspace = n;
               }
             ]
           )
-          9));
+          10));
       in
         ws-binds
         // {
@@ -135,6 +163,11 @@ in {
           "Mod+X" = shBind "dms ipc call powermenu toggle";
           "Mod+E".spawn = "dolphin";
           "Mod+O".spawn = "wl-ocr";
+          "Mod+Tab".toggle-overview = {};
+
+          # === Cheat sheet ===
+          # ssharp is the ?-key on a German layout, like Hyprland's bind.
+          "Mod+Shift+ssharp".show-hotkey-overlay = {};
 
           # === Security ===
           "Mod+L" = shBind "dms ipc call lock lock";
@@ -150,14 +183,33 @@ in {
           "Mod+Shift+F".fullscreen-window = {};
           # center focused column on screen
           "Mod+C".center-column = {};
+          "Mod+Shift+T".toggle-window-floating = {};
+          "Mod+Shift+V".switch-focus-between-floating-and-tiling = {};
+          # tabbed columns are the closest thing to hyprland's groups
+          "Mod+W".toggle-column-tabbed-display = {};
+          # let a VM or remote desktop grab every key; Mod+Escape again to undo
+          "Mod+Escape" = {
+            _props.allow-inhibiting = false;
+            toggle-keyboard-shortcuts-inhibit = {};
+          };
+
+          # === Columns ===
+          # Pull the neighbouring window into this column, or push the
+          # focused one out of it.
+          "Mod+Alt+Left".consume-or-expel-window-left = {};
+          "Mod+Alt+Right".consume-or-expel-window-right = {};
 
           # === Sizing ===
           # cycle through preset column widths (like layoutmsg togglesplit)
           "Mod+R".switch-preset-column-width = {};
+          "Mod+Shift+R".switch-preset-window-height = {};
+          "Mod+Ctrl+F".expand-column-to-available-width = {};
+          # niri matches the unshifted keysym, and = is Shift+0 on a German
+          # layout, so the grow binds sit on the + key instead.
           "Mod+Minus".set-column-width = "-10%";
-          "Mod+Equal".set-column-width = "+10%";
+          "Mod+Plus".set-column-width = "+10%";
           "Mod+Shift+Minus".set-window-height = "-10%";
-          "Mod+Shift+Equal".set-window-height = "+10%";
+          "Mod+Shift+Plus".set-window-height = "+10%";
 
           # === Focus Navigation ===
           "Mod+Left".focus-column-left = {};
@@ -178,11 +230,22 @@ in {
           # === Move to Monitor ===
           "Mod+Shift+Ctrl+Left".move-column-to-monitor-left = {};
           "Mod+Shift+Ctrl+Right".move-column-to-monitor-right = {};
+          "Mod+Shift+Alt+Left".move-workspace-to-monitor-left = {};
+          "Mod+Shift+Alt+Right".move-workspace-to-monitor-right = {};
+
+          # === Workspaces ===
+          "Mod+Page_Down".focus-workspace-down = {};
+          "Mod+Page_Up".focus-workspace-up = {};
+          "Mod+Ctrl+Down".move-column-to-workspace-down = {};
+          "Mod+Ctrl+Up".move-column-to-workspace-up = {};
+          "Mod+Shift+Page_Down".move-workspace-down = {};
+          "Mod+Shift+Page_Up".move-workspace-up = {};
 
           # === Screenshots ===
           "Print" = shBind "dms screenshot";
           "Ctrl+Print" = shBind "dms screenshot full";
           "Alt+Print" = shBind "dms screenshot window";
+          "Mod+Print" = shBind "dms screenshot last";
 
           # === Scroll through workspaces ===
           "Mod+WheelScrollDown" = {
@@ -193,6 +256,10 @@ in {
             _props.cooldown-ms = 150;
             focus-workspace-up = {};
           };
+          "Mod+WheelScrollRight".focus-column-right = {};
+          "Mod+WheelScrollLeft".focus-column-left = {};
+          "Mod+Shift+WheelScrollDown".focus-column-right = {};
+          "Mod+Shift+WheelScrollUp".focus-column-left = {};
 
           # === Media Controls (allow-when-locked for lock screen) ===
           "XF86AudioPlay" = whenLocked (shBind "dms ipc call mpris playPause");
