@@ -11,10 +11,8 @@
   nixosBase = [
     inputs.hm.nixosModules.home-manager
     inputs.agenix.nixosModules.default
-    inputs.stylix.nixosModules.stylix
     ../modules/common.nix
     ../modules/nix.nix
-    ../modules/stylix.nix
     moduleArgs
     {home-manager.backupFileExtension = "backup";}
   ];

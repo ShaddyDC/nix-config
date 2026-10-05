@@ -23,7 +23,8 @@
       nixd
     ];
     settings = {
-      theme = lib.mkForce "catppuccin_mocha";
+      # DMS has no helix template, so helix keeps its own theme.
+      theme = "catppuccin_mocha";
 
       editor = {
         color-modes = true;
