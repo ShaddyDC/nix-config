@@ -9,7 +9,10 @@
   startupCommands = [
     "obsidian & firefox"
     "xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 1"
-    "/nix/store/$(ls -la /nix/store | grep 'kwallet-pam' | grep '4096' | awk '{print $9}' | sed -n '$p')/libexec/pam_kwallet_init && ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator"
+    # Hands the login password that pam_kwallet captured at the greeter to
+    # ksecretd, which unlocks the wallet (the session's Secret Service).
+    "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
+    "${lib.getExe pkgs.networkmanagerapplet} --indicator"
     (lib.getExe pkgs.ianny)
   ];
 
