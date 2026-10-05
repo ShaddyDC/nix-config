@@ -74,6 +74,9 @@ in {
       [
         ./framework
         ../modules/mail.nix
+        # Brings the PSR workaround (amdgpu.dcdebugmask=0x10), amd-pstate,
+        # power-profiles-daemon, fwupd, the EC kernel module and the speaker EQ.
+        inputs.hardware.nixosModules.framework-13-7040-amd
         {
           home-manager.users.space.imports =
             hmBase
