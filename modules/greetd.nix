@@ -1,15 +1,4 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    # theme packages
-    (catppuccin-gtk.override {
-      accents = ["mauve"];
-      size = "compact";
-      variant = "mocha";
-    })
-    bibata-cursors
-    papirus-icon-theme
-  ];
-
+{...}: {
   services.displayManager.regreet.enable = true;
 
   # Unlock the keyrings with the login password. kwallet's ksecretd is the
