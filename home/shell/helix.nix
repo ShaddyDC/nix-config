@@ -59,10 +59,10 @@
           W = ":set whitespace.render none";
         };
         space.n = [
-          ":pipe llm -s \"'Return me the code I give you with fixes, completions, and comments. Do not put a code block around it, and do not add any extra commentary outside the code. Only return the code with your modifications.'\" -m claude-3.5-haiku"
+          ":pipe llm -s \"'Return me the code I give you with fixes, completions, and comments. Do not put a code block around it, and do not add any extra commentary outside the code. Only return the code with your modifications.'\" -m claude-haiku-4.5"
         ];
         space.N = [
-          ":pipe llm -s \"'Return me the code I give you with fixes, completions, and comments. Do not put a code block around it, and do not add any extra commentary outside the code. Only return the code with your modifications.'\" -m claude-3.7-sonnet"
+          ":pipe llm -s \"'Return me the code I give you with fixes, completions, and comments. Do not put a code block around it, and do not add any extra commentary outside the code. Only return the code with your modifications.'\" -m claude-sonnet-4.6"
         ];
       };
     };
@@ -154,7 +154,7 @@
         ltex = {
           command = lib.getExe pkgs.ltex-ls;
           args = [];
-          configi = {};
+          config = {};
         };
         bash-language-server = {
           command = lib.getExe pkgs.bash-language-server;
