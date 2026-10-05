@@ -84,7 +84,8 @@
     config = {
       common.default = ["gtk"];
       hyprland.default = ["gtk" "hyprland"];
-      niri.default = lib.mkForce ["gtk"];
+      # niri's own module routes everything to gnome first: gtk has no
+      # ScreenCast or Screenshot, so gtk alone left screen sharing dead.
 
       # The frontend only loads .portal backends from the user profile
       # (gnome + hyprland), so `gtk` never resolves for the Settings interface
