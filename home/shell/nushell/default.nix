@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   programs.nushell = {
     enable = true;
-    # configFile.source = ./config.nu;
-    # envFile.source = ./env.nu;
     extraConfig = let
       conf = builtins.toJSON {
         show_banner = false;

@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./files
     ./git.nix
     ./gtk.nix
     ./kitty.nix
