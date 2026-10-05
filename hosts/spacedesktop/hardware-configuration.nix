@@ -44,6 +44,8 @@
   fileSystems."/boot/efi" = {
     device = "/dev/disk/by-uuid/75C3-A9A7";
     fsType = "vfat";
+    # Keep the ESP (and systemd-boot's random seed on it) root-only.
+    options = ["fmask=0077" "dmask=0077"];
   };
 
   # These three data drives never carried an fsType. That used to be fine
