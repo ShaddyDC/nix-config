@@ -63,6 +63,9 @@
       IOSchedulingClass = "idle";
       # Kill if it takes longer than 5 minutes (stuck network, etc.)
       TimeoutStartSec = 300;
+      # A missed timer fires right on resume, before wifi is back, and fails on
+      # DNS. Give NetworkManager a moment, then skip (not fail) while offline.
+      ExecCondition = "${pkgs.networkmanager}/bin/nm-online -q -t 30";
     };
   };
 
