@@ -12,19 +12,26 @@
   # the sink running and suppressed the idle lock indefinitely.
   audioPlaying = "${lib.getExe pkgs.playerctl} -a status 2>/dev/null | ${lib.getExe pkgs.ripgrep} -qx Playing";
 
-  # only lock if nothing is playing media
+  # Exits the calling script unless running on battery. On AC the machine
+  # stays awake and unlocked: it sits at home running something long while
+  # I read next to it. Machines without a battery count as AC.
+  exitUnlessOnBattery = ''
+    for bat in /sys/class/power_supply/BAT*/status; do
+      [ "$(cat "$bat" 2>/dev/null)" = Discharging ] || exit 0
+    done
+  '';
+
+  # only lock on battery, and if nothing is playing media
   idleLock = pkgs.writeShellScript "idle-lock" ''
+    ${exitUnlessOnBattery}
     if ! ${audioPlaying}; then
       ${lock}
     fi
   '';
 
-  # Suspend only on battery, and not while audio plays. On AC the machine
-  # just locks and blanks.
+  # Suspend only on battery, and not while audio plays.
   idleSuspend = pkgs.writeShellScript "idle-suspend" ''
-    for bat in /sys/class/power_supply/BAT*/status; do
-      [ "$(cat "$bat")" = Discharging ] || exit 0
-    done
+    ${exitUnlessOnBattery}
     if ! ${audioPlaying}; then
       ${lib.getExe' pkgs.systemd "systemctl"} suspend
     fi
@@ -43,6 +50,7 @@
   # niri has no hyprctl but its own action; it powers monitors back on by
   # itself at the next input, so it needs no counterpart in wakeDisplays.
   sleepDisplays = pkgs.writeShellScript "sleep-displays" ''
+    ${exitUnlessOnBattery}
     if [ -n "''${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
       ${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} \
         dispatch 'hl.dsp.dpms({action = "off"})'
@@ -79,8 +87,9 @@ in {
           timeout = 330;
           on-timeout = idleLock.outPath;
         }
-        # Blank the screen shortly after locking. Apps playing video hold an
-        # idle inhibitor, so this doesn't fire under a playing video.
+        # Blank the screen shortly after locking (on battery only, like the
+        # lock). Apps playing video hold an idle inhibitor, so this doesn't
+        # fire under a playing video.
         {
           timeout = 360;
           on-timeout = sleepDisplays.outPath;
