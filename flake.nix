@@ -58,6 +58,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Private repo: `tdl`, the toddledo CLI. Its own nixpkgs (not followed) so the build matches
+    # what toddledo's CI tests.
+    toddledo.url = "git+ssh://git@github.com/ShaddyDC/toddledo";
+
     # Private repo. This repo is public, so secrets live there instead. Its
     # working clone sits (gitignored) at ./secrets; after pushing a change
     # there, run `nix flake update secrets` to pick it up here. To try an

@@ -47,6 +47,7 @@ in {
     aider-chat
     cntr
     claude-code
+    tdl
 
     # file managers
     joshuto

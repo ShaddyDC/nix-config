@@ -2,6 +2,7 @@
   # Single overlay definition — exported as flake.overlays.default and applied to legacyPackages.
   overlay = final: prev: {
     claude-code = inputs.claude-code.packages.${prev.stdenv.hostPlatform.system}.default;
+    tdl = inputs.toddledo.packages.${prev.stdenv.hostPlatform.system}.tdl;
   };
 in {
   flake.overlays.default = overlay;
