@@ -17,7 +17,7 @@ in {
     }
   '';
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     neomutt() {
       touch /tmp/neomutt.lock
       trap 'rm -f /tmp/neomutt.lock' EXIT INT TERM

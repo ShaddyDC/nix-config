@@ -12,6 +12,25 @@
   hardware.opentabletdriver.enable = true;
 
   boot = {
+    # TEMPORARY: nixpkgs now merges a per-module `.ko.cer` for every external
+    # module, but framework-laptop-kmod still copies the bare .ko, so the
+    # modules tree fails to build ("extra/framework_laptop.ko.cer: No such
+    # file"). nixpkgs master already switched it to `modules_install`; mirror
+    # that and drop this once it reaches nixos-unstable.
+    kernelPackages = pkgs.linuxPackages.extend (_: prev: {
+      framework-laptop-kmod = prev.framework-laptop-kmod.overrideAttrs (old: {
+        makeFlags =
+          old.makeFlags
+          ++ [
+            "INSTALL_MOD_PATH=${placeholder "out"}"
+            "INSTALL_MOD_DIR=extra"
+            "DEPMOD=true"
+          ];
+        installTargets = ["modules_install"];
+        installPhase = null;
+      });
+    });
+
     # Bootloader.
     loader = {
       systemd-boot.enable = true;
