@@ -24,6 +24,7 @@
     ../modules/xserver.nix
     ../modules/greetd.nix
     ../modules/app-netns.nix
+    ../modules/pclaude.nix
   ];
 
   # Shared HM modules that every user gets

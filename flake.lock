@@ -330,11 +330,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1791237162,
-        "narHash": "sha256-3s5Jcql7iJ0NMHK0tmdYHZW+PQ/3bZmS0ZcThStsFJI=",
+        "lastModified": 1792946384,
+        "narHash": "sha256-/SKcTq1NjJtHHLvk8nLwIDJsRTdirqak6UZ5An+JXy0=",
         "ref": "refs/heads/main",
-        "rev": "ac0c85a3ff5c1c7f6a2cd5dbfad94203720e1410",
-        "revCount": 22,
+        "rev": "e4eb620b3efc5fb881f641b279e1d898a55dc81e",
+        "revCount": 23,
         "type": "git",
         "url": "ssh://git@github.com/ShaddyDC/nix-secrets"
       },
