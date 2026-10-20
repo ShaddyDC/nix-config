@@ -30,12 +30,7 @@ in {
       inherit system;
       config.allowUnfree = true;
       # pnpm is currently flagged insecure but is pulled transitively.
-      # Zotero bundles Firefox ESR 140 as its runtime, which went EOL on
-      # 2026-10-13; drop this once nixpkgs' zotero moves to a newer ESR.
-      config.permittedInsecurePackages = [
-        "pnpm-10.34.0"
-        "firefox-esr-140-bin-unwrapped-140.17.0esr"
-      ];
+      config.permittedInsecurePackages = ["pnpm-10.34.0"];
       overlays = [overlay];
     };
   };

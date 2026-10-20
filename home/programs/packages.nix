@@ -38,7 +38,7 @@
 
     # productivity
     obsidian
-    zotero
+    # zotero # bundles Firefox ESR 140, EOL since 2026-10-13; re-enable once it moves on
     anki
 
     # security
