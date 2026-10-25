@@ -6,5 +6,28 @@
   "nix": {
     "enabled": false
   },
-  "description": "flake.lock is updated by .github/workflows/update.yml (weekly nix flake update, nix flake check, then a PR), so Renovate leaves Nix alone here."
+  "description": "flake.lock is updated by .github/workflows/update.yml (weekly nix flake update, nix flake check, then a PR), so Renovate leaves Nix alone here, except for the container images pinned in Nix strings (customManagers).",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Container images pinned as `image = \"<name>:<tag>@sha256:<index digest>\"` in Nix modules (pclaude's privatemode-proxy).",
+      "managerFilePatterns": [
+        "/^modules/.+\\.nix$/"
+      ],
+      "matchStrings": [
+        "image = \"(?<depName>[^:@\"\\s]+):(?<currentValue>[^@\"\\s]+)@(?<currentDigest>sha256:[a-f0-9]{64})\""
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "privatemode-proxy publishes a placeholder v13.37.0 tag (1970 timestamp, no labels) next to its real v1.x releases.",
+      "matchPackageNames": [
+        "ghcr.io/edgelesssys/privatemode/privatemode-proxy"
+      ],
+      "allowedVersions": "!/^v13\\.37\\./"
+    }
+  ]
 }
