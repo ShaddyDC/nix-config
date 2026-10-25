@@ -44,7 +44,7 @@ in {
     curlie
     # lazyjj
     llm
-    aider-chat
+    # aider-chat # posthog dep marked broken in nixpkgs (mcp >= 2), restore once fixed
     cntr
     claude-code
     tdl
