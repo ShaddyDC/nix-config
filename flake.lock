@@ -197,6 +197,27 @@
         "type": "github"
       }
     },
+    "kagi-pp-search": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "privacypass-lib": "privacypass-lib"
+      },
+      "locked": {
+        "lastModified": 1792949500,
+        "narHash": "sha256-nThbJcf2Tpw2LOEGxemWUO1XjOAKARQvArF/ESqc3Po=",
+        "ref": "refs/heads/main",
+        "rev": "cf1f0b773b46604b1c5bd1dc52d48aab54389908",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.com/ShaddyDC/kagi-pp-search"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/ShaddyDC/kagi-pp-search"
+      }
+    },
     "nix-gaming": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -289,6 +310,22 @@
         "type": "github"
       }
     },
+    "privacypass-lib": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784551218,
+        "narHash": "sha256-xICNP0VfBo2jNvFIFFasYTY1Du79UzMsOujPpdDddOo=",
+        "owner": "kagisearch",
+        "repo": "privacypass-lib",
+        "rev": "8bdacc17f2e23495726a04a4fb7f803b067c2f3d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kagisearch",
+        "repo": "privacypass-lib",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -297,6 +334,7 @@
         "git-hooks": "git-hooks",
         "hardware": "hardware",
         "hm": "hm",
+        "kagi-pp-search": "kagi-pp-search",
         "nix-gaming": "nix-gaming",
         "nix-index-db": "nix-index-db",
         "nixpkgs": "nixpkgs",
@@ -330,11 +368,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1792946384,
-        "narHash": "sha256-/SKcTq1NjJtHHLvk8nLwIDJsRTdirqak6UZ5An+JXy0=",
+        "lastModified": 1792949513,
+        "narHash": "sha256-Z6Tnsxf1JV4ydjjSB8FGR2Z2wekG0/Xt318mH8IInjQ=",
         "ref": "refs/heads/main",
-        "rev": "e4eb620b3efc5fb881f641b279e1d898a55dc81e",
-        "revCount": 23,
+        "rev": "4958846cf279d104da8f2c394f23db32f4e629eb",
+        "revCount": 24,
         "type": "git",
         "url": "ssh://git@github.com/ShaddyDC/nix-secrets"
       },

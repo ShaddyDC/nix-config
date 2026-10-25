@@ -60,6 +60,12 @@
     # what toddledo's CI tests.
     toddledo.url = "git+ssh://git@github.com/ShaddyDC/toddledo";
 
+    # Private repo: Kagi search over Privacy Pass, pclaude's web_search tool
+    kagi-pp-search = {
+      url = "git+ssh://git@github.com/ShaddyDC/kagi-pp-search";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Private repo. This repo is public, so secrets live there instead. Its
     # working clone sits (gitignored) at ./secrets; after pushing a change
     # there, run `nix flake update secrets` to pick it up here. To try an
