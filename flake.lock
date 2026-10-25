@@ -205,11 +205,11 @@
         "privacypass-lib": "privacypass-lib"
       },
       "locked": {
-        "lastModified": 1792950382,
-        "narHash": "sha256-rxv/AjQqBXgXmAhszIXaU7YRN7m6qOUPko3PGrcxEn4=",
+        "lastModified": 1792951142,
+        "narHash": "sha256-oc+Cr1zmD+U464yXp0DJjv5L9SfsdqxM4i8jWv5CEdI=",
         "ref": "refs/heads/main",
-        "rev": "bc78300728e200e26d80d8400e6d5e84ea6a8438",
-        "revCount": 3,
+        "rev": "6f1baf46beacea25f876493b791119d1fbdd597d",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@github.com/ShaddyDC/kagi-pp-search"
       },

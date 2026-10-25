@@ -21,12 +21,19 @@
 
   kagi = inputs.kagi-pp-search.packages.${pkgs.stdenv.hostPlatform.system}.default;
   kagiSession = config.age.secrets.kagi-session.path;
+  # Minting carries the session token: it leaves through the cluster's VPN
+  # (shaddy-cluster k8s/apps/kagi-mint), the searches from this machine
+  kagiEnv = {
+    KAGI_SESSION_FILE = kagiSession;
+    # MagicDNS short name: keeps the tailnet name out of this public repo
+    KAGI_PP_MINT_PROXY = "http://kagi-mint:8080";
+  };
 
   mcpConfig = pkgs.writeText "pclaude-mcp.json" (builtins.toJSON {
     mcpServers.kagi = {
       command = "${kagi}/bin/kagi-pp-search";
       args = ["mcp"];
-      env.KAGI_SESSION_FILE = kagiSession;
+      env = kagiEnv;
     };
   });
 
@@ -72,7 +79,8 @@
 
       # Top the Kagi token stash up now rather than mid-session, and show what
       # is left; offline or over quota only costs search, not the session
-      if ! KAGI_SESSION_FILE=${kagiSession} kagi-pp-search refill --quiet; then
+      if ! KAGI_SESSION_FILE=${kagiSession} KAGI_PP_MINT_PROXY=${kagiEnv.KAGI_PP_MINT_PROXY} \
+        kagi-pp-search refill --min 50 --quiet; then
         echo "pclaude: Kagi token refill failed, search may not work" >&2
       fi
       kagi-pp-search status >&2
@@ -114,7 +122,7 @@ in {
     owner = config.users.users.space.name;
   };
   # `kagi-pp-search status` and friends from a shell too
-  environment.sessionVariables.KAGI_SESSION_FILE = kagiSession;
+  environment.sessionVariables = kagiEnv;
 
   environment.systemPackages = [pclaude kagi];
 }
