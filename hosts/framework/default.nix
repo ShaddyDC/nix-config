@@ -1,13 +1,61 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  # The module turns fprintd on by default, which puts fingerprint prompts in
-  # front of sudo, login and the lock screen. Opt in deliberately instead.
-  services.fprintd.enable = false;
+  # Fingerprint for sudo and polkit prompts. Enabling fprintd puts it in front
+  # of every PAM service, so take it back out of the login paths: those unlock
+  # the GNOME keyring, which needs the actual password. The DMS lock screen
+  # derives its password stack from `login` and runs fprintd in a parallel PAM
+  # context of its own (`enableFprint` in its settings).
+  services.fprintd.enable = true;
+  security.pam.services = {
+    login.fprintAuth = false;
+    greetd.fprintAuth = false;
+  };
+  # Passwordless sudo made any user-level compromise root; ask for a finger
+  # (or the password, after Ctrl+C) instead.
+  security.sudo.wheelNeedsPassword = true;
+
+  # The laptop joins untrusted networks; only reach its LAN services over
+  # Tailscale. The kdeconnect module opens its range with no opt-out, and it is
+  # the only contributor to the port-range lists left once steam's is off.
+  programs.steam.remotePlay.openFirewall = lib.mkForce false;
+  programs.ausweisapp.openFirewall = lib.mkForce false;
+  networking.firewall = {
+    allowedTCPPortRanges = lib.mkForce [];
+    allowedUDPPortRanges = lib.mkForce [];
+    interfaces.tailscale0 = {
+      # Steam Remote Play (27036 is also its discovery port)
+      allowedTCPPorts = [27036 27037];
+      allowedUDPPorts = [10400 10401 27036];
+      allowedTCPPortRanges = [
+        {
+          from = 1714;
+          to = 1764;
+        } # KDE Connect
+      ];
+      allowedUDPPortRanges = [
+        {
+          from = 1714;
+          to = 1764;
+        } # KDE Connect
+        {
+          from = 27031;
+          to = 27035;
+        } # Steam Remote Play
+      ];
+    };
+  };
 
   networking.hostName = "framework";
+
+  # Secure Boot key management and `sbctl verify`; see boot.lanzaboote below
+  environment.systemPackages = [pkgs.sbctl];
 
   hardware.opentabletdriver.enable = true;
 
@@ -31,9 +79,18 @@
       });
     });
 
-    # Bootloader.
+    # Bootloader. Lanzaboote replaces the systemd-boot module (it still boots
+    # through systemd-boot) and signs every UKI it writes with the keys in
+    # /var/lib/sbctl, made with `sbctl create-keys` and enrolled with
+    # `sbctl enroll-keys --microsoft --firmware-builtin`. The firmware-builtin
+    # keys are Framework's, which its firmware updates are signed with.
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+    };
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot.enable = false;
+      # read by lanzaboote's own configurationLimit
       systemd-boot.configurationLimit = 4;
       efi.canTouchEfiVariables = true;
       # efi.efiSysMountPoint = "/boot/efi";

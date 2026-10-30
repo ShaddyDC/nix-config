@@ -76,6 +76,7 @@ in {
         # Brings the PSR workaround (amdgpu.dcdebugmask=0x10), amd-pstate,
         # power-profiles-daemon, fwupd and the EC kernel module.
         inputs.hardware.nixosModules.framework-13-7040-amd
+        inputs.lanzaboote.nixosModules.lanzaboote
         {
           home-manager.users.space.imports =
             hmBase

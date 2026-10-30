@@ -36,6 +36,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Secure Boot: signs the UKIs it installs in place of systemd-boot's entries
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.2.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zathura-style = {
       url = "github:catppuccin/zathura";
       flake = false;
