@@ -63,10 +63,22 @@ in {
 
     openssh = {
       enable = true;
+      # Port 22 is open on every network the laptop joins, and wheel has
+      # passwordless sudo, so a guessed password would be root. Every client
+      # already has a key in authorizedKeys below.
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+      };
     };
 
     # DNS resolver
-    resolved.enable = true;
+    resolved = {
+      enable = true;
+      # LLMNR answers single-label lookups from anyone on the local network,
+      # which lets a hostile Wi-Fi peer spoof names. mDNS (.local) stays on.
+      settings.Resolve.LLMNR = "false";
+    };
 
     # inter-machine VPN
     tailscale.enable = true;
