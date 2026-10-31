@@ -153,7 +153,7 @@
           config = {};
         };
         ltex = {
-          command = lib.getExe pkgs.ltex-ls;
+          command = lib.getExe' pkgs.ltex-ls-plus "ltex-ls-plus";
           args = [];
           config = {};
         };
