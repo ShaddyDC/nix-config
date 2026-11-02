@@ -17,6 +17,15 @@
     login.fprintAuth = false;
     greetd.fprintAuth = false;
   };
+  # The lock screen keeps a verify running, so suspend always interrupts one
+  # ("Cannot run while suspended"). pam_fprintd's ReleaseDevice then fails
+  # ("still busy"), the claim outlives the client, and after resume every Claim
+  # fails at once: PAM code 9, DMS gives up after two tries and shows an error.
+  # Stopping the daemon drops the claim; DMS's post-resume attempt D-Bus
+  # activates a fresh one.
+  powerManagement.powerDownCommands = ''
+    systemctl stop fprintd.service
+  '';
   # Passwordless sudo made any user-level compromise root; ask for a finger
   # (or the password, after Ctrl+C) instead.
   security.sudo.wheelNeedsPassword = true;
