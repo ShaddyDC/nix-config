@@ -60,22 +60,48 @@
     '';
   };
 
+  # Runs as the caller, inside the namespace: restore the caller's environment
+  # (written by run-in-appns) and exec the command.
+  netnsUserExec = pkgs.writeShellApplication {
+    name = "app-netns-user-exec";
+    runtimeInputs = with pkgs; [coreutils];
+    text = ''
+      envfile="$1"
+      shift
+      mapfile -d "" -t envkv < "$envfile"
+      rm -f "$envfile"
+      exec env -i "''${envkv[@]}" "$@"
+    '';
+  };
+
+  # The only part that needs root, allowed without a password below: it can't
+  # be told what to run as root. It enters the namespace, drops to the sudo
+  # caller with a clean environment, and only then runs anything they pass.
+  netnsEnter = pkgs.writeShellApplication {
+    name = "app-netns-enter";
+    runtimeInputs = with pkgs; [iproute2 util-linux];
+    text = ''
+      exec ip netns exec ${ns} setpriv --reuid="$SUDO_UID" --regid="$SUDO_GID" \
+        --init-groups --reset-env -- ${netnsUserExec}/bin/app-netns-user-exec "$@"
+    '';
+  };
+
   runInNetns = pkgs.writeShellApplication {
     name = "run-in-appns";
-    runtimeInputs = with pkgs; [iproute2 coreutils];
+    runtimeInputs = with pkgs; [coreutils];
     text = ''
-      USERN="$(id -un)"
       UIDN="$(id -u)"
       # Make sure session-bus vars are present even if the caller didn't export them
       export XDG_RUNTIME_DIR="/run/user/$UIDN"
       export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UIDN/bus"
 
-      # Snapshot the full caller env so it survives both sudo hops.
-      # Using -0 / mapfile handles values with spaces, quotes, newlines.
-      mapfile -d "" -t envkv < <(env -0)
+      # sudo drops the environment, so hand it over in a file only we can read.
+      # NUL-separated so values with spaces, quotes, newlines survive.
+      envfile="$(mktemp "$XDG_RUNTIME_DIR/appns-env.XXXXXX")"
+      env -0 > "$envfile"
 
-      exec /run/wrappers/bin/sudo ip netns exec ${ns} \
-        /run/wrappers/bin/sudo -u "$USERN" env -i "''${envkv[@]}" "$@"
+      # -n: launched from a menu there is no terminal to prompt on
+      exec /run/wrappers/bin/sudo -n ${netnsEnter}/bin/app-netns-enter "$envfile" "$@"
     '';
   };
 
@@ -109,6 +135,18 @@ in {
       ExecStop = "${teardownScript}/bin/app-netns-teardown";
     };
   };
+
+  security.sudo.extraRules = [
+    {
+      groups = ["wheel"];
+      commands = [
+        {
+          command = "${netnsEnter}/bin/app-netns-enter";
+          options = ["NOPASSWD"];
+        }
+      ];
+    }
+  ];
 
   environment.systemPackages = [runInNetns vesktopWrapper vesktopDesktop];
 }
