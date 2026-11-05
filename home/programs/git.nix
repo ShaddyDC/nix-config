@@ -98,6 +98,13 @@
         sign-on-push = true;
       };
 
+      # sign-on-push does nothing without a backend; reuse git's SSH key.
+      signing = {
+        behavior = "drop";
+        backend = "ssh";
+        key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+      };
+
       aliases = {
         tug = ["bookmark" "move" "--from" "heads(::@- & bookmarks())" "--to" "@-"];
 
