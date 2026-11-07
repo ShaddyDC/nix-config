@@ -4,16 +4,6 @@
     claude-code = inputs.claude-code.packages.${prev.stdenv.hostPlatform.system}.default;
     tdl = inputs.toddledo.packages.${prev.stdenv.hostPlatform.system}.tdl;
 
-    # TEMPORARY (NixOS/nixpkgs#576338): makeWrapper no longer accepts the
-    # whole `--prefix PATH ...` as one argument; with that fixed, sphinx
-    # still never writes the `man` output, so build only the HTML docs.
-    # Drop once fixed upstream.
-    afew = prev.afew.overridePythonAttrs {
-      makeWrapperArgs = ["--prefix" "PATH" ":" "${final.notmuch}/bin"];
-      sphinxBuilders = ["html"];
-      outputs = ["out" "doc"];
-    };
-
     # TEMPORARY: calibre's read-aloud stack doesn't build on current unstable
     # (piper-tts -> pyopenjtalk-plus, NixOS/nixpkgs#576442; and the speechd
     # module goes missing in calibre's own test). Text-to-speech is unused, so
