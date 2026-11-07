@@ -2,6 +2,10 @@
   programs.nushell = {
     enable = true;
 
+    # Source the HM session variables in env.nu when nushell starts without
+    # them (a TTY or SSH login); the graphical session already has them.
+    loadSessionVariables = true;
+
     # Assigned key by key. A wholesale `$env.config = {...}` in extraConfig
     # used to wipe what other modules had set before it, such as nix-index's
     # command_not_found hook.

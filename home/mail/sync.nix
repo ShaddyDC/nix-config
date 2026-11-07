@@ -16,7 +16,7 @@
       # afew also derives its --new query from this list minus "unread", so
       # "unread;inbox" made "afew --tag --new" re-process the entire inbox on
       # every run instead of just newly arrived mail.
-      new.tags = ["new" "unread"];
+      settings.new.tags = ["new" "unread"];
 
       hooks = {
         # Run afew after notmuch indexes new mail

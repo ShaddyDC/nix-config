@@ -79,7 +79,7 @@ in {
         # process was observed outliving its own successful unlock by tens of
         # minutes, and such a guard would then suppress the real locker,
         # leaving the session locked and unreachable short of a TTY.
-        lock_cmd = "${lib.getExe' pkgs.dms-shell "dms"} ipc call lock lock";
+        lock_cmd = "${lib.getExe' pkgs.dux-shell "dms"} ipc call lock lock";
       };
 
       listener = [

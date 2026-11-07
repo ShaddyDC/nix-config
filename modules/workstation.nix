@@ -76,7 +76,7 @@
   # paste are built in now, matugen and cava ship in the default environment,
   # and calendar events just need a backend on PATH (home-manager's
   # programs.khal provides it).
-  programs.dms-shell.enable = true;
+  programs.dux-shell.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -145,7 +145,8 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
+    # No JACK clients installed; the global JACK shim is deprecated (it sets
+    # LD_LIBRARY_PATH for every process). Use `pw-jack <app>` if one appears.
     lowLatency = {
       enable = true;
       quantum = 256;
