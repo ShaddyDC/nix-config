@@ -28,6 +28,7 @@
 
     # ai — official Linux build, vendored in pkgs/claude-desktop.nix
     self'.packages.claude-desktop
+    antigravity-ide
 
     # misc
     libnotify
