@@ -29,6 +29,7 @@
     # ai — official Linux build, vendored in pkgs/claude-desktop.nix
     self'.packages.claude-desktop
     antigravity-hub # Antigravity 2.0, the multi-agent app
+    antigravity-cli # the `agy` terminal agent
     antigravity-ide
 
     # misc
