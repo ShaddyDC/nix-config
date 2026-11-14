@@ -84,6 +84,8 @@ in {
       ];
     };
 
+    herdr.enable = true;
+
     zoxide.enable = true;
     broot.enable = true;
 
