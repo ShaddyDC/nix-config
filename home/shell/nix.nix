@@ -41,10 +41,10 @@
                 | default {}
             )
             let present = ($env | columns)
-            let lower = ($present | str downcase)
+            let lower = ($present | str lowercase)
             let direnv = (
                 $raw
-                | reject ...($raw | columns | where {|k| $k not-in $present and ($k | str downcase) in $lower })
+                | reject ...($raw | columns | where {|k| $k not-in $present and ($k | str lowercase) in $lower })
             )
 
             for key in ($direnv | columns) {
