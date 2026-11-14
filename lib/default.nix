@@ -9,6 +9,11 @@
     # module goes missing in calibre's own test). Text-to-speech is unused, so
     # drop it until those are fixed upstream.
     calibre = prev.calibre.override {speechSupport = false;};
+
+    # TEMPORARY: cargo-setup-hook's new cargoUseSystemLibs sets
+    # LIBGIT2_NO_VENDOR=1, but joshuto 0.9.9 pins libgit2-sys 0.16 (<1.8) and
+    # doesn't wire pkg-config/libgit2 in nixpkgs yet.
+    joshuto = prev.joshuto.overrideAttrs {dontCargoUseSystemLibs = true;};
   };
 in {
   flake.overlays.default = overlay;
