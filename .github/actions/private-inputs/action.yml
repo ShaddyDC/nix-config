@@ -1,0 +1,55 @@
+name: Configure private flake input deploy keys
+description: Sets up per-repository SSH host aliases and git insteadOf rules for private flake inputs.
+
+inputs:
+  nix-secrets-key:
+    description: Read-only deploy key for ShaddyDC/nix-secrets
+    required: false
+    default: ""
+  toddledo-key:
+    description: Read-only deploy key for ShaddyDC/toddledo
+    required: false
+    default: ""
+  kagi-pp-search-key:
+    description: Read-only deploy key for ShaddyDC/kagi-pp-search
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    # GitHub requires a unique deploy key per repository and authenticates an
+    # SSH session using the first matching deploy key offered, which would make
+    # a shared ssh-agent fail on the remaining private repos. Route each private
+    # git+ssh:// input through its own SSH host alias with IdentitiesOnly=yes.
+    - shell: bash
+      env:
+        NIX_SECRETS_KEY: ${{ inputs.nix-secrets-key }}
+        TODDLEDO_KEY: ${{ inputs.toddledo-key }}
+        KAGI_PP_SEARCH_KEY: ${{ inputs.kagi-pp-search-key }}
+      run: |
+        install -d -m 700 ~/.ssh
+        echo "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl" >> ~/.ssh/known_hosts
+        chmod 644 ~/.ssh/known_hosts
+
+        add_key() {
+          local name="$1" repo="$2" key="$3"
+          [ -n "$key" ] || return 0
+          local key_file="$RUNNER_TEMP/${name}.key"
+          install -m 600 /dev/null "$key_file"
+          printf '%s\n' "$key" > "$key_file"
+          cat >> ~/.ssh/config <<EOF
+        Host github-${name}
+          HostName github.com
+          User git
+          IdentityFile ${key_file}
+          IdentitiesOnly yes
+          StrictHostKeyChecking yes
+        EOF
+          chmod 600 ~/.ssh/config
+          git config --global "url.ssh://git@github-${name}/${repo}.insteadOf" "ssh://git@github.com/${repo}"
+        }
+
+        add_key nix-secrets ShaddyDC/nix-secrets "$NIX_SECRETS_KEY"
+        add_key toddledo ShaddyDC/toddledo "$TODDLEDO_KEY"
+        add_key kagi-pp-search ShaddyDC/kagi-pp-search "$KAGI_PP_SEARCH_KEY"
